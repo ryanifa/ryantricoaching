@@ -1,0 +1,146 @@
+{
+ "version": 1,
+ "info": {
+  "name": "Ryan Triathlon Coaching",
+  "tagline": "Je hoeft het niet alleen uit te zoeken.",
+  "kop": "",
+  "intro": "",
+  "announcement": "",
+  "phone": "06-xxxxxxxx",
+  "whatsapp": "06-xxxxxxxx",
+  "email": "",
+  "kvk": "",
+  "instagram": "",
+  "strava": "",
+  "facebook": "",
+  "linkedin": "",
+  "regio": "Rotterdam en omgeving",
+  "media": { "gistId": "", "owner": "" }
+ },
+ "hero": {
+  "kop": "Je eerste triathlon? Ik help je er komen.",
+  "sub": "Persoonlijke coaching voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Vanuit Rotterdam, met jou op de plek waar je traint.",
+  "ctaPrimair": "Plan een kennismaking",
+  "ctaSecundair": "Bekijk de diensten"
+ },
+ "startpunten": [
+  { "id": "sp-eerste", "titel": "Ik wil mijn eerste triathlon doen", "tekst": "Je kunt zwemmen, fietsen en lopen, maar alle drie achter elkaar? Ik maak er samen met jou een plan van dat past bij je leven en je agenda.", "link": "race.html", "knop": "Begeleiding naar je race" },
+  { "id": "sp-sneller", "titel": "Ik wil sneller en slimmer trainen", "tekst": "Je traint al, maar op gevoel. Met een schema op maat en heldere tempo- en hartslaggrenzen haal je meer uit dezelfde uren.", "link": "diensten.html#schemas", "knop": "Trainingsschema's" },
+  { "id": "sp-zwemmen", "titel": "Ik wil beter leren zwemmen", "tekst": "Zwemmen is voor de meeste triatleten het lastigste onderdeel. Met onderwaterbeelden zie je precies wat er gebeurt en wat je kunt verbeteren.", "link": "zwemanalyse.html", "knop": "Zwemanalyse" }
+ ],
+ "diensten": [
+  {
+   "id": "zwemanalyse",
+   "titel": "Zwemanalyse",
+   "kort": "Onderwateropname van je slag, analyse in een eigen viewer met ingesproken feedback. Je krijgt 3 tot 5 concrete verbeterpunten plus oefeningen.",
+   "lang": "Ik film je slag onder water met een DJI-camera, eventueel aangevuld met een eo SwimBETTER-sensor die de kracht van je armslag meet. De beelden bekijk ik frame voor frame in een analyse-viewer die ik zelf heb gebouwd. Daarin spreek ik mijn feedback in en teken ik aan wat ik zie: waar je hand het water in gaat, hoe je lichaam ligt, wat je benen doen. Die analyse kijk je gewoon terug op je telefoon, zo vaak je wilt. Je gaat naar huis met 3 tot 5 concrete verbeterpunten en oefeningen om er zelf mee aan de slag te gaan.",
+   "voorWie": [
+    "Je zwemt wel, maar het voelt zwaar of je komt niet vooruit",
+    "Je wilt zonder angst aan de start van een open-waterzwem staan",
+    "Je traint al met een schema maar het zwemmen blijft achter"
+   ],
+   "watJeKrijgt": [
+    "Onderwateropname van je slag (DJI), op een afgesproken plek",
+    "Optioneel: meting met de eo SwimBETTER-sensor",
+    "Analyse in de viewer met ingesproken feedback en tekeningen",
+    "3 tot 5 verbeterpunten en bijpassende oefeningen",
+    "Terug te kijken op je telefoon, zo vaak je wilt"
+   ],
+   "prijsTekst": "Op aanvraag",
+   "icon": "zwem"
+  },
+  {
+   "id": "schemas",
+   "titel": "Trainingsschema's fietsen en lopen",
+   "kort": "Een schema op maat voor je doel en je beschikbare tijd, in heldere taal, met tempo- en hartslaggrenzen die je zo op je Garmin zet.",
+   "lang": "Geen schema uit een boekje, maar een plan dat past bij jouw doel, jouw agenda en jouw lijf. Ik schrijf het in gewone taal: wat je doet, waarom je het doet en hoe hard. De tempo- en hartslaggrenzen krijg je zo dat je ze direct op je Garmin of ander sporthorloge kunt zetten. Elke week kijk ik naar hoe het ging (via Strava of Garmin) en stuur ik bij: te zwaar, te licht, ziek geweest, drukke week op het werk. Het schema beweegt mee met jou, niet andersom.",
+   "voorWie": [
+    "Je wilt gericht toewerken naar een loop- of fietsdoel",
+    "Je traint op gevoel en wilt weten of je het goed doet",
+    "Je hebt weinig tijd en wilt die uren slim gebruiken"
+   ],
+   "watJeKrijgt": [
+    "Schema per 4 weken, afgestemd op je doel en agenda",
+    "Tempo- en hartslaggrenzen met uitleg wat ze betekenen",
+    "Wekelijks bijsturen op basis van je data en hoe je je voelt",
+    "Contact via WhatsApp als je vragen hebt",
+    "Een duidelijke opbouw richting je race of testmoment"
+   ],
+   "prijsTekst": "Op aanvraag",
+   "icon": "fiets"
+  },
+  {
+   "id": "race",
+   "titel": "Begeleiding naar je race",
+   "kort": "Van intake tot finish: 1/8, 1/4, 1/2 of hele triathlon. Wekelijks contact via WhatsApp, schema's voor alle drie de onderdelen, wisselzones en racedag.",
+   "lang": "Dit is het complete traject. We beginnen met een intake: waar sta je, wat is je doel, hoeveel tijd heb je, wat speelt er met blessures. Daarna krijg je een plan voor zwemmen, fietsen en lopen, inclusief de dingen die niemand je vertelt: hoe werkt een wisselzone, wat eet je onderweg, hoe plan je de laatste twee weken. We hebben wekelijks contact via WhatsApp en ik stuur het schema bij op hoe het gaat. Op racedag weet je precies wat je moet doen.",
+   "voorWie": [
+    "Je wilt je eerste 1/8 of 1/4 triathlon doen en wilt geen gokwerk",
+    "Je hebt al een triathlon gedaan en wilt nu naar een 1/2 of hele",
+    "Je wilt één plan voor alle drie de onderdelen in plaats van drie losse"
+   ],
+   "watJeKrijgt": [
+    "Intakegesprek en analyse van je huidige niveau (Strava/Garmin)",
+    "Trainingsplan voor zwemmen, fietsen en lopen, per 4 weken",
+    "Wekelijks contact en bijsturing via WhatsApp",
+    "Uitleg over wisselzones, voeding en materiaal",
+    "Raceplan voor de dag zelf",
+    "Zwemanalyse inbegrepen"
+   ],
+   "prijsTekst": "Op aanvraag",
+   "icon": "loop"
+  }
+ ],
+ "prijsIntro": "Op aanvraag; ik werk met een klein aantal atleten tegelijk, dus we kijken samen wat past.",
+ "afstanden": [
+  { "id": "achtste", "naam": "1/8 triathlon", "zwem": "500 m", "fiets": "20 km", "loop": "5 km", "weken": "12 weken", "voorWie": "De ideale eerste keer. Je leert alle onderdelen en de wisselzone kennen zonder dat de afstanden je de hele voorbereiding beheersen. Twee tot drie trainingen per onderdeel per week is ruim voldoende." },
+  { "id": "kwart", "naam": "1/4 triathlon", "zwem": "1000 m", "fiets": "40 km", "loop": "10 km", "weken": "12 tot 16 weken", "voorWie": "De 'olympische afstand'. Het zwemmen wordt echt een onderdeel waar je op moet trainen, en op de fiets ga je merken dat voeding en tempo ertoe doen. Reken op 5 tot 7 uur training per week." },
+  { "id": "half", "naam": "1/2 triathlon", "zwem": "1900 m", "fiets": "90 km", "loop": "21,1 km", "weken": "16 tot 20 weken", "voorWie": "Een halve (70.3) vraagt om een goede basis en een doordacht plan: lange duurtrainingen, voeding onderweg en een realistische pacing. Je traint 7 tot 10 uur per week, met één lange fietsdag in het weekend." },
+  { "id": "heel", "naam": "Hele triathlon", "zwem": "3800 m", "fiets": "180 km", "loop": "42,2 km", "weken": "20 tot 30 weken", "voorWie": "Een hele triathlon is een project van een half jaar of langer. We bouwen rustig op, met aandacht voor herstel, je omgeving en je werk. Dit doe ik alleen met atleten die al een halve hebben gedaan." }
+ ],
+ "usps": [
+  { "id": "usp-zelf", "titel": "Ik doe het zelf", "tekst": "Halve triathlon (Ironman 70.3 Luxemburg, 2026), marathon in 3:30 en een voorbereiding op 22 km open water. Ik weet hoe een zwaar trainingsblok voelt naast een baan en een gezin." },
+  { "id": "usp-techniek", "titel": "Technisch onderlegd", "tekst": "Ik bouw mijn eigen analysetools, lees je Garmin-data en kijk naar wat er echt gebeurt. Geen gokwerk, geen schema's uit een boekje." },
+  { "id": "usp-klein", "titel": "Klein en persoonlijk", "tekst": "Hooguit een handvol atleten tegelijk. Ik ken je doel, je agenda en je blessuregeschiedenis, en je hebt mij op WhatsApp." }
+ ],
+ "resultaten": [
+  { "id": "res-marathon", "label": "Marathon Rotterdam", "waarde": "3:30:08", "datum": "2026-04" },
+  { "id": "res-halve", "label": "Halve marathon", "waarde": "1:33", "datum": "" },
+  { "id": "res-10k", "label": "10 km", "waarde": "43:47", "datum": "" },
+  { "id": "res-5k", "label": "5 km", "waarde": "19:31", "datum": "" },
+  { "id": "res-703", "label": "Ironman 70.3 Luxemburg", "waarde": "Gefinisht", "datum": "2026-07" },
+  { "id": "res-kwart", "label": "Kwart triathlon Zwarte Plasje", "waarde": "Gefinisht", "datum": "2026-09" }
+ ],
+ "resultatenNoot": "Allemaal uit Garmin en Strava. En dat op mijn 57e. Lid van TVS'90 (triathlon) en CS010 (wielrennen).",
+ "werkwijze": [
+  { "id": "ww-kennismaking", "stap": 1, "titel": "Kennismaking", "tekst": "Gratis, een half uur, bellen of koffie in Rotterdam. Jij vertelt wat je wilt, ik vertel hoe ik werk. Klikt het, dan gaan we door. Zo niet, dan heb je in elk geval een paar tips meegekregen." },
+  { "id": "ww-intake", "stap": 2, "titel": "Intake en data", "tekst": "Ik kijk naar je Strava of Garmin, je blessuregeschiedenis en je agenda. Hoeveel tijd heb je echt? Wat ging eerder goed en fout? Daar bouwen we op." },
+  { "id": "ww-plan", "stap": 3, "titel": "Plan en eerste 4 weken", "tekst": "Je krijgt een plan voor de eerste vier weken, in gewone taal, met tempo- en hartslaggrenzen die je op je horloge zet. We bespreken het samen zodat je weet waarom je doet wat je doet." },
+  { "id": "ww-bijsturen", "stap": 4, "titel": "Wekelijks contact en bijsturen", "tekst": "Elke week kijk ik naar je trainingen en hoor ik hoe het voelde. Ging het te zwaar, was je ziek, drukke week? Dan past het schema zich aan. Zo tot aan de race, en daarna evalueren we." }
+ ],
+ "verwachtingen": [
+  { "id": "vw-eerlijk", "tekst": "Eerlijk zijn over hoe het gaat, ook als een training niet gelukt is. Daar stuur ik op." },
+  { "id": "vw-data", "tekst": "Je trainingen delen via Strava of Garmin, zodat ik kan zien wat er gebeurt." },
+  { "id": "vw-tijd", "tekst": "Realistisch zijn over je tijd. Liever vier trainingen die je haalt dan zes op papier." },
+  { "id": "vw-vragen", "tekst": "Vragen stellen. Ik leg alles uit, en er is geen domme vraag over zones, wisselzones of wetsuits." }
+ ],
+ "verhaal": [
+  { "id": "vh-1", "tekst": "Ik ben Ryan Douglas, docent informatica geweest en nu projectleider bij het Havenbedrijf Rotterdam. Triathlon kwam later in mijn leven. Ik begon met hardlopen, pakte de racefiets erbij en moest leren zwemmen zoals de meeste beginners dat moeten: met moeite, met te veel water in mijn neus en met het idee dat iedereen in de baan naast me het beter kon." },
+  { "id": "vh-2", "tekst": "Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik bouwde een eigen trainingsapp, maakte een viewer om onderwaterbeelden van mijn zwemslag frame voor frame te bekijken en leerde mijn Garmin-data echt te begrijpen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. In 2026 liep ik de marathon van Rotterdam in 3:30 en finishte ik de Ironman 70.3 in Luxemburg. Op mijn 57e." },
+  { "id": "vh-3", "tekst": "Toen een clubgenoot vroeg of ik hem wilde helpen met zijn 10 km-doel, merkte ik hoeveel plezier ik daaruit haalde: iemand zien groeien doordat je samen de goede dingen doet. Ik heb gesprekken gevoerd met andere coaches om samen iets op te zetten, maar besloot in oktober 2026 het gewoon zelf te doen. Onafhankelijk, klein en persoonlijk. Niet omdat ik er een bedrijf van wil maken, maar omdat ik het leuk vind en omdat ik weet hoe het is om het in je eentje uit te moeten zoeken." }
+ ],
+ "reviews": [
+  { "id": "rev-karl", "naam": "Karl", "tekst": "", "datum": "2026-10-01", "afstand": "10 km", "hidden": true, "uitgelicht": true }
+ ],
+ "faq": [
+  { "id": "faq-niveau", "vraag": "Moet ik al kunnen zwemmen, fietsen en lopen?", "antwoord": "Een beetje. Als je 200 meter kunt zwemmen zonder te stoppen, een uur kunt fietsen en een half uur kunt hardlopen, kun je in 12 weken klaar zijn voor een 1/8 triathlon. Kun je dat nog niet, dan beginnen we daar." },
+  { "id": "faq-tijd", "vraag": "Hoeveel tijd kost het per week?", "antwoord": "Voor een 1/8 of 1/4 triathlon reken je op 4 tot 7 uur per week. Voor een halve 7 tot 10 uur. Ik maak het schema rond jouw agenda, niet andersom." },
+  { "id": "faq-materiaal", "vraag": "Wat heb ik nodig aan materiaal?", "antwoord": "Een fiets die veilig rijdt, hardloopschoenen die bij je passen en een zwembril. Een sporthorloge (Garmin of vergelijkbaar) is handig omdat ik dan je data kan zien, maar niet verplicht. Een wetsuit huur je voor je eerste race gewoon." },
+  { "id": "faq-zones", "vraag": "Wat zijn 'zones' eigenlijk?", "antwoord": "Zones zijn tempo- of hartslaggebieden: hoe hard je traint. De meeste training doe je rustig (zone 1 en 2), een klein deel pittig. Ik leg je uit wat jouw zones zijn en hoe je ze op je horloge zet, zodat je weet wanneer rustig echt rustig is." },
+  { "id": "faq-waar", "vraag": "Waar trainen we?", "antwoord": "Je traint zelf, op je eigen plek en in je eigen tijd. De zwemanalyse en de kennismaking doen we in Rotterdam of omgeving. Verder gaat het contact via WhatsApp en kijk ik mee via Strava of Garmin." },
+  { "id": "faq-prijs", "vraag": "Wat kost het?", "antwoord": "Op aanvraag. Ik werk met een klein aantal atleten tegelijk, dus we kijken samen wat past bij wat je nodig hebt. De kennismaking is gratis." },
+  { "id": "faq-blessure", "vraag": "Ik heb een blessure (gehad). Kan ik dan meedoen?", "antwoord": "Ja, daar houden we rekening mee in het plan. Ik ben geen fysiotherapeut, dus bij twijfel verwijs ik je eerst door. Maar een plan dat rekening houdt met je geschiedenis voorkomt vaak dat het terugkomt." }
+ ],
+ "media": [],
+ "verwijderdeIds": []
+}

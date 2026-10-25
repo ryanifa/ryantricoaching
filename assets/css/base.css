@@ -1,0 +1,151 @@
+/* Gedeelde basis: design tokens (spec §3), reset, typografie, knoppen, formulieren.
+   Licht en sportief: wit/lichtgroen, sportief groen als accent, rood voor de CTA. */
+
+/* Terugval-fonts met dezelfde maatvoering als Sora / Inter, zodat de Google Fonts
+   niet-blokkerend kunnen laden zonder dat de tekst verspringt. */
+@font-face { font-family: 'Sora Fallback'; src: local('Arial Bold'), local('Arial'), local('Liberation Sans'), local('Roboto'); font-weight: 700; size-adjust: 111.5%; ascent-override: 90.5%; descent-override: 25.5%; line-gap-override: 0%; }
+@font-face { font-family: 'Inter Fallback'; src: local('Arial'), local('Liberation Sans'), local('Roboto'); size-adjust: 107%; ascent-override: 90.4%; descent-override: 22.5%; line-gap-override: 0%; }
+
+:root {
+  --bg: #F6FAF7;
+  --surface: #FFFFFF;
+  --surface-2: #EDF6F0;
+  --text: #0F1F2E;
+  --muted: #4F6475;
+  --line: rgba(15, 31, 46, 0.1);
+  --green: #1E8F5A;
+  --green-deep: #0F5A3C;
+  --green-ink: #0F5A3C;
+  --red: #D7263D;
+  --red-2: #B81F33;
+  --mint: #DDF3E8;
+  --ok: #1E8E5A;
+  --warn: #B85C00;
+  --err: #C62828;
+  --wa: #25D366;
+  --font-head: 'Sora', 'Sora Fallback', system-ui, sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 12px 32px rgba(15, 90, 60, 0.12);
+  --wrap: 1120px;
+  --gutter: 16px;
+  --topbar: 68px;
+  --sticky-h: 0px;
+  color-scheme: light;
+}
+
+/* Donkere modus: zelfde tokens, omgezet. Alleen als de bezoeker dat wil. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0B1620;
+    --surface: #11212E;
+    --surface-2: #162B3B;
+    --text: #EAF3F9;
+    --muted: #A5B8C7;
+    --line: rgba(234, 243, 249, 0.12);
+    --green: #4FD39A;
+    --green-deep: #9FE3C1;
+    --green-ink: #0F5A3C;
+    --red: #FF6B7D;
+    --red-2: #FF8A99;
+    --mint: #143D2C;
+    --ok: #4CD39B;
+    --warn: #FFB020;
+    --err: #FF7B7B;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--topbar) + 12px); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: var(--sticky-h);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, video { max-width: 100%; height: auto; display: block; }
+a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--green-deep); }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; line-height: 1.12; margin: 0 0 0.5em; letter-spacing: -0.02em; color: var(--text); }
+h1 { font-size: clamp(2.1rem, 5.6vw, 3.8rem); }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+h3 { font-size: 1.2rem; letter-spacing: -0.01em; }
+p { margin: 0 0 1em; }
+ul, ol { padding-left: 1.2em; }
+small, .small { font-size: 0.9rem; }
+.muted { color: var(--muted); }
+.wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[hidden] { display: none !important; }
+
+/* Skip-link, demobalk, mededeling */
+.skip { position: absolute; left: 8px; top: -60px; background: var(--green-deep); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 100; font-weight: 600; }
+.skip:focus { top: 8px; }
+.demo-banner { background: #FFE9A8; color: #3d2a00; text-align: center; padding: 8px 16px; font-weight: 600; font-size: 0.95rem; }
+.announcement { background: var(--green-deep); color: #fff; text-align: center; padding: 8px 16px; font-weight: 600; font-size: 0.95rem; }
+
+/* Knoppen */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 24px; border-radius: 999px; border: 2px solid transparent;
+  font: 600 1rem var(--font-body); text-decoration: none; cursor: pointer; line-height: 1.2;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  min-height: 48px;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: var(--red); color: #fff; box-shadow: 0 6px 18px rgba(242, 107, 33, 0.3); }
+.btn-primary:hover { background: var(--red-2); color: #fff; }
+.btn-blue { background: var(--green-ink); color: #fff; }
+.btn-blue:hover { background: var(--green); color: #fff; }
+.btn-ghost { background: transparent; color: var(--text); border-color: rgba(15, 31, 46, 0.25); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green-deep); }
+.btn-wa { background: var(--wa); color: #06240f; }
+.btn-wa:hover { background: #1fbf5c; color: #06240f; }
+.btn-sm { padding: 10px 16px; min-height: 40px; font-size: 0.95rem; }
+.btn-lg { padding: 16px 30px; font-size: 1.08rem; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn:disabled { opacity: 0.55; pointer-events: none; }
+
+/* Formulieren */
+label { display: block; font-weight: 600; margin-bottom: 6px; }
+input, select, textarea {
+  width: 100%; font: 400 1rem var(--font-body); color: var(--text);
+  background: var(--surface); border: 1px solid rgba(15, 31, 46, 0.2); border-radius: var(--radius-sm);
+  padding: 12px 14px; min-height: 48px;
+}
+textarea { min-height: 120px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--green); outline-offset: 0; border-color: var(--green); }
+input::placeholder, textarea::placeholder { color: #8a9aa8; }
+select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+input[type='checkbox'] { width: 22px; height: 22px; min-height: 0; accent-color: var(--green); margin: 0; flex: none; }
+.field { margin-bottom: 18px; }
+.field .hint { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-weight: 400; }
+fieldset { border: 0; padding: 0; margin: 0 0 18px; }
+legend { font-weight: 600; padding: 0; margin-bottom: 6px; }
+
+/* Kaarten en labels */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.tag { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; background: var(--mint); color: var(--green-deep); }
+.tag-orange { background: rgba(215, 38, 61, 0.12); color: var(--red-2); }
+
+/* Toast (beheer en formulieren) */
+.toast { position: fixed; left: 50%; bottom: calc(var(--sticky-h) + 20px); transform: translate(-50%, 20px); opacity: 0; background: var(--text); color: var(--bg); padding: 12px 18px; border-radius: 10px; box-shadow: var(--shadow); z-index: 200; transition: opacity 0.2s, transform 0.2s; max-width: calc(100% - 32px); pointer-events: none; font-weight: 500; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.ok { box-shadow: 0 0 0 2px var(--ok), var(--shadow); }
+.toast.error { box-shadow: 0 0 0 2px var(--err), var(--shadow); }
+.update-bar { background: var(--surface); color: var(--text); text-align: center; padding: 10px 16px; font-weight: 600; font-size: 0.95rem; border-bottom: 2px solid var(--red); display: flex; flex-wrap: wrap; gap: 8px 12px; justify-content: center; align-items: center; }

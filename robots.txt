@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /beheer.html
+Disallow: /bedankt.html
+
+Sitemap: https://ryantricoaching.nl/sitemap.xml
