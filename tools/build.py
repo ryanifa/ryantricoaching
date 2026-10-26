@@ -313,7 +313,10 @@ def maand(iso):
     if not iso:
         return ''
     maanden = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december']
-    y, m = iso.split('-')[:2]
+    parts = iso.split('-')
+    if len(parts) < 2:  # alleen een jaar, zoals "2025"
+        return f'<span class="when">{e(iso)}</span>'
+    y, m = parts[:2]
     return f'<span class="when">{maanden[int(m)-1]} {y}</span>'
 
 

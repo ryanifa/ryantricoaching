@@ -155,7 +155,7 @@
     {
       "id": "usp-zelf",
       "titel": "Ik doe het zelf",
-      "tekst": "Vijf hele triathlons gefinisht, Ironman 70.3 Luxemburg (2026), marathon in 3:30 en ik zwem het hele jaar door buiten. Ik weet hoe een zwaar trainingsblok voelt naast een baan en een gezin."
+      "tekst": "Vijf hele triathlons (onder andere Almere, Ironman Maastricht en Challenge Roth), meer dan tien halve, een marathon in 3:30 en ik zwem het hele jaar door buiten. Ik weet hoe een zwaar trainingsblok voelt naast een baan en een gezin."
     },
     {
       "id": "usp-techniek",
@@ -176,10 +176,16 @@
       "datum": ""
     },
     {
-      "id": "res-703",
-      "label": "Ironman 70.3 Luxemburg",
+      "id": "res-halve-tri",
+      "label": "Halve triathlons gefinisht",
+      "waarde": "10+",
+      "datum": ""
+    },
+    {
+      "id": "res-roth",
+      "label": "Challenge Roth",
       "waarde": "Gefinisht",
-      "datum": "2026-07"
+      "datum": "2025"
     },
     {
       "id": "res-marathon",
@@ -194,19 +200,13 @@
       "datum": ""
     },
     {
-      "id": "res-halve",
-      "label": "Halve marathon",
-      "waarde": "1:33",
-      "datum": ""
-    },
-    {
       "id": "res-10k",
       "label": "10 km",
       "waarde": "43:47",
       "datum": ""
     }
   ],
-  "resultatenNoot": "Allemaal uit mijn eigen horloge en wedstrijduitslagen. En dat op mijn 57e. Lid van TVS'90 (triathlon) en CS010 (wielrennen).",
+  "resultatenNoot": "Hele triathlons: Almere 2019 en 2025, Ironman Maastricht 2022 en Challenge Roth 2025. Volgend jaar: Ironman Kopenhagen. Daarnaast meer dan tien halve triathlons, waaronder Ironman 70.3 Luxemburg (2026). Allemaal uit mijn eigen horloge en wedstrijduitslagen, en dat op mijn 57e. Lid van TVS'90 (triathlon) en CS010 (wielrennen).",
   "werkwijze": [
     {
       "id": "ww-kennismaking",
@@ -258,7 +258,7 @@
     },
     {
       "id": "vh-2",
-      "tekst": "Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik bouwde een eigen trainingsapp, maakte een viewer om onderwaterbeelden van mijn zwemslag frame voor frame te bekijken en leerde mijn Garmin-data echt te begrijpen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. Inmiddels heb ik vijf hele triathlons gefinisht, liep ik in 2026 de marathon van Rotterdam in 3:30 en finishte ik de Ironman 70.3 in Luxemburg. Op mijn 57e. En zwemmen doe ik het hele jaar buiten, ook als het water tegen de vijf graden loopt."
+      "tekst": "Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik bouwde een eigen trainingsapp, maakte een viewer om onderwaterbeelden van mijn zwemslag frame voor frame te bekijken en leerde mijn Garmin-data echt te begrijpen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. Inmiddels staan er vijf hele triathlons op mijn naam (Almere 2019 en 2025, Ironman Maastricht 2022, Challenge Roth 2025) en meer dan tien halve, liep ik in 2026 de marathon van Rotterdam in 3:30 en finishte ik de Ironman 70.3 in Luxemburg. Op mijn 57e. Volgend jaar staat Ironman Kopenhagen op de kalender. En zwemmen doe ik het hele jaar buiten, ook als het water tegen de vijf graden loopt."
     },
     {
       "id": "vh-3",
