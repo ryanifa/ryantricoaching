@@ -6,7 +6,7 @@
   <title>Zwemanalyse met onderwatervideo in Rotterdam | Ryan Triathlon Coaching</title>
   <meta name="description" content="Onderwateropname van je zwemslag, analyse in een eigen viewer met ingesproken feedback en 3 tot 5 concrete verbeterpunten. Voor triatleten en open-waterzwemmers.">
   <meta name="theme-color" content="#F6FAF7">
-  <meta name="version" content="2026.10.25-6">
+  <meta name="version" content="2026.10.26-1">
   
   <link rel="canonical" href="https://ryantricoaching.nl/zwemanalyse.html">
   <meta property="og:type" content="website">
@@ -25,10 +25,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/base.css?v=2026.10.25-6">
-  <link rel="stylesheet" href="assets/css/site.css?v=2026.10.25-6">
+  <link rel="stylesheet" href="assets/css/base.css?v=2026.10.26-1">
+  <link rel="stylesheet" href="assets/css/site.css?v=2026.10.26-1">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Zwemanalyse", "description": "Onderwateropname van je slag, analyse in een eigen viewer met ingesproken feedback. Je krijgt 3 tot 5 concrete verbeterpunten plus oefeningen.", "provider": {"@id": "https://ryantricoaching.nl/#business"}, "areaServed": "Rotterdam", "url": "https://ryantricoaching.nl/zwemanalyse.html"}</script>
-  <script type="module" src="assets/js/site.js?v=2026.10.25-6"></script>
+  <script type="module" src="assets/js/site.js?v=2026.10.26-1"></script>
 </head>
 <body class="has-sticky" data-page="zwemanalyse">
   <a class="skip" href="#inhoud">Naar de inhoud</a>
@@ -63,6 +63,13 @@
 
     <div class="wrap two-col" style="padding-bottom:40px">
       <div>
+        <div class="analyse-video" data-optional-video>
+          <video controls playsinline preload="metadata" poster="assets/video/analyse-poster.jpg" width="640" height="360">
+            <source src="assets/video/analyse.mp4" type="video/mp4" onerror="this.closest('.analyse-video').classList.add('no-video')">
+          </video>
+          <span class="cap">Echte analyse van een zwemmer, met zijn toestemming. Ingesproken feedback, frame voor frame.</span>
+        </div>
+        <div class="analyse-sketch">
         <div class="analyse-demo" role="img" aria-label="Schets van de analyse-viewer: onderwaterbeeld met aantekeningen">
           <svg viewBox="0 0 640 360" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M0 290c80-30 160-30 240 0s160 30 240 0 120-30 160 0v70H0z" fill="rgba(255,255,255,.08)"/>
@@ -76,7 +83,7 @@
           <span class="cap">Ingesproken feedback, frame voor frame</span>
         </div>
         <div class="stills" style="margin-top:12px"><div class="still"><svg viewBox="0 0 100 75" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M0 68c15-8 35-8 50 0s35 8 50 0" opacity=".5"/><path d="M20 60c15-10 30-14 45 0M40 40l12-14" stroke="#D7263D"/></svg><span>Hand in het water</span></div><div class="still"><svg viewBox="0 0 100 75" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M0 68c15-8 35-8 50 0s35 8 50 0" opacity=".5"/><path d="M15 55h70M30 55c10-10 30-10 40 0" stroke="#D7263D"/></svg><span>Lichaamsligging</span></div><div class="still"><svg viewBox="0 0 100 75" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M0 68c15-8 35-8 50 0s35 8 50 0" opacity=".5"/><path d="M20 50c20 0 20 10 40 10s20-10 40-10" stroke="#D7263D"/></svg><span>Beenslag</span></div></div>
-        <p class="muted small" style="margin-top:10px">Schets van hoe de viewer eruitziet; echte voorbeeldbeelden volgen met toestemming van de zwemmer.</p>
+        </div>
       </div>
       <aside class="card aside-card">
         <h2>Wat je krijgt</h2>
@@ -145,7 +152,7 @@
       </div>
       <div class="footer-bottom">
         <span>© <span id="jaar">2026</span> Ryan Triathlon Coaching · Rotterdam<span id="footer-kvk" hidden> · KvK <span data-k="kvk"></span></span></span>
-        <span><a href="privacy.html">Privacy</a> · <a href="voorwaarden.html">Voorwaarden</a> · <a href="beheer.html" rel="nofollow">Beheer</a> · <span class="versie" id="versie" title="Versie van de website">v2026.10.25-6</span></span>
+        <span><a href="privacy.html">Privacy</a> · <a href="voorwaarden.html">Voorwaarden</a> · <a href="beheer.html" rel="nofollow">Beheer</a> · <span class="versie" id="versie" title="Versie van de website">v2026.10.26-1</span></span>
       </div>
     </div>
   </footer>

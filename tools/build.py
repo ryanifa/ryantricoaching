@@ -363,6 +363,13 @@ def build_zwemanalyse():
     body = page_head('Zwemanalyse', 'Zie eindelijk wat je onder water doet', 'Zwemmen is voor de meeste triatleten het lastigste onderdeel, omdat je jezelf niet kunt zien. Met onderwaterbeelden en ingesproken feedback wel.') + f'''
     <div class="wrap two-col" style="padding-bottom:40px">
       <div>
+        <div class="analyse-video" data-optional-video>
+          <video controls playsinline preload="metadata" poster="assets/video/analyse-poster.jpg" width="640" height="360">
+            <source src="assets/video/analyse.mp4" type="video/mp4" onerror="this.closest('.analyse-video').classList.add('no-video')">
+          </video>
+          <span class="cap">Echte analyse van een zwemmer, met zijn toestemming. Ingesproken feedback, frame voor frame.</span>
+        </div>
+        <div class="analyse-sketch">
         <div class="analyse-demo" role="img" aria-label="Schets van de analyse-viewer: onderwaterbeeld met aantekeningen">
           <svg viewBox="0 0 640 360" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M0 290c80-30 160-30 240 0s160 30 240 0 120-30 160 0v70H0z" fill="rgba(255,255,255,.08)"/>
@@ -376,7 +383,7 @@ def build_zwemanalyse():
           <span class="cap">Ingesproken feedback, frame voor frame</span>
         </div>
         <div class="stills" style="margin-top:12px">{stills}</div>
-        <p class="muted small" style="margin-top:10px">Schets van hoe de viewer eruitziet; echte voorbeeldbeelden volgen met toestemming van de zwemmer.</p>
+        </div>
       </div>
       <aside class="card aside-card">
         <h2>Wat je krijgt</h2>
