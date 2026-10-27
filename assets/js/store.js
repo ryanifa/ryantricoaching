@@ -197,6 +197,7 @@ export function normalize(input) {
     resultatenNoot: str(doc.resultatenNoot),
     clubsTekst: str(doc.clubsTekst),
     clubsDisclaimer: str(doc.clubsDisclaimer),
+    voorbeeldAnalyseUrl: str(doc.voorbeeldAnalyseUrl),
     werkwijze: arr(doc.werkwijze).map((s, i) => ({
       id: str(s?.id) || slug(s?.titel, 'ww-'),
       stap: int(s?.stap, i + 1) || i + 1,
@@ -245,7 +246,7 @@ const leeg = (v) => v === '' || v === null || v === undefined;
 /** Info-velden die mergeDefaults nooit invult: contactgegevens die in de standaarddata placeholders zijn. */
 export const MERGE_SKIP_FIELDS = ['phone', 'whatsapp', 'email', 'kvk'];
 /** Losse tekstvelden op het document die net als info-velden alleen leeg worden ingevuld. */
-const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsDisclaimer'];
+const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsDisclaimer', 'voorbeeldAnalyseUrl'];
 
 /**
  * Voegt nieuwe standaardteksten uit het gebundelde data/site.json toe aan een

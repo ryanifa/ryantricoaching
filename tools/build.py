@@ -366,26 +366,11 @@ def build_zwemanalyse():
     body = page_head('Zwemanalyse', 'Zie eindelijk wat je onder water doet', 'Zwemmen is voor de meeste triatleten het lastigste onderdeel, omdat je jezelf niet kunt zien. Met onderwaterbeelden en ingesproken feedback wel.') + f'''
     <div class="wrap two-col" style="padding-bottom:40px">
       <div>
-        <div class="analyse-video" data-optional-video>
-          <video controls playsinline preload="metadata" poster="assets/video/analyse-poster.jpg" width="640" height="360">
-            <source src="assets/video/analyse.mp4" type="video/mp4" onerror="this.closest('.analyse-video').classList.add('no-video')">
-          </video>
-          <span class="cap">Echte analyse van een zwemmer, met zijn toestemming. Ingesproken feedback, frame voor frame.</span>
-        </div>
-        <div class="analyse-sketch">
-        <div class="analyse-demo" role="img" aria-label="Schets van de analyse-viewer: onderwaterbeeld met aantekeningen">
-          <svg viewBox="0 0 640 360" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M0 290c80-30 160-30 240 0s160 30 240 0 120-30 160 0v70H0z" fill="rgba(255,255,255,.08)"/>
-            <path d="M0 320c80-30 160-30 240 0s160 30 240 0 120-30 160 0v40H0z" fill="rgba(255,255,255,.12)"/>
-            <g stroke="#fff" stroke-width="9"><path d="M150 190c60-30 130-50 220-40"/><path d="M370 150c40 10 70 40 80 80"/><path d="M150 190c-30 5-55 20-70 45"/><circle cx="130" cy="165" r="26" fill="#fff"/><path d="M450 230l40 40"/></g>
-            <g stroke="#D7263D" stroke-width="5" stroke-dasharray="10 10"><path d="M370 150l60-80"/><circle cx="450" cy="230" r="34"/></g>
-            <rect x="24" y="24" width="176" height="40" rx="20" fill="rgba(255,255,255,.92)"/>
-            <text x="48" y="51" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="600" fill="#0F5A3C">Frame 212 / 480</text>
-            <rect x="24" y="300" width="592" height="8" rx="4" fill="rgba(255,255,255,.3)"/><rect x="24" y="300" width="260" height="8" rx="4" fill="#D7263D"/>
-          </svg>
-          <span class="cap">Ingesproken feedback, frame voor frame</span>
-        </div>
-        </div>
+        <a id="voorbeeld-analyse" class="analyse-voorbeeld" href="{e(DATA['voorbeeldAnalyseUrl'])}" target="_blank" rel="noopener" aria-label="Bekijk een voorbeeldanalyse in de viewer (opent in een nieuw tabblad)">
+          <img src="assets/video/analyse-poster.jpg" alt="" width="1280" height="720" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+          <span class="cap"><strong>Bekijk een voorbeeldanalyse</strong> Zo ziet het eruit: video, ingesproken feedback en tekeningen, frame voor frame.</span>
+        </a>
         <div class="stills" style="margin-top:12px">{stills}</div>
         <p class="muted small" style="margin-top:10px">Onderwaterbeelden uit een echte analyse, met toestemming van de zwemmer.</p>
       </div>

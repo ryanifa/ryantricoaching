@@ -1,1 +1,1 @@
-Zet hier assets/video/analyse.mp4 (H.264, max ~25 MB, 16:9) en analyse-poster.jpg (1280x720). Zodra analyse.mp4 bestaat toont zwemanalyse.html de video in plaats van de schets.
+analyse-poster.jpg is het klikbeeld voor de voorbeeldanalyse op zwemanalyse.html. De analyse zelf staat in de eoSwimming-viewer; de link beheer je in beheer → Diensten → Voorbeeldanalyse.

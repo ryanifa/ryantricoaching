@@ -226,6 +226,8 @@ function renderDiensten(doc) {
     ])));
     renderContactLinks(doc);
   }
+  const voorbeeld = $('#voorbeeld-analyse');
+  if (voorbeeld && doc.voorbeeldAnalyseUrl) voorbeeld.href = doc.voorbeeldAnalyseUrl;
   const intro = $('#prijs-intro');
   if (intro && doc.prijsIntro) intro.textContent = doc.prijsIntro;
 }
