@@ -1,7 +1,7 @@
 # Werkafspraken
 
 - Wijzigingen mogen direct naar `main` worden gepusht; geen feature-branch of PR nodig.
-- Statische site zonder build-stap voor de browser; zie README.md voor opbouw en de Gist-opslag. De HTML-pagina's worden wel gegenereerd: `python3 tools/build.py` na elke wijziging in `data/site.json`, `VERSION` of `tools/build.py`.
+- Statische site zonder build-stap voor de browser; zie README.md voor opbouw en de Gist-opslag. De HTML-pagina's worden wel gegenereerd: `python3 tools/build.py` na elke wijziging in `data/site.json`, `VERSION` of `tools/build.py` (stempelt ook `beheer.html` en `404.html` met de versie).
 - Taal van site, beheer en commits: Nederlands (je-vorm). Toon: warm, direct, nuchter. Geen jargon zonder uitleg; geen Engelse UI-termen behalve WhatsApp, Strava en Garmin.
 - Alles wat uit de Gist of het beheer komt gaat via `textContent` (zie `assets/js/dom.js`), nooit via `innerHTML`.
 - `data/site.json` is de standaarddata én de terugval; het datamodel staat in `normalize()` in `assets/js/store.js` (spec §6). Renderers werken altijd op `filter(doc)`.
