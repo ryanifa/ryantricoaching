@@ -3,7 +3,7 @@
    zet je het id en de GitHub-naam hier neer en push je (het tabblad Instellingen
    laat de exacte regels zien). Tot die tijd ziet elke bezoeker data/site.json. */
 export const CONFIG = {
-  gistId: '',
+  gistId: '1122dca5b56fd7e3917480003f536035',
   // GitHub-gebruiker die de Gist bezit. Nodig voor de CDN-terugval als de
   // API-limiet (60 verzoeken/uur per IP) bereikt is.
   gistOwner: 'ryanifa',
