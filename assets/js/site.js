@@ -254,6 +254,10 @@ function renderRace(doc) {
 function renderOver(doc) {
   const box = $('#verhaal');
   if (box && doc.verhaal.length) clear(box).append(...doc.verhaal.map((v, i) => el('p', { class: i === 0 ? 'lead' : null, text: v.tekst })));
+  const kop = $('#over-kop');
+  if (kop && doc.overKop) kop.textContent = doc.overKop;
+  const intro = $('#over-intro');
+  if (intro && doc.overIntro) intro.textContent = doc.overIntro;
   const clubs = $('#clubs-tekst');
   if (clubs && doc.clubsTekst) clubs.textContent = doc.clubsTekst;
   const disc = $('#clubs-disclaimer');

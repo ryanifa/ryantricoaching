@@ -487,7 +487,12 @@ def build_race():
 def build_over():
     paras = ''.join(f'<p{" class=\"lead\"" if i == 0 else ""}>{e(v["tekst"])}</p>' for i, v in enumerate(DATA['verhaal']))
     results = ''.join(f'<div class="result"><span class="val">{e(r["waarde"])}</span><span class="lbl">{e(r["label"])}</span>{maand(r["datum"])}</div>' for r in DATA['resultaten'])
-    body = page_head('Over Ryan', 'Docent, projectleider, triatleet. En nu coach.', 'Ik weet hoe het is om alles zelf uit te moeten zoeken. Daarom doe ik dit.') + f'''
+    body = f'''    <div class="wrap page-head">
+      <div class="kicker">Over Ryan</div>
+      <h1 id="over-kop">{e(DATA['overKop'])}</h1>
+      <p id="over-intro">{e(DATA['overIntro'])}</p>
+    </div>
+''' + f'''
     <section class="section" aria-labelledby="story-title" style="padding-top:8px">
       <div class="wrap story">
         <figure class="photo" style="margin:0">

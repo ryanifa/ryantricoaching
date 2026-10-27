@@ -824,6 +824,11 @@ function werkwijzePanel(list) {
 function renderVerhaalTab(main) {
   const doc = state.doc;
   main.append(
+    el('section', { class: 'panel' }, [
+      el('h3', { text: 'Kop van "Over Ryan"' }),
+      field('Kop', bound(doc, 'overKop'), 'Bijvoorbeeld: Programmeur, ondernemer, docent, triatleet. En nu coach.'),
+      field('Intro', bound(doc, 'overIntro', { textarea: true }), 'De zin of twee onder de kop.'),
+    ]),
     linesPanel('Mijn verhaal', 'Alinea\'s op "Over Ryan". De eerste alinea staat ook als teaser op de homepage.', doc.verhaal, 'vh', { textarea: true, addText: '+ Alinea toevoegen' }),
     el('section', { class: 'panel' }, [
       el('h3', { text: 'Clubs en achtergrond' }),
