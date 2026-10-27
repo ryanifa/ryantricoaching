@@ -3,8 +3,8 @@
    verandert nooit, dus cachen is veilig. (Zelfde opzet als posters.js in
    passthedutchie; hier max. 1600 px.) */
 
-import { readRawFile } from './gist.js';
-import { storageGet, storageSet } from './store.js';
+import { readRawFile } from './gist.js?v=2026.10.27-18';
+import { storageGet, storageSet } from './store.js?v=2026.10.27-18';
 
 const DEMO_KEY = 'rtc.demo.media';
 const memory = new Map();

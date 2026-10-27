@@ -726,3 +726,18 @@ def stamp_static(name):
     print('→', name, '(versie)')
 
 stamp_static('beheer.html'); stamp_static('404.html')
+
+
+def stamp_imports():
+    """Zet ?v=VERSION achter de interne imports in assets/js, zodat na een deploy nooit
+    een nieuwe module met een oude (gecachte) module gecombineerd wordt."""
+    import re
+    for js in sorted((ROOT / 'assets' / 'js').glob('*.js')):
+        src = js.read_text(encoding='utf-8')
+        new = re.sub(r"(from\s+')(\./[a-z]+\.js)(\?v=[0-9.\-]+)?(')", rf"\g<1>\g<2>?v={VERSION}\g<4>", src)
+        new = re.sub(r"(import\(')(\./[a-z]+\.js)(\?v=[0-9.\-]+)?(')", rf"\g<1>\g<2>?v={VERSION}\g<4>", new)
+        if new != src:
+            js.write_text(new, encoding='utf-8')
+            print('→', js.name, '(imports)')
+
+stamp_imports()
