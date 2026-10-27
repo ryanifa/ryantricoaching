@@ -173,6 +173,8 @@ function renderHome(doc) {
     clear($('#usps')).append(...doc.usps.map((u, i) => el('div', { class: 'usp' }, [el('div', { class: 'num', 'aria-hidden': 'true', text: String(i + 1) }), el('h3', { text: u.titel }), el('p', { text: u.tekst })])));
   }
   if (doc.verhaal.length) {
+    const st = $('#story-title');
+    if (st && doc.overKop) st.textContent = doc.overKop;
     const t = $('#verhaal-teaser');
     if (t) t.textContent = doc.verhaal[0].tekst;
   }

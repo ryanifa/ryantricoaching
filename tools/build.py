@@ -266,7 +266,7 @@ def build_index():
           <img src="assets/img/ryan.jpg" alt="Foto van Ryan" width="720" height="720" loading="lazy" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
         </figure>
         <div>
-          <h2 id="story-title">Van docent informatica naar triathlon-coach</h2>
+          <h2 id="story-title">{e(DATA['overKop'])}</h2>
           <p class="lead" id="verhaal-teaser">{e(DATA['verhaal'][0]['tekst'])}</p>
           <a class="btn btn-ghost" href="over.html">Lees mijn verhaal</a>
         </div>
