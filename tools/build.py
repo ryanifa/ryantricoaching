@@ -353,7 +353,7 @@ def build_zwemanalyse():
     d = next(x for x in DATA['diensten'] if x['id'] == 'zwemanalyse')
     stappen = [
         ('Opname', 'We spreken af in een zwembad of open water. Ik film je slag van onder water en van de kant, een paar banen is genoeg.'),
-        ('Analyse', 'Ik bekijk de beelden frame voor frame in mijn eigen viewer en spreek in wat ik zie, met tekeningen op het beeld.'),
+        ('Analyse', 'Ik bekijk de beelden frame voor frame en spreek in wat ik zie, met tekeningen op het beeld.'),
         ('Bespreking', 'We lopen samen door de analyse: wat gaat goed, wat kost je snelheid, en welke drie tot vijf punten pakken we aan.'),
         ('Oefeningen', 'Je krijgt oefeningen die bij jouw punten passen. De analyse kijk je terug op je telefoon, zo vaak je wilt.'),
     ]
@@ -444,12 +444,12 @@ def build_zwemanalyse():
       <div class="wrap prose">
         <h2 id="tech-title">Camera, sensor en viewer</h2>
         <p>Ik film onder water met een camera die scherp blijft, ook in een druk bad. De sensormeting hierboven is een optie bovenop de video; voor de meeste beginners is de video alleen al genoeg om de eerste grote stappen te zetten.</p>
-        <p>De beelden bekijk ik in een viewer die ik zelf heb gebouwd. Daarin kan ik vertragen, stilzetten, tekenen en mijn feedback inspreken. Jij krijgt een link die je op je telefoon opent. Geen app installeren, geen account nodig.</p>
+        <p>De beelden bekijk je in een viewer waarin je kunt vertragen, stilzetten en frame voor frame door je slag stappen, met mijn tekeningen en ingesproken feedback op het beeld. Jij krijgt een link die je op je telefoon opent. Geen app installeren, geen account nodig.</p>
         <p>Een term die je vaak hoort is CSS, je kritische zwemsnelheid: het tempo dat je ongeveer een kwartier tot twintig minuten kunt volhouden. Die bepalen we met een korte test, en daar stemmen we je zwemtrainingen op af. Ik leg het je gewoon uit, je hoeft er niets van te weten om te beginnen.</p>
       </div>
     </section>
 {cta_band('Benieuwd wat jouw slag doet?', 'Plan een zwemanalyse of begin met een gratis kennismaking. Ik vertel je eerlijk of het voor jou zin heeft.')}'''
-    write('zwemanalyse.html', head('zwemanalyse', f'Zwemanalyse met onderwatervideo in Rotterdam | {NAME}', 'Onderwateropname van je zwemslag, analyse in een eigen viewer met ingesproken feedback en 3 tot 5 concrete verbeterpunten. Voor triatleten en open-waterzwemmers.', ld_service(d), 'zwemanalyse.html') + body + footer())
+    write('zwemanalyse.html', head('zwemanalyse', f'Zwemanalyse met onderwatervideo in Rotterdam | {NAME}', 'Onderwateropname van je zwemslag, analyse met ingesproken feedback, frame voor frame terug te kijken en 3 tot 5 concrete verbeterpunten. Voor triatleten en open-waterzwemmers.', ld_service(d), 'zwemanalyse.html') + body + footer())
 
 
 # ----------------------------------------------------------------------- race
