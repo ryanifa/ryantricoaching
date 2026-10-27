@@ -405,10 +405,44 @@ def build_zwemanalyse():
       </div>
     </section>
 
-    <section class="section" aria-labelledby="tech-title">
+    <section class="section" aria-labelledby="sensor-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="sensor-title">Meten wat je niet kunt zien: kracht per hand</h2>
+          <p class="muted">Video laat zien wát je doet. De sensor laat zien wat het oplevert.</p>
+        </div>
+        <div class="two-col" style="align-items:center">
+          <div class="prose">
+            <p>Voor wie een stap verder wil, zwem je een paar banen met een kleine sensor in elke hand: de eo SwimBETTER. Die meet honderd keer per seconde hoeveel kracht je hand op het water zet, in welke richting, en hoe je hand door het water beweegt. Daar komt een beeld uit dat je met het blote oog nooit ziet.</p>
+            <p><strong>Wat je ermee te weten komt</strong></p>
+            <ul>
+              <li><strong>Links tegen rechts.</strong> Bijna iedereen heeft een sterke en een zwakke kant. Hier zie je het in watt per hand, en in hoe lang je glijdt, trekt en herstelt.</li>
+              <li><strong>Waar je kracht heen gaat.</strong> Hoeveel procent stuwt je vooruit, en hoeveel duwt je omhoog, omlaag of opzij? Bij deze zwemmer gaat bijna een kwart van de kracht naar beneden in plaats van naar achteren. Dat is energie die je wel betaalt, maar die je niet vooruit brengt.</li>
+              <li><strong>De baan van je hand.</strong> Van opzij, van boven en van voren. Slaat je hand over de middenlijn? Trek je te diep? Zit er een knik in?</li>
+              <li><strong>Slag voor slag.</strong> Acht slagen over elkaar gelegd laten zien of je slag stabiel is, of dat je elke keer iets anders doet.</li>
+            </ul>
+            <p><strong>Waarom dit het verschil maakt.</strong> Een zwemcoach zegt vaak: "trek verder door" of "je rechterarm doet minder". Met de sensor hoef je dat niet te geloven, je ziet het. En belangrijker: na vier weken oefenen meten we opnieuw en zie je in getallen of het beter is geworden. Techniek verbeteren wordt zo iets waar je grip op hebt, in plaats van iets wat je hoopt.</p>
+            <p class="muted small">Beelden uit een echte meting, met toestemming van de zwemmer.</p>
+          </div>
+          <figure class="sensor-figure">
+            <img src="assets/img/sensor/sensor.jpg" alt="De eo SwimBETTER-sensor in de hand" width="900" height="900" loading="lazy" decoding="async">
+            <figcaption>De sensor zit in een bandje om je hand. Je merkt er tijdens het zwemmen niets van.</figcaption>
+          </figure>
+        </div>
+        <div class="sensor-grid">
+          <figure><img src="assets/img/sensor/slagfases.jpg" alt="Slagfases per hand: glijden, trekken en herstel in procenten" width="900" height="1484" loading="lazy" decoding="async"><figcaption><strong>Slagfases</strong> Links glijdt 19% van de tijd, rechts 12%: de rechterhand begint eerder te trekken.</figcaption></figure>
+          <figure><img src="assets/img/sensor/handbaan-boven.jpg" alt="Handbaan van boven gezien, acht slagen links en rechts over elkaar" width="900" height="1490" loading="lazy" decoding="async"><figcaption><strong>Handbaan van boven</strong> Acht slagen over elkaar. Links waaiert breder uit dan rechts.</figcaption></figure>
+          <figure><img src="assets/img/sensor/handbaan-zij.jpg" alt="Handbaan van opzij gezien, diepte van de trek" width="900" height="1522" loading="lazy" decoding="async"><figcaption><strong>Handbaan van opzij</strong> Hoe diep gaat de hand, en waar begint de trek echt?</figcaption></figure>
+          <figure><img src="assets/img/sensor/kracht.jpg" alt="Verdeling van kracht: 48% voortstuwend, 24% omlaag" width="900" height="1366" loading="lazy" decoding="async"><figcaption><strong>Krachtverdeling</strong> 48% stuwt vooruit, 24% duwt omlaag. Daar zit winst.</figcaption></figure>
+          <figure><img src="assets/img/sensor/vermogen.jpg" alt="Vermogen per hand in watt: links 62, rechts 57" width="900" height="1492" loading="lazy" decoding="async"><figcaption><strong>Vermogen per hand</strong> Links 62 W, rechts 57 W bij 25 slagen per minuut.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="tech-title">
       <div class="wrap prose">
         <h2 id="tech-title">Camera, sensor en viewer</h2>
-        <p>Ik film met een DJI-camera die onder water scherp blijft, ook in een druk bad. Wil je meer weten over de kracht van je armslag, dan zwem je een paar banen met de eo SwimBETTER-sensor aan je handen: die meet hoeveel voortstuwing elke hand levert en waar je kracht weglekt.</p>
+        <p>Ik film met een DJI-camera die onder water scherp blijft, ook in een druk bad. De sensormeting hierboven is een optie bovenop de video; voor de meeste beginners is de video alleen al genoeg om de eerste grote stappen te zetten.</p>
         <p>De beelden bekijk ik in een viewer die ik zelf heb gebouwd. Daarin kan ik vertragen, stilzetten, tekenen en mijn feedback inspreken. Jij krijgt een link die je op je telefoon opent. Geen app installeren, geen account nodig.</p>
         <p>Een term die je vaak hoort is CSS, je kritische zwemsnelheid: het tempo dat je ongeveer een kwartier tot twintig minuten kunt volhouden. Die bepalen we met een korte test, en daar stemmen we je zwemtrainingen op af. Ik leg het je gewoon uit, je hoeft er niets van te weten om te beginnen.</p>
       </div>

@@ -281,3 +281,12 @@ body.has-sticky { --sticky-h: 76px; }
 .analyse-video.no-video { display: none; }
 .analyse-sketch { display: none; }
 .analyse-video.no-video + .analyse-sketch { display: block; }
+
+/* Zwemanalyse: sensorsectie */
+.sensor-figure { margin: 0; }
+.sensor-figure img { width: 100%; height: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+.sensor-figure figcaption, .sensor-grid figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.sensor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-top: 32px; }
+.sensor-grid figure { margin: 0; }
+.sensor-grid img { width: 100%; height: auto; aspect-ratio: 9 / 15; object-fit: cover; object-position: top; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface); }
+.sensor-grid figcaption strong { display: block; color: var(--text); }
