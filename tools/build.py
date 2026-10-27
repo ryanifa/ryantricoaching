@@ -710,3 +710,19 @@ def write(name, content):
 
 if __name__ == '__main__':
     build_index(); build_diensten(); build_zwemanalyse(); build_race(); build_over(); build_werkwijze(); build_ervaringen(); build_contact(); build_rest()
+
+
+# --------------------------------------------------------------- versiestempel
+def stamp_static(name):
+    """Zet de huidige VERSION in statische pagina's die niet gegenereerd worden (beheer.html, 404.html)."""
+    import re
+    path = ROOT / name
+    if not path.exists():
+        return
+    html = path.read_text(encoding='utf-8')
+    html = re.sub(r'(<meta name="version" content=")[^"]*(")', rf'\g<1>{VERSION}\g<2>', html)
+    html = re.sub(r'\?v=[0-9.\-]+', f'?v={VERSION}', html)
+    path.write_text(html, encoding='utf-8')
+    print('→', name, '(versie)')
+
+stamp_static('beheer.html'); stamp_static('404.html')
