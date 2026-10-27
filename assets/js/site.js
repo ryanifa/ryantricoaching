@@ -252,6 +252,10 @@ function renderRace(doc) {
 function renderOver(doc) {
   const box = $('#verhaal');
   if (box && doc.verhaal.length) clear(box).append(...doc.verhaal.map((v, i) => el('p', { class: i === 0 ? 'lead' : null, text: v.tekst })));
+  const clubs = $('#clubs-tekst');
+  if (clubs && doc.clubsTekst) clubs.textContent = doc.clubsTekst;
+  const disc = $('#clubs-disclaimer');
+  if (disc && doc.clubsDisclaimer) disc.textContent = doc.clubsDisclaimer;
   renderResultaten(doc);
 }
 

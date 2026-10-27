@@ -522,8 +522,8 @@ def build_over():
     <section class="section" aria-labelledby="club-title">
       <div class="wrap prose">
         <h2 id="club-title">Clubs en achtergrond</h2>
-        <p>Ik ben lid van triathlonvereniging TVS'90 in Spijkenisse, waar ik meedoe aan de wedstrijden, en van wielervereniging CS010 in Rotterdam. Mijn achtergrond ligt in de ICT: programmeur, SAP-consultant, trainer en docent informatica, nu bezig met AI en procesoptimalisatie bij het Havenbedrijf Rotterdam. Die combinatie, uitleggen en dingen gestructureerd aanpakken, is precies wat ik in het coachen gebruik: je snapt waarom je iets doet, en het plan klopt.</p>
-        <p>Ik ben geen fysiotherapeut en geen diëtist. Bij blessures of medische vragen verwijs ik je door naar iemand die daar wél voor heeft doorgeleerd.</p>
+        <p id="clubs-tekst">{e(DATA['clubsTekst'])}</p>
+        <p id="clubs-disclaimer">{e(DATA['clubsDisclaimer'])}</p>
       </div>
     </section>
 {cta_band('Zullen we kennismaken?', 'Een half uur bellen of koffie in Rotterdam. Gratis, en je zit nergens aan vast.')}'''

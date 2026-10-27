@@ -821,6 +821,11 @@ function renderVerhaalTab(main) {
   const doc = state.doc;
   main.append(
     linesPanel('Mijn verhaal', 'Alinea\'s op "Over Ryan". De eerste alinea staat ook als teaser op de homepage.', doc.verhaal, 'vh', { textarea: true, addText: '+ Alinea toevoegen' }),
+    el('section', { class: 'panel' }, [
+      el('h3', { text: 'Clubs en achtergrond' }),
+      field('Tekst', bound(doc, 'clubsTekst', { textarea: true }), 'Blok onderaan "Over Ryan": je clubs en je achtergrond.'),
+      field('Wat ik niet ben', bound(doc, 'clubsDisclaimer', { textarea: true }), 'Bijvoorbeeld: geen fysiotherapeut, geen diëtist.'),
+    ]),
     werkwijzePanel(doc.werkwijze),
     linesPanel('Wat ik van jou verwacht', 'Lijst op de werkwijzepagina.', doc.verwachtingen, 'vw'),
     faqPanel(doc.faq),
