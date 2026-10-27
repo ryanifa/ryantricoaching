@@ -226,8 +226,8 @@ function renderDiensten(doc) {
     ])));
     renderContactLinks(doc);
   }
-  const voorbeeld = $('#voorbeeld-analyse');
-  if (voorbeeld && doc.voorbeeldAnalyseUrl) voorbeeld.href = doc.voorbeeldAnalyseUrl;
+  const vb = $('#voorbeeld-video');
+  if (vb && doc.voorbeeldVideoUrl && vb.getAttribute('src') !== doc.voorbeeldVideoUrl) { vb.setAttribute('src', doc.voorbeeldVideoUrl); vb.load(); }
   const intro = $('#prijs-intro');
   if (intro && doc.prijsIntro) intro.textContent = doc.prijsIntro;
 }

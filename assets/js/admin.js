@@ -571,8 +571,8 @@ function renderDienstenTab(main) {
     field('Tekst onder de diensten', bound(doc, 'prijsIntro', { textarea: true }), 'Staat op de dienstenpagina.'),
   ]));
   main.append(el('section', { class: 'panel' }, [
-    el('h3', { text: 'Voorbeeldanalyse (zwemanalysepagina)' }),
-    field('Link naar de viewer', bound(doc, 'voorbeeldAnalyseUrl'), 'De link opent in een nieuw tabblad. Leeg = geen voorbeeld tonen. Let op de vervaldatum van de link.'),
+    el('h3', { text: 'Voorbeeldvideo (zwemanalysepagina)' }),
+    field('Directe link naar de mp4', bound(doc, 'voorbeeldVideoUrl'), 'Wordt als video in de pagina afgespeeld. Let op de vervaldatum (e=) van de link.'),
   ]));
 
   main.append(el('div', { class: 'list-head spaced' }, [el('h2', { text: 'Afstanden (racepagina)' })]));

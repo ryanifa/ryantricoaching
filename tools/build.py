@@ -366,11 +366,10 @@ def build_zwemanalyse():
     body = page_head('Zwemanalyse', 'Zie eindelijk wat je onder water doet', 'Zwemmen is voor de meeste triatleten het lastigste onderdeel, omdat je jezelf niet kunt zien. Met onderwaterbeelden en ingesproken feedback wel.') + f'''
     <div class="wrap two-col" style="padding-bottom:40px">
       <div>
-        <a id="voorbeeld-analyse" class="analyse-voorbeeld" href="{e(DATA['voorbeeldAnalyseUrl'])}" target="_blank" rel="noopener" aria-label="Bekijk een voorbeeldanalyse in de viewer (opent in een nieuw tabblad)">
-          <img src="assets/video/analyse-poster.jpg" alt="" width="1280" height="720" decoding="async">
-          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-          <span class="cap"><strong>Bekijk een voorbeeldanalyse</strong> Zo ziet het eruit: video, ingesproken feedback en tekeningen, frame voor frame.</span>
-        </a>
+        <div class="analyse-video">
+          <video id="voorbeeld-video" controls playsinline preload="metadata" poster="assets/video/analyse-poster.jpg" width="1280" height="720" src="{e(DATA['voorbeeldVideoUrl'])}"></video>
+          <span class="cap"><strong>Voorbeeld van een zwemanalyse</strong> Zo ziet het eruit: wat ik zie, waar ik op let en wat je ermee kunt.</span>
+        </div>
         <div class="stills" style="margin-top:12px">{stills}</div>
         <p class="muted small" style="margin-top:10px">Onderwaterbeelden uit een echte analyse, met toestemming van de zwemmer.</p>
       </div>

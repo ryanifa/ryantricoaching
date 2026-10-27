@@ -278,6 +278,7 @@ body.has-sticky { --sticky-h: 76px; }
 .analyse-video { position: relative; border-radius: var(--radius); overflow: hidden; background: #0F5A3C; box-shadow: var(--shadow); }
 .analyse-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #0F5A3C; }
 .analyse-video .cap { display: block; padding: 10px 14px; color: #fff; font-size: 14px; background: rgba(0, 0, 0, 0.25); }
+.analyse-video .cap strong { display: block; font-size: 15px; }
 .analyse-video.no-video { display: none; }
 .analyse-sketch { display: none; }
 .analyse-video.no-video + .analyse-sketch { display: block; }
