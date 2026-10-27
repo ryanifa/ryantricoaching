@@ -3,9 +3,9 @@
    Gist of data/site.json binnen is. Alle renderers werken op filter(doc) uit
    store.js, nooit op het ruwe document. Alles via textContent (dom.js). */
 
-import { CONFIG } from './config.js?v=2026.10.27-18';
-import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.10.27-18';
-import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie } from './store.js?v=2026.10.27-18';
+import { CONFIG } from './config.js?v=2026.10.27-19';
+import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.10.27-19';
+import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie } from './store.js?v=2026.10.27-19';
 
 const page = document.body.dataset.page || 'home';
 
@@ -276,7 +276,7 @@ function renderWedstrijden(doc) {
   const sectie = $('#wedstrijden');
   if (sectie) sectie.hidden = groepen.length === 0;
   clear(box).append(...groepen.map((g) => el('div', { class: 'palmares-groep' }, [
-    el('h3', {}, [g.label, el('span', { class: 'aantal', text: ` · ${g.items.length}×` })]),
+    el('h3', {}, [g.label, el('span', { class: 'aantal', text: ` · ${g.items.filter((w) => !/DNF/i.test(w.naam + ' ' + w.tijd)).length}×` })]),
     el('table', { class: 'palmares' }, [
       el('caption', { class: 'visually-hidden', text: g.label }),
       el('thead', {}, el('tr', {}, [el('th', { scope: 'col', text: 'Wanneer' }), el('th', { scope: 'col', text: 'Wedstrijd' }), el('th', { scope: 'col', text: 'Tijd' })])),

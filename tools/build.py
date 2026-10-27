@@ -343,7 +343,8 @@ def wedstrijden_html():
         if not items:
             continue
         rows = ''.join(f'<tr><td class="wanneer">{maand_kort(w["datum"])}</td><td>{e(w["naam"])}</td><td class="tijd">{e(w["tijd"])}</td></tr>' for w in items)
-        out += (f'<div class="palmares-groep"><h3>{e(label)}<span class="aantal"> · {len(items)}×</span></h3>'
+        finishes = len([w for w in items if 'DNF' not in (w.get('naam', '') + ' ' + w.get('tijd', '')).upper()])
+        out += (f'<div class="palmares-groep"><h3>{e(label)}<span class="aantal"> · {finishes}×</span></h3>'
                 f'<table class="palmares"><caption class="visually-hidden">{e(label)}</caption>'
                 f'<thead><tr><th scope="col">Wanneer</th><th scope="col">Wedstrijd</th><th scope="col">Tijd</th></tr></thead>'
                 f'<tbody>{rows}</tbody></table></div>')
@@ -543,7 +544,7 @@ def build_over():
       <div class="wrap">
         <div class="section-head"><h2 id="wed-title">Wedstrijden</h2><p>Alles wat ik sinds 2016 aan de start stond en uitliep, per afstand.</p></div>
         <div class="palmares-lijst" id="wedstrijden-lijst">{wedstrijden}</div>
-        <p class="results-note" id="wedstrijden-noot">Horlogetijden uit Garmin, daarom soms iets ruimer dan de officiële chiptijd.</p>
+        <p class="results-note" id="wedstrijden-noot">Horlogetijden uit Garmin, daarom soms iets ruimer dan de officiële chiptijd. DNF = niet gefinisht.</p>
       </div>
     </section>
     <section class="section section-alt" aria-labelledby="club-title">

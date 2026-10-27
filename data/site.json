@@ -22,7 +22,7 @@
   },
   "hero": {
     "kop": "Je eerste triathlon? Ik help je er komen.",
-    "sub": "Persoonlijke coaching voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Door iemand die zelf vijf hele triathlons finishte en het hele jaar buiten zwemt. Vanuit Rotterdam, met jou op de plek waar je traint.",
+    "sub": "Persoonlijke coaching voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Door iemand die zelf vier hele triathlons finishte en het hele jaar buiten zwemt. Vanuit Rotterdam, met jou op de plek waar je traint.",
     "ctaPrimair": "Plan een kennismaking",
     "ctaSecundair": "Bekijk de diensten"
   },
@@ -155,7 +155,7 @@
     {
       "id": "usp-zelf",
       "titel": "Ik doe het zelf",
-      "tekst": "Vijf hele triathlons (onder andere Almere, Ironman Maastricht en Challenge Roth), vier halve en vijftien kwart, een marathon in 3:30 en ik zwem het hele jaar door buiten. En op mijn 57e word ik nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Dat is precies wat ik jou leer."
+      "tekst": "Vier hele triathlons (Almere en Ironman Maastricht), vier halve, vijftien kwart en elf marathons, en ik zwem het hele jaar door buiten. En op mijn 57e word ik nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Dat is precies wat ik jou leer."
     },
     {
       "id": "usp-techniek",
@@ -172,7 +172,7 @@
     {
       "id": "res2-hele",
       "label": "Hele triathlons",
-      "waarde": "5×",
+      "waarde": "4×",
       "datum": ""
     },
     {
@@ -219,7 +219,7 @@
     {
       "id": "w-hele-20250706",
       "datum": "2025-07-06",
-      "naam": "Challenge Roth",
+      "naam": "Challenge Roth (DNF)",
       "categorie": "hele",
       "tijd": "11:22:10",
       "hidden": false
@@ -604,7 +604,7 @@
     },
     {
       "id": "vh-2",
-      "tekst": "Triathlon kwam later in mijn leven. Ik begon met hardlopen, pakte de racefiets erbij en moest leren zwemmen zoals de meeste beginners dat moeten: met moeite, met te veel water in mijn neus en met het idee dat iedereen in de baan naast me het beter kon. Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik leerde mijn Garmin-data echt te begrijpen, bekeek onderwaterbeelden van mijn eigen slag frame voor frame en bouwde tools om mijn training te sturen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. Inmiddels staan er vijf hele triathlons op mijn naam (Almere 2019, 2023 en 2025, Ironman Maastricht 2022, Challenge Roth 2025), vier halve en vijftien kwart, en liep ik elf marathons, de snelste in 2026 in Rotterdam in 3:30. Op mijn 57e. Volgend jaar staat Ironman Kopenhagen op de kalender. En zwemmen doe ik het hele jaar buiten, ook als het water tegen de vijf graden loopt."
+      "tekst": "Triathlon kwam later in mijn leven. Ik begon met hardlopen, pakte de racefiets erbij en moest leren zwemmen zoals de meeste beginners dat moeten: met moeite, met te veel water in mijn neus en met het idee dat iedereen in de baan naast me het beter kon. Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik leerde mijn Garmin-data echt te begrijpen, bekeek onderwaterbeelden van mijn eigen slag frame voor frame en bouwde tools om mijn training te sturen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. Inmiddels staan er vier hele triathlons op mijn naam (Almere 2019, 2023 en 2025, Ironman Maastricht 2022), vier halve en vijftien kwart, en liep ik elf marathons, de snelste in 2026 in Rotterdam in 3:30. Op mijn 57e. Volgend jaar staat Ironman Kopenhagen op de kalender. En zwemmen doe ik het hele jaar buiten, ook als het water tegen de vijf graden loopt."
     },
     {
       "id": "vh-3",
