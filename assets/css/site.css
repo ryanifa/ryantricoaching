@@ -138,6 +138,19 @@
 .results-note { margin-top: 20px; color: var(--muted); max-width: 60ch; }
 .results-note strong { color: var(--red-2); }
 
+/* --------------------------------------------------------- wedstrijden */
+.palmares-lijst { display: grid; gap: 16px; }
+.palmares-groep { padding: 18px 20px 8px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); min-width: 0; }
+.palmares-groep h3 { margin: 0 0 8px; font-size: 1.1rem; }
+.palmares-groep h3 .aantal { color: var(--green-deep); font-family: var(--font-head); font-variant-numeric: tabular-nums; }
+.palmares { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
+.palmares th, .palmares td { text-align: left; padding: 7px 6px 7px 0; border-top: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+.palmares th { font-weight: 600; color: var(--muted); font-size: 0.78rem; border-top: 0; padding-top: 0; }
+.palmares th:first-child, .palmares td.wanneer { width: 5.8em; color: var(--muted); white-space: nowrap; }
+.palmares th:last-child, .palmares td.tijd { width: 5.2em; text-align: right; padding-right: 0; font-family: var(--font-head); color: var(--green-deep); font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media (min-width: 700px) { .palmares-lijst { grid-template-columns: repeat(2, 1fr); align-items: start; } .palmares { font-size: 0.95rem; } }
+@media (min-width: 1000px) { .palmares-lijst { grid-template-columns: repeat(3, 1fr); } }
+
 /* ------------------------------------------------------------ werkwijze */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; counter-reset: step; }
 .step { position: relative; padding-left: 64px; }

@@ -63,7 +63,8 @@ Prijzen: "Op aanvraag; ik werk met een klein aantal atleten tegelijk, dus we kij
   usps[{id, titel, tekst}],
   resultaten[{id, label, waarde, datum}],
   werkwijze[{id, stap, titel, tekst}],
-  verhaal[{id, tekst}], clubsTekst, clubsDisclaimer,
+  verhaal[{id, tekst}], clubsTekst, clubsDisclaimer, overKop, overIntro, voorbeeldVideoUrl,
+  wedstrijden[{id, datum, naam, categorie (hele|halve|kwart|achtste|overig-tri|marathon|ultra), tijd, hidden}],
   reviews[{id, naam, tekst, datum, afstand, hidden, uitgelicht}],
   faq[{id, vraag, antwoord}],
   media[{id, url, alt}], verwijderdeIds[] }

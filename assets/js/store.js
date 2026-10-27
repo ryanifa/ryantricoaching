@@ -98,6 +98,17 @@ export async function loadForVisitors(render) {
 
 export const DIENST_ICONS = ['zwem', 'fiets', 'loop'];
 export const AFSTANDEN = ['1/8 triathlon', '1/4 triathlon', '1/2 triathlon', 'Hele triathlon', '5 km', '10 km', 'Halve marathon', 'Marathon', 'Zwemanalyse', 'Anders'];
+/** Categorieën van de wedstrijdenlijst, in de volgorde waarin de site ze toont. */
+export const WEDSTRIJD_CATEGORIEEN = [
+  ['hele', 'Hele triathlon'],
+  ['halve', 'Halve triathlon'],
+  ['kwart', 'Kwart triathlon'],
+  ['achtste', 'Achtste triathlon'],
+  ['overig-tri', 'Overige triathlon-afstand'],
+  ['marathon', 'Marathon'],
+  ['ultra', 'Ultraloop'],
+];
+const CATEGORIE_IDS = WEDSTRIJD_CATEGORIEEN.map(([id]) => id);
 
 const str = (v, d = '') => (typeof v === 'string' ? v : v === null || v === undefined ? d : String(v));
 const num = (v, d = null) => {
@@ -195,6 +206,18 @@ export function normalize(input) {
       hidden: !!r?.hidden,
     })),
     resultatenNoot: str(doc.resultatenNoot),
+    wedstrijden: arr(doc.wedstrijden).map((w) => {
+      const categorie = oneOf(str(w?.categorie), CATEGORIE_IDS, 'overig-tri');
+      const datum = isoDate(w?.datum);
+      return {
+        id: str(w?.id) || `w-${categorie}-${datum.replace(/-/g, '') || slug(w?.naam)}`,
+        datum,
+        naam: str(w?.naam),
+        categorie,
+        tijd: str(w?.tijd),
+        hidden: !!w?.hidden,
+      };
+    }),
     clubsTekst: str(doc.clubsTekst),
     clubsDisclaimer: str(doc.clubsDisclaimer),
     voorbeeldVideoUrl: str(doc.voorbeeldVideoUrl),
@@ -236,6 +259,7 @@ export const MERGE_LISTS = [
   { lijst: 'afstanden', pad: ['afstanden'], label: (x) => x.naam },
   { lijst: 'usps', pad: ['usps'], label: (x) => x.titel },
   { lijst: 'resultaten', pad: ['resultaten'], label: (x) => x.label },
+  { lijst: 'wedstrijden', pad: ['wedstrijden'], label: (x) => `${x.naam} ${x.datum.slice(0, 4)}`.trim() },
   { lijst: 'werkwijze', pad: ['werkwijze'], label: (x) => x.titel },
   { lijst: 'verwachtingen', pad: ['verwachtingen'], label: (x) => x.tekst },
   { lijst: 'verhaal', pad: ['verhaal'], label: (x) => x.tekst.slice(0, 40) },
@@ -308,8 +332,24 @@ export function filter(doc) {
     ...doc,
     diensten: doc.diensten.filter((d) => !d.hidden),
     resultaten: doc.resultaten.filter((r) => !r.hidden),
+    wedstrijden: doc.wedstrijden.filter((w) => !w.hidden),
     reviews: doc.reviews.filter((r) => !r.hidden && r.tekst.trim() && r.naam.trim()),
   };
+}
+
+/** Zichtbare wedstrijden per categorie, in de vaste volgorde; lege categorieën vallen weg. */
+export function wedstrijdenPerCategorie(doc) {
+  const zichtbaar = filter(doc).wedstrijden;
+  return WEDSTRIJD_CATEGORIEEN
+    .map(([id, label]) => ({ id, label, items: zichtbaar.filter((w) => w.categorie === id) }))
+    .filter((g) => g.items.length);
+}
+
+/** Korte maand + jaar: "sep 2025". */
+export function formatMaandKort(iso) {
+  if (!/^\d{4}-\d{2}/.test(iso || '')) return iso || '';
+  const [y, m] = iso.split('-').map(Number);
+  return `${['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'][m - 1]} ${y}`;
 }
 
 /** Zichtbare ervaringen, nieuwste eerst. */

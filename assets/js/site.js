@@ -5,7 +5,7 @@
 
 import { CONFIG } from './config.js';
 import { el, $, $$, clear, telLink, whatsappLink } from './dom.js';
-import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand } from './store.js';
+import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie } from './store.js';
 
 const page = document.body.dataset.page || 'home';
 
@@ -265,6 +265,28 @@ function renderOver(doc) {
   const disc = $('#clubs-disclaimer');
   if (disc && doc.clubsDisclaimer) disc.textContent = doc.clubsDisclaimer;
   renderResultaten(doc);
+  renderWedstrijden(doc);
+}
+
+/** De wedstrijdenlijst op "Over Ryan": per categorie een kop met aantal en een compacte tabel. */
+function renderWedstrijden(doc) {
+  const box = $('#wedstrijden-lijst');
+  if (!box) return;
+  const groepen = wedstrijdenPerCategorie(doc);
+  const sectie = $('#wedstrijden');
+  if (sectie) sectie.hidden = groepen.length === 0;
+  clear(box).append(...groepen.map((g) => el('div', { class: 'palmares-groep' }, [
+    el('h3', {}, [g.label, el('span', { class: 'aantal', text: ` · ${g.items.length}×` })]),
+    el('table', { class: 'palmares' }, [
+      el('caption', { class: 'visually-hidden', text: g.label }),
+      el('thead', {}, el('tr', {}, [el('th', { scope: 'col', text: 'Wanneer' }), el('th', { scope: 'col', text: 'Wedstrijd' }), el('th', { scope: 'col', text: 'Tijd' })])),
+      el('tbody', {}, g.items.map((w) => el('tr', {}, [
+        el('td', { class: 'wanneer', text: formatMaandKort(w.datum) }),
+        el('td', { text: w.naam }),
+        el('td', { class: 'tijd', text: w.tijd }),
+      ]))),
+    ]),
+  ])));
 }
 
 /* ------------------------------------------------------------ werkwijze */

@@ -22,7 +22,7 @@
   },
   "hero": {
     "kop": "Je eerste triathlon? Ik help je er komen.",
-    "sub": "Persoonlijke coaching voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Door iemand die zelf vier hele triathlons finishte en het hele jaar buiten zwemt. Vanuit Rotterdam, met jou op de plek waar je traint.",
+    "sub": "Persoonlijke coaching voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Door iemand die zelf vijf hele triathlons finishte en het hele jaar buiten zwemt. Vanuit Rotterdam, met jou op de plek waar je traint.",
     "ctaPrimair": "Plan een kennismaking",
     "ctaSecundair": "Bekijk de diensten"
   },
@@ -155,7 +155,7 @@
     {
       "id": "usp-zelf",
       "titel": "Ik doe het zelf",
-      "tekst": "Vier hele triathlons (onder andere Almere, Ironman Maastricht en Challenge Roth), meer dan tien halve, een marathon in 3:30 en ik zwem het hele jaar door buiten. En op mijn 57e word ik nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Dat is precies wat ik jou leer."
+      "tekst": "Vijf hele triathlons (onder andere Almere, Ironman Maastricht en Challenge Roth), vier halve en vijftien kwart, een marathon in 3:30 en ik zwem het hele jaar door buiten. En op mijn 57e word ik nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Dat is precies wat ik jou leer."
     },
     {
       "id": "usp-techniek",
@@ -170,43 +170,389 @@
   ],
   "resultaten": [
     {
-      "id": "res-hele",
-      "label": "Hele triathlons gefinisht",
+      "id": "res2-hele",
+      "label": "Hele triathlons",
+      "waarde": "5×",
+      "datum": ""
+    },
+    {
+      "id": "res2-halve",
+      "label": "Halve triathlons",
       "waarde": "4×",
       "datum": ""
     },
     {
-      "id": "res-halve-tri",
-      "label": "Halve triathlons gefinisht",
-      "waarde": "10+",
+      "id": "res2-kwart",
+      "label": "Kwart triathlons",
+      "waarde": "15×",
       "datum": ""
     },
     {
-      "id": "res-roth",
-      "label": "Challenge Roth",
-      "waarde": "Gefinisht",
-      "datum": "2025"
+      "id": "res2-marathons",
+      "label": "Marathons",
+      "waarde": "11×",
+      "datum": ""
     },
     {
-      "id": "res-marathon",
-      "label": "Marathon Rotterdam",
+      "id": "res2-marathon-pr",
+      "label": "Snelste marathon",
       "waarde": "3:30:08",
       "datum": "2026-04"
     },
     {
-      "id": "res-openwater",
+      "id": "res2-openwater",
       "label": "Buiten zwemmen",
       "waarde": "Hele jaar",
       "datum": ""
-    },
-    {
-      "id": "res-10k",
-      "label": "10 km",
-      "waarde": "43:47",
-      "datum": ""
     }
   ],
-  "resultatenNoot": "Hele triathlons: Almere 2019 en 2025, Ironman Maastricht 2022 en Challenge Roth 2025. Volgend jaar: Ironman Kopenhagen. Daarnaast meer dan tien halve triathlons, waaronder Ironman 70.3 Luxemburg (2026). Allemaal uit mijn eigen horloge en wedstrijduitslagen, en dat op mijn 57e. Lid van TVS'90 (triathlon, Spijkenisse) en CS010 (wielrennen, Rotterdam).",
+  "resultatenNoot": "Alles uit mijn eigen Garmin sinds 2016; de volledige lijst staat hieronder. Volgend jaar: Ironman Kopenhagen. Lid van TVS'90 (triathlon, Spijkenisse) en CS010 (wielrennen, Rotterdam). En dat op mijn 57e.",
+  "wedstrijden": [
+    {
+      "id": "w-hele-20250913",
+      "datum": "2025-09-13",
+      "naam": "Almere",
+      "categorie": "hele",
+      "tijd": "12:17:28",
+      "hidden": false
+    },
+    {
+      "id": "w-hele-20250706",
+      "datum": "2025-07-06",
+      "naam": "Challenge Roth",
+      "categorie": "hele",
+      "tijd": "11:22:10",
+      "hidden": false
+    },
+    {
+      "id": "w-hele-20230909",
+      "datum": "2023-09-09",
+      "naam": "Almere",
+      "categorie": "hele",
+      "tijd": "11:57:33",
+      "hidden": false
+    },
+    {
+      "id": "w-hele-20220807",
+      "datum": "2022-08-07",
+      "naam": "Ironman Maastricht",
+      "categorie": "hele",
+      "tijd": "12:54:12",
+      "hidden": false
+    },
+    {
+      "id": "w-hele-20190914",
+      "datum": "2019-09-14",
+      "naam": "Almere",
+      "categorie": "hele",
+      "tijd": "11:50:35",
+      "hidden": false
+    },
+    {
+      "id": "w-halve-20230819",
+      "datum": "2023-08-19",
+      "naam": "Ironman 70.3 Vichy",
+      "categorie": "halve",
+      "tijd": "6:02:00",
+      "hidden": false
+    },
+    {
+      "id": "w-halve-20220619",
+      "datum": "2022-06-19",
+      "naam": "Ironman 70.3 Luxemburg",
+      "categorie": "halve",
+      "tijd": "5:04:34",
+      "hidden": false
+    },
+    {
+      "id": "w-halve-20180908",
+      "datum": "2018-09-08",
+      "naam": "Almere",
+      "categorie": "halve",
+      "tijd": "5:59:42",
+      "hidden": false
+    },
+    {
+      "id": "w-halve-20170909",
+      "datum": "2017-09-09",
+      "naam": "Almere",
+      "categorie": "halve",
+      "tijd": "5:39:58",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20260913",
+      "datum": "2026-09-13",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:32:00",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20250907",
+      "datum": "2025-09-07",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:33:44",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20240908",
+      "datum": "2024-09-08",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:34:36",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20240706",
+      "datum": "2024-07-06",
+      "naam": "Hellevoetsluis",
+      "categorie": "kwart",
+      "tijd": "3:07:13",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20230903",
+      "datum": "2023-09-03",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:29:05",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20230624",
+      "datum": "2023-06-24",
+      "naam": "Zuidplas",
+      "categorie": "kwart",
+      "tijd": "2:46:45",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20220911",
+      "datum": "2022-09-11",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:24:26",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20210905",
+      "datum": "2021-09-05",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:28:04",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20190908",
+      "datum": "2019-09-08",
+      "naam": "Rotterdam",
+      "categorie": "kwart",
+      "tijd": "2:35:43",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20190811",
+      "datum": "2019-08-11",
+      "naam": "Leiderdorp",
+      "categorie": "kwart",
+      "tijd": "2:48:42",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20190706",
+      "datum": "2019-07-06",
+      "naam": "Goeree-Overflakkee",
+      "categorie": "kwart",
+      "tijd": "2:39:56",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20190623",
+      "datum": "2019-06-23",
+      "naam": "Zuidplas",
+      "categorie": "kwart",
+      "tijd": "2:55:04",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20180902",
+      "datum": "2018-09-02",
+      "naam": "Schiebroek",
+      "categorie": "kwart",
+      "tijd": "2:25:16",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20180513",
+      "datum": "2018-05-13",
+      "naam": "Heerjansdam",
+      "categorie": "kwart",
+      "tijd": "2:42:19",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-20170903",
+      "datum": "2017-09-03",
+      "naam": "Schiebroek",
+      "categorie": "kwart",
+      "tijd": "2:28:37",
+      "hidden": false
+    },
+    {
+      "id": "w-achtste-20260905",
+      "datum": "2026-09-05",
+      "naam": "Apeldoorn",
+      "categorie": "achtste",
+      "tijd": "1:31:33",
+      "hidden": false
+    },
+    {
+      "id": "w-achtste-20250614",
+      "datum": "2025-06-14",
+      "naam": "Weert",
+      "categorie": "achtste",
+      "tijd": "2:14:30",
+      "hidden": false
+    },
+    {
+      "id": "w-achtste-20230701",
+      "datum": "2023-07-01",
+      "naam": "Hellevoetsluis",
+      "categorie": "achtste",
+      "tijd": "1:26:07",
+      "hidden": false
+    },
+    {
+      "id": "w-overig-tri-20260613",
+      "datum": "2026-06-13",
+      "naam": "Steenbergen",
+      "categorie": "overig-tri",
+      "tijd": "3:30:26",
+      "hidden": false
+    },
+    {
+      "id": "w-overig-tri-20260509",
+      "datum": "2026-05-09",
+      "naam": "Goeree-Overflakkee",
+      "categorie": "overig-tri",
+      "tijd": "3:42:43",
+      "hidden": false
+    },
+    {
+      "id": "w-overig-tri-20210822",
+      "datum": "2021-08-22",
+      "naam": "Leiden",
+      "categorie": "overig-tri",
+      "tijd": "3:54:09",
+      "hidden": false
+    },
+    {
+      "id": "w-overig-tri-20190525",
+      "datum": "2019-05-25",
+      "naam": "Schouwen-Duiveland",
+      "categorie": "overig-tri",
+      "tijd": "4:03:23",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20260412",
+      "datum": "2026-04-12",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "3:30:08",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20240414",
+      "datum": "2024-04-14",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "4:19:18",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20231126",
+      "datum": "2023-11-26",
+      "naam": "Nissewaard",
+      "categorie": "marathon",
+      "tijd": "3:44:21",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20230416",
+      "datum": "2023-04-16",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "3:52:31",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20211024",
+      "datum": "2021-10-24",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "3:33:39",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20210411",
+      "datum": "2021-04-11",
+      "naam": "Vlaardingen",
+      "categorie": "marathon",
+      "tijd": "3:41:47",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20201025",
+      "datum": "2020-10-25",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "3:38:02",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20190407",
+      "datum": "2019-04-07",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "3:50:03",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20180408",
+      "datum": "2018-04-08",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "4:41:30",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20171015",
+      "datum": "2017-10-15",
+      "naam": "Amsterdam",
+      "categorie": "marathon",
+      "tijd": "3:45:38",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20161106",
+      "datum": "2016-11-06",
+      "naam": "New York",
+      "categorie": "marathon",
+      "tijd": "3:51:09",
+      "hidden": false
+    },
+    {
+      "id": "w-ultra-20190608",
+      "datum": "2019-06-08",
+      "naam": "Brasseuse (56,6 km)",
+      "categorie": "ultra",
+      "tijd": "4:34:11",
+      "hidden": false
+    }
+  ],
   "werkwijze": [
     {
       "id": "ww-kennismaking",
@@ -258,7 +604,7 @@
     },
     {
       "id": "vh-2",
-      "tekst": "Triathlon kwam later in mijn leven. Ik begon met hardlopen, pakte de racefiets erbij en moest leren zwemmen zoals de meeste beginners dat moeten: met moeite, met te veel water in mijn neus en met het idee dat iedereen in de baan naast me het beter kon. Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik leerde mijn Garmin-data echt te begrijpen, bekeek onderwaterbeelden van mijn eigen slag frame voor frame en bouwde tools om mijn training te sturen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. Inmiddels staan er vier hele triathlons op mijn naam (Almere 2019 en 2025, Ironman Maastricht 2022, Challenge Roth 2025) en meer dan tien halve, liep ik in 2026 de marathon van Rotterdam in 3:30 en finishte ik de Ironman 70.3 in Luxemburg. Op mijn 57e. Volgend jaar staat Ironman Kopenhagen op de kalender. En zwemmen doe ik het hele jaar buiten, ook als het water tegen de vijf graden loopt."
+      "tekst": "Triathlon kwam later in mijn leven. Ik begon met hardlopen, pakte de racefiets erbij en moest leren zwemmen zoals de meeste beginners dat moeten: met moeite, met te veel water in mijn neus en met het idee dat iedereen in de baan naast me het beter kon. Wat mij hielp, was wat ik van huis uit kon: data lezen en techniek gebruiken. Ik leerde mijn Garmin-data echt te begrijpen, bekeek onderwaterbeelden van mijn eigen slag frame voor frame en bouwde tools om mijn training te sturen. Zo werd ik stap voor stap een betere zwemmer, fietser en loper. Inmiddels staan er vijf hele triathlons op mijn naam (Almere 2019, 2023 en 2025, Ironman Maastricht 2022, Challenge Roth 2025), vier halve en vijftien kwart, en liep ik elf marathons, de snelste in 2026 in Rotterdam in 3:30. Op mijn 57e. Volgend jaar staat Ironman Kopenhagen op de kalender. En zwemmen doe ik het hele jaar buiten, ook als het water tegen de vijf graden loopt."
     },
     {
       "id": "vh-3",

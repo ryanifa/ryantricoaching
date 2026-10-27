@@ -1,6 +1,6 @@
 /* Tests voor normalize(), filter() en mergeDefaults() in assets/js/store.js. Draaien met: node tests/merge.test.js */
 import assert from 'node:assert/strict';
-import { normalize, mergeDefaults, filter, featuredReviews, slug, formatDatum } from '../assets/js/store.js';
+import { normalize, mergeDefaults, filter, featuredReviews, slug, formatDatum, formatMaandKort, wedstrijdenPerCategorie } from '../assets/js/store.js';
 
 const bundled = normalize({
   info: { tagline: 'Standaard tagline', regio: 'Rotterdam', strava: 'https://www.strava.com/athletes/1' },
@@ -135,6 +135,30 @@ test('filter verbergt lege en verborgen ervaringen en verborgen diensten', () =>
   assert.deepEqual(f.diensten.map((x) => x.id), ['a']);
   assert.deepEqual(f.reviews.map((x) => x.id), ['r2', 'r3']);
   assert.deepEqual(featuredReviews(d).map((x) => x.id), ['r3']);
+});
+
+test('wedstrijden: normalize, samenvoegen en verborgen filteren', () => {
+  const b = normalize({ wedstrijden: [
+    { id: 'w-hele-20250913', datum: '2025-09-13', naam: 'Almere', categorie: 'hele', tijd: '12:17:28' },
+    { id: 'w-kwart-20260913', datum: '2026-09-13', naam: 'Rotterdam', categorie: 'kwart', tijd: '2:32:00' },
+    { datum: '2019-06-08', naam: 'Brasseuse', categorie: 'onzin', tijd: '4:34:11' },
+  ] });
+  assert.equal(b.wedstrijden[2].id, 'w-overig-tri-20190608');
+  assert.equal(b.wedstrijden[2].categorie, 'overig-tri');
+  assert.equal(normalize({ wedstrijden: [{ naam: 'x', datum: 'ooit' }] }).wedstrijden[0].datum, '');
+
+  const l = normalize({ wedstrijden: [{ id: 'w-hele-20250913', datum: '2025-09-13', naam: 'Almere (eigen)', categorie: 'hele', tijd: '12:17:00', hidden: true }], verwijderdeIds: ['w-overig-tri-20190608'] });
+  const r = mergeDefaults(l, b);
+  assert.deepEqual(r.doc.wedstrijden.map((w) => w.id), ['w-hele-20250913', 'w-kwart-20260913']);
+  assert.equal(r.doc.wedstrijden[0].naam, 'Almere (eigen)');
+  assert.deepEqual(r.rapport.toegevoegd.map((t) => `${t.lijst}:${t.label}`), ['wedstrijden:Rotterdam 2026']);
+  assert.deepEqual(r.rapport.overgeslagen, ['w-overig-tri-20190608']);
+
+  assert.deepEqual(filter(r.doc).wedstrijden.map((w) => w.id), ['w-kwart-20260913']);
+  assert.deepEqual(wedstrijdenPerCategorie(r.doc).map((g) => [g.id, g.items.length]), [['kwart', 1]]);
+  assert.deepEqual(wedstrijdenPerCategorie(b).map((g) => g.id), ['hele', 'kwart', 'overig-tri']);
+  assert.equal(formatMaandKort('2025-09-13'), 'sep 2025');
+  assert.equal(formatMaandKort('2026-03'), 'mrt 2026');
 });
 
 test('formatDatum begrijpt jaar-maand', () => {

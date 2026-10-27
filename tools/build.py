@@ -320,6 +320,36 @@ def maand(iso):
     return f'<span class="when">{maanden[int(m)-1]} {y}</span>'
 
 
+WEDSTRIJD_CATEGORIEEN = [
+    ('hele', 'Hele triathlon'), ('halve', 'Halve triathlon'), ('kwart', 'Kwart triathlon'), ('achtste', 'Achtste triathlon'),
+    ('overig-tri', 'Overige triathlon-afstand'), ('marathon', 'Marathon'), ('ultra', 'Ultraloop'),
+]
+MAANDEN_KORT = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
+
+
+def maand_kort(iso):
+    parts = (iso or '').split('-')
+    if len(parts) < 2:
+        return e(iso or '')
+    return f'{MAANDEN_KORT[int(parts[1]) - 1]} {parts[0]}'
+
+
+def wedstrijden_html():
+    """Zelfde opbouw als renderWedstrijden() in site.js: per categorie een kop met aantal en een tabel."""
+    zichtbaar = [w for w in DATA.get('wedstrijden', []) if not w.get('hidden')]
+    out = ''
+    for cat, label in WEDSTRIJD_CATEGORIEEN:
+        items = [w for w in zichtbaar if w.get('categorie') == cat]
+        if not items:
+            continue
+        rows = ''.join(f'<tr><td class="wanneer">{maand_kort(w["datum"])}</td><td>{e(w["naam"])}</td><td class="tijd">{e(w["tijd"])}</td></tr>' for w in items)
+        out += (f'<div class="palmares-groep"><h3>{e(label)}<span class="aantal"> · {len(items)}×</span></h3>'
+                f'<table class="palmares"><caption class="visually-hidden">{e(label)}</caption>'
+                f'<thead><tr><th scope="col">Wanneer</th><th scope="col">Wedstrijd</th><th scope="col">Tijd</th></tr></thead>'
+                f'<tbody>{rows}</tbody></table></div>')
+    return out
+
+
 # ------------------------------------------------------------------ diensten
 def build_diensten():
     secs = ''
@@ -487,6 +517,7 @@ def build_race():
 def build_over():
     paras = ''.join(f'<p{" class=\"lead\"" if i == 0 else ""}>{e(v["tekst"])}</p>' for i, v in enumerate(DATA['verhaal']))
     results = ''.join(f'<div class="result"><span class="val">{e(r["waarde"])}</span><span class="lbl">{e(r["label"])}</span>{maand(r["datum"])}</div>' for r in DATA['resultaten'])
+    wedstrijden = wedstrijden_html()
     body = f'''    <div class="wrap page-head">
       <div class="kicker">Over Ryan</div>
       <h1 id="over-kop">{e(DATA['overKop'])}</h1>
@@ -508,7 +539,14 @@ def build_over():
         <p class="results-note" id="resultaten-noot">{e(DATA['resultatenNoot'])}</p>
       </div>
     </section>
-    <section class="section" aria-labelledby="club-title">
+    <section class="section" aria-labelledby="wed-title" id="wedstrijden"{'' if wedstrijden else ' hidden'}>
+      <div class="wrap">
+        <div class="section-head"><h2 id="wed-title">Wedstrijden</h2><p>Alles wat ik sinds 2016 aan de start stond en uitliep, per afstand.</p></div>
+        <div class="palmares-lijst" id="wedstrijden-lijst">{wedstrijden}</div>
+        <p class="results-note" id="wedstrijden-noot">Horlogetijden uit Garmin, daarom soms iets ruimer dan de officiële chiptijd.</p>
+      </div>
+    </section>
+    <section class="section section-alt" aria-labelledby="club-title">
       <div class="wrap prose">
         <h2 id="club-title">Clubs en achtergrond</h2>
         <p id="clubs-tekst">{e(DATA['clubsTekst'])}</p>

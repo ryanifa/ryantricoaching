@@ -9,7 +9,7 @@ import { el, $, clear, uid, toast } from './dom.js';
 import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js';
 import {
   normalize, bundledDoc, activeGistId, setLocalGistId, demoDoc, setDemoDoc, cacheDoc, storageGet, storageSet,
-  todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN,
+  todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN, WEDSTRIJD_CATEGORIEEN,
 } from './store.js';
 
 const SESSION_KEY = 'rtc.admin';
@@ -699,6 +699,8 @@ function renderResultatenTab(main) {
     field('Tekst', bound(doc, 'resultatenNoot', { textarea: true }), 'Bijvoorbeeld de bron van de cijfers en je clubs.'),
   ]));
 
+  renderWedstrijdenPanel(main);
+
   main.append(el('div', { class: 'list-head spaced' }, [el('h2', { text: 'Waarom Ryan (drie punten op de homepage)' })]));
   main.append(el('ul', { class: 'item-list boxed' }, doc.usps.map((u, i) => el('li', { class: 'item-row' }, [
     el('button', { type: 'button', class: 'item-main', onclick: () => editUsp(u) }, [
@@ -731,6 +733,73 @@ function editResultaat(r) {
       changed();
     },
     onDelete: r ? () => { state.doc.resultaten.splice(state.doc.resultaten.indexOf(r), 1); registreerVerwijderd(r); changed(); } : null,
+  });
+}
+
+/* ------------------------------------------------------- wedstrijden */
+
+const CATEGORIE_OPTIONS = WEDSTRIJD_CATEGORIEEN.map(([value, label]) => ({ value, label }));
+const categorieLabel = (id) => WEDSTRIJD_CATEGORIEEN.find(([c]) => c === id)?.[1] || id;
+
+/** De wedstrijdenlijst ("palmares") op "Over Ryan", gegroepeerd per categorie. */
+function renderWedstrijdenPanel(main) {
+  const doc = state.doc;
+  const zichtbaar = filter(doc).wedstrijden.length;
+  const panel = el('section', { class: 'panel' }, [
+    el('h3', { text: 'Wedstrijden' }),
+    el('div', { class: 'stats-strip' }, [
+      el('span', {}, [el('strong', { text: String(zichtbaar) }), ' zichtbaar op de site']),
+      el('span', {}, [el('strong', { text: String(doc.wedstrijden.length) }), ' in totaal']),
+    ]),
+    el('p', { class: 'muted small', text: 'De volledige lijst onder de resultaten op "Over Ryan", per afstand. Nieuwste bovenaan.' }),
+    el('div', { class: 'toolbar' }, [el('button', { type: 'button', class: 'btn btn-primary btn-sm', text: '+ Wedstrijd toevoegen', onclick: () => editWedstrijd(null) })]),
+  ]);
+  for (const [cat, label] of WEDSTRIJD_CATEGORIEEN) {
+    const items = doc.wedstrijden.filter((w) => w.categorie === cat);
+    if (!items.length) continue;
+    panel.append(
+      el('div', { class: 'list-head spaced' }, [el('h4', { text: `${label} · ${items.length}×` })]),
+      el('ul', { class: 'item-list boxed' }, items.map((w) => el('li', { class: `item-row${w.hidden ? ' is-hidden' : ''}` }, [
+        el('button', { type: 'button', class: 'item-main', onclick: () => editWedstrijd(w) }, [
+          el('span', { class: 'item-top' }, [el('strong', { text: w.naam || '(naamloos)' }), w.hidden ? badge('Verborgen') : null, el('span', { class: 'item-price', text: w.tijd })]),
+          el('small', { text: nlDate(w.datum) }),
+        ]),
+      ]))),
+    );
+  }
+  if (!doc.wedstrijden.length) panel.append(el('p', { class: 'empty', text: 'Nog geen wedstrijden.' }));
+  main.append(panel);
+}
+
+function editWedstrijd(w) {
+  openForm({
+    title: w ? 'Wedstrijd bewerken' : 'Nieuwe wedstrijd',
+    fields: [
+      { key: 'datum', label: 'Datum', type: 'date', value: w?.datum || todayIso() },
+      { key: 'naam', label: 'Naam', value: w?.naam, placeholder: 'bijv. Challenge Roth' },
+      { key: 'categorie', label: 'Categorie', type: 'select', value: w?.categorie || 'kwart', options: CATEGORIE_OPTIONS },
+      { key: 'tijd', label: 'Tijd', value: w?.tijd, placeholder: 'bijv. 11:22:10', help: 'Horlogetijd uit Garmin.' },
+      { key: 'hidden', label: 'Verbergen op de website', type: 'checkbox', value: w?.hidden },
+    ],
+    submitText: w ? 'Opslaan' : 'Toevoegen',
+    onSave: (v) => {
+      if (!v.naam) return 'Geef de wedstrijd een naam.';
+      if (!v.datum) return 'Vul een datum in.';
+      if (w) Object.assign(w, v);
+      else {
+        // Nieuwste eerst: invoegen vóór de eerste wedstrijd met een oudere datum.
+        const plek = state.doc.wedstrijden.findIndex((x) => x.datum < v.datum);
+        state.doc.wedstrijden.splice(plek < 0 ? state.doc.wedstrijden.length : plek, 0, { id: uid('w'), ...v });
+      }
+      changed();
+    },
+    onDelete: w ? async () => {
+      if (!(await confirmBox(`${w.naam} (${categorieLabel(w.categorie)}) verwijderen?`, { okText: 'Verwijderen', danger: true }))) return;
+      state.doc.wedstrijden.splice(state.doc.wedstrijden.indexOf(w), 1);
+      registreerVerwijderd(w);
+      changed();
+      toast('Wedstrijd verwijderd');
+    } : null,
   });
 }
 
@@ -960,7 +1029,7 @@ function renderSettingsTab(main) {
   ]));
 }
 
-const LIJST_LABEL = { startpunten: 'startpunt', diensten: 'dienst', afstanden: 'afstand', usps: 'punt "Waarom Ryan"', resultaten: 'resultaat', werkwijze: 'werkwijze-stap', verwachtingen: 'verwachting', verhaal: 'alinea', faq: 'FAQ', reviews: 'ervaring' };
+const LIJST_LABEL = { startpunten: 'startpunt', diensten: 'dienst', afstanden: 'afstand', usps: 'punt "Waarom Ryan"', resultaten: 'resultaat', wedstrijden: 'wedstrijd', werkwijze: 'werkwijze-stap', verwachtingen: 'verwachting', verhaal: 'alinea', faq: 'FAQ', reviews: 'ervaring' };
 const VELD_LABEL = { tagline: 'tagline', regio: 'regio', strava: 'Strava', instagram: 'Instagram', 'hero.kop': 'kop homepage', 'hero.sub': 'tekst homepage', 'hero.ctaPrimair': 'knop homepage', 'hero.ctaSecundair': 'tweede knop homepage', prijsIntro: 'prijstekst', resultatenNoot: 'noot bij resultaten' };
 
 async function samenvoegen() {

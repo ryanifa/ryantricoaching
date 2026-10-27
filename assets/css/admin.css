@@ -87,7 +87,7 @@ h1, h2, h3 { margin: 0; }
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .toolbar select { width: auto; min-height: 40px; padding: 8px 36px 8px 12px; font-size: 14px; }
 .list-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
-.list-head h2 { font-size: 15px; color: var(--muted); font-weight: 700; }
+.list-head h2, .list-head h4 { font-size: 15px; color: var(--muted); font-weight: 700; margin: 0; }
 .list-head.spaced { margin-top: 22px; }
 
 .icon-btn { flex: none; width: 38px; height: 38px; display: inline-grid; place-items: center; border-radius: 12px; border: 1px solid var(--border); background: var(--panel); cursor: pointer; font-size: 16px; font-weight: 700; color: var(--text); transition: background 0.15s, border-color 0.15s; }
