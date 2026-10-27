@@ -37,7 +37,7 @@ Navigatie: Diensten · Zwemanalyse · Race · Werkwijze · Over Ryan · Ervaring
 **Waar sta je?** drie kaarten: *Ik wil mijn eerste triathlon doen* · *Ik wil sneller en slimmer trainen* · *Ik wil beter leren zwemmen*. Elk linkt naar de passende dienst.
 
 **Diensten:**
-1. **Zwemanalyse** — onderwateropname (DJI), eventueel met eo SwimBETTER-sensor, analyse in een eigen viewer: frame voor frame, ingesproken feedback en tekeningen, terug te kijken op je telefoon. Resultaat: 3–5 concrete verbeterpunten + oefeningen.
+1. **Zwemanalyse** — onderwateropname, eventueel met eo SwimBETTER-sensor, analyse in een eigen viewer: frame voor frame, ingesproken feedback en tekeningen, terug te kijken op je telefoon. Resultaat: 3–5 concrete verbeterpunten + oefeningen.
 2. **Trainingsschema's fietsen & lopen** — schema op maat voor je doel en beschikbare tijd, in heldere taal, met tempo- en hartslaggrenzen die je op je Garmin zet. Wekelijks bijgestuurd op hoe het gaat.
 3. **Begeleiding naar je race** — van intake tot finish: 1/8, 1/4, 1/2 of hele triathlon. Wekelijks contact via WhatsApp, schema's voor alle drie de onderdelen, wisselzones en racedag.
 Prijzen: "Op aanvraag; ik werk met een klein aantal atleten tegelijk, dus we kijken samen wat past."
