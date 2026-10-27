@@ -522,12 +522,12 @@ def build_over():
     <section class="section" aria-labelledby="club-title">
       <div class="wrap prose">
         <h2 id="club-title">Clubs en achtergrond</h2>
-        <p>Ik train bij TVS'90, de triathlonvereniging van Rotterdam, en fiets bij CS010. Van huis uit ben ik docent informatica geweest en werk ik als projectleider. Die combinatie, lesgeven en dingen gestructureerd aanpakken, is precies wat ik in het coachen gebruik: uitleggen waarom je iets doet, en een plan dat klopt.</p>
+        <p>Ik ben lid van triathlonvereniging TVS'90 in Spijkenisse, waar ik meedoe aan de wedstrijden, en van wielervereniging CS010 in Rotterdam. Mijn achtergrond ligt in de ICT: programmeur, SAP-consultant, trainer en docent informatica, nu bezig met AI en procesoptimalisatie bij het Havenbedrijf Rotterdam. Die combinatie, uitleggen en dingen gestructureerd aanpakken, is precies wat ik in het coachen gebruik: je snapt waarom je iets doet, en het plan klopt.</p>
         <p>Ik ben geen fysiotherapeut en geen diëtist. Bij blessures of medische vragen verwijs ik je door naar iemand die daar wél voor heeft doorgeleerd.</p>
       </div>
     </section>
 {cta_band('Zullen we kennismaken?', 'Een half uur bellen of koffie in Rotterdam. Gratis, en je zit nergens aan vast.')}'''
-    write('over.html', head('over', f'Over Ryan Douglas – triathlon-coach uit Rotterdam | {NAME}', 'Docent informatica en projectleider die triathlon oppakte, zelf leerde zwemmen, fietsen en lopen met data en techniek, en nu een klein aantal atleten persoonlijk coacht.', {'@context': 'https://schema.org', **PERSON}, 'over.html') + body + footer())
+    write('over.html', head('over', f'Over Ryan Douglas – triathlon-coach uit Rotterdam | {NAME}', 'ICT\'er die triathlon oppakte, zelf leerde zwemmen, fietsen en lopen met data en techniek, en nu een klein aantal atleten persoonlijk coacht.', {'@context': 'https://schema.org', **PERSON}, 'over.html') + body + footer())
 
 
 # ------------------------------------------------------------------ werkwijze
