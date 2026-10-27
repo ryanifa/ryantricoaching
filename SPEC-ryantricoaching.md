@@ -73,7 +73,7 @@ Beheer-tabs: Ervaringen · Diensten & afstanden · Resultaten · Verhaal & FAQ �
 ## 7. Techniek
 - Vanilla HTML/CSS/ES-modules, geen build. GitHub Pages vanaf `main`, `CNAME` = ryantricoaching.nl, `.nojekyll`.
 - Hergebruik uit djroggy (kopiëren en aanpassen): `gist.js`, `dom.js`, `store.js` (nieuw model), `admin.js`, `media.js`, `site.js` (version-check, nav, rendering), `base.css`-structuur, `tests/merge.test.js`, `manifest.webmanifest`, `sitemap.xml`, `robots.txt`, `404.html`, QR in `qr/`.
-- `VERSION` = `2026.10.25-1`; in `<meta name="version">`, footer en `?v=` cache-buster.
+- `VERSION` in `<meta name="version">`, footer en `?v=` cache-buster. De site vergelijkt bij laden en bij terugkeren naar het tabblad de meta-versie met `VERSION` op de server; bij een nieuwere versie verschijnt een balk met de melding en een knop "Vernieuwen", pas na de klik wordt ververst.
 - Toegankelijkheid: skip-link, focus-states, contrast ≥ 4.5:1, `prefers-reduced-motion`.
 - SEO: title/description per pagina, OG-image (`assets/og.png`), JSON-LD `Person` + `Service`/`LocalBusiness` (Rotterdam).
 - Geen cookies; GoatCounter optioneel.

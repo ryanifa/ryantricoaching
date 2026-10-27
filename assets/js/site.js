@@ -370,8 +370,8 @@ function setupAnalytics() {
 
 /**
  * Vergelijkt de versie in de pagina (meta name=version) met VERSION op de server,
- * zonder cache. Nieuwer? Dan één keer automatisch verversen; op de contactpagina
- * (formulier) alleen een balk met een knop, zodat niets verloren gaat.
+ * zonder cache. Nieuwer? Dan een balk met de melding en een knop; pas na de klik
+ * wordt de pagina ververst (met cache-buster), nooit ongevraagd.
  */
 function checkVersion() {
   const current = document.querySelector('meta[name="version"]')?.content;
@@ -381,17 +381,14 @@ function checkVersion() {
     .then((v) => {
       v = v.trim();
       if (!v || v === current || $('#update-bar')) return;
-      const key = `rtc.reloaded.${v}`;
-      let already = false;
-      try { already = sessionStorage.getItem(key) === '1'; } catch { /* privémodus */ }
-      if (page !== 'contact' && !already) {
-        try { sessionStorage.setItem(key, '1'); } catch { /* privémodus */ }
-        location.reload();
-        return;
-      }
+      const reload = () => {
+        const url = new URL(location.href);
+        url.searchParams.set('v', v);
+        location.replace(url.toString());
+      };
       const bar = el('div', { id: 'update-bar', class: 'update-bar', role: 'status' }, [
         `Er is een nieuwe versie van de site (v${v}). `,
-        el('button', { type: 'button', class: 'btn btn-primary btn-sm', text: 'Vernieuwen', onclick: () => location.reload() }),
+        el('button', { type: 'button', class: 'btn btn-primary btn-sm', text: 'Vernieuwen', onclick: reload }),
       ]);
       document.body.prepend(bar);
     })
