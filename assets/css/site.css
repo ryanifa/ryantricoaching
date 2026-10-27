@@ -192,7 +192,7 @@
 @media (min-width: 1000px) { .analyse-stappen { grid-template-columns: repeat(4, 1fr); } }
 .stills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .still { aspect-ratio: 4 / 3; border-radius: 12px; background: linear-gradient(180deg, #B6E6CC, #1E8F5A); position: relative; overflow: hidden; }
-.still svg { width: 100%; height: 100%; }
+.still svg, .still img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .still span { position: absolute; left: 8px; bottom: 8px; font-size: 0.75rem; font-weight: 600; color: #fff; background: rgba(15, 90, 60, 0.75); padding: 3px 8px; border-radius: 999px; }
 
 /* ------------------------------------------------------------- reviews */

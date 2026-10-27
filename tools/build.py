@@ -359,8 +359,8 @@ def build_zwemanalyse():
     ]
     st = ''.join(f'<div class="card"><div class="n" aria-hidden="true">{i+1}</div><h3>{e(t)}</h3><p>{e(x)}</p></div>' for i, (t, x) in enumerate(stappen))
     stills = ''
-    for lbl, path in [('Hand in het water', 'M20 60c15-10 30-14 45 0M40 40l12-14'), ('Lichaamsligging', 'M15 55h70M30 55c10-10 30-10 40 0'), ('Beenslag', 'M20 50c20 0 20 10 40 10s20-10 40-10')]:
-        stills += f'<div class="still"><svg viewBox="0 0 100 75" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M0 68c15-8 35-8 50 0s35 8 50 0" opacity=".5"/><path d="{path}" stroke="#D7263D"/></svg><span>{lbl}</span></div>'
+    for fn, lbl, cap in [('insteek', 'Insteek', 'Waar en hoe de hand het water in gaat'), ('ligging', 'Lichaamsligging', 'Hoe hoog ligt het lichaam, waar wijst het hoofd'), ('beenslag', 'Beenslag', 'Komt de beenslag uit de heup of uit de knie')]:
+        stills += f'<div class="still"><img src="assets/img/analyse/{fn}.jpg" alt="{e(cap)}" width="800" height="600" loading="lazy" decoding="async"><span>{e(lbl)}</span></div>'
     wk = ''.join(f'<li>{e(x)}</li>' for x in d['watJeKrijgt'])
     vw = ''.join(f'<li>{e(x)}</li>' for x in d['voorWie'])
     body = page_head('Zwemanalyse', 'Zie eindelijk wat je onder water doet', 'Zwemmen is voor de meeste triatleten het lastigste onderdeel, omdat je jezelf niet kunt zien. Met onderwaterbeelden en ingesproken feedback wel.') + f'''
@@ -385,8 +385,9 @@ def build_zwemanalyse():
           </svg>
           <span class="cap">Ingesproken feedback, frame voor frame</span>
         </div>
-        <div class="stills" style="margin-top:12px">{stills}</div>
         </div>
+        <div class="stills" style="margin-top:12px">{stills}</div>
+        <p class="muted small" style="margin-top:10px">Onderwaterbeelden uit een echte analyse, met toestemming van de zwemmer.</p>
       </div>
       <aside class="card aside-card">
         <h2>Wat je krijgt</h2>
