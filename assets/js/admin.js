@@ -4,13 +4,13 @@
    djroggy: concept in localStorage, Publiceren met conflictcheck,
    back-up, demo zonder sleutel, beheerlink voor op de telefoon. */
 
-import { CONFIG } from './config.js?v=2026.10.28-3';
-import { el, $, clear, uid, toast } from './dom.js?v=2026.10.28-3';
-import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.10.28-3';
+import { CONFIG } from './config.js?v=2026.10.28-4';
+import { el, $, clear, uid, toast } from './dom.js?v=2026.10.28-4';
+import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.10.28-4';
 import {
   normalize, bundledDoc, activeGistId, setLocalGistId, demoDoc, setDemoDoc, cacheDoc, storageGet, storageSet,
   todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN, WEDSTRIJD_CATEGORIEEN,
-} from './store.js?v=2026.10.28-3';
+} from './store.js?v=2026.10.28-4';
 
 const SESSION_KEY = 'rtc.admin';
 const DRAFT_KEY = 'rtc.draft';
@@ -573,6 +573,10 @@ function renderDienstenTab(main) {
   main.append(el('section', { class: 'panel' }, [
     el('h3', { text: 'Voorbeeldvideo (zwemanalysepagina)' }),
     field('Directe link naar de mp4', bound(doc, 'voorbeeldVideoUrl'), 'Wordt als video in de pagina afgespeeld. Let op de vervaldatum (e=) van de link.'),
+  ]));
+  main.append(el('section', { class: 'panel' }, [
+    el('h3', { text: 'Zwemachtergrond (zwemanalysepagina)' }),
+    field('Tekst', bound(doc, 'zwemAchtergrond', { textarea: true }), 'Je opleiding en trainerservaring; staat boven "Camera, sensor en viewer".'),
   ]));
 
   main.append(el('div', { class: 'list-head spaced' }, [el('h2', { text: 'Afstanden (racepagina)' })]));

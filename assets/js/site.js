@@ -3,9 +3,9 @@
    Gist of data/site.json binnen is. Alle renderers werken op filter(doc) uit
    store.js, nooit op het ruwe document. Alles via textContent (dom.js). */
 
-import { CONFIG } from './config.js?v=2026.10.28-3';
-import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.10.28-3';
-import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie } from './store.js?v=2026.10.28-3';
+import { CONFIG } from './config.js?v=2026.10.28-4';
+import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.10.28-4';
+import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie } from './store.js?v=2026.10.28-4';
 
 const page = document.body.dataset.page || 'home';
 
@@ -228,6 +228,8 @@ function renderDiensten(doc) {
     ])));
     renderContactLinks(doc);
   }
+  const za = $('#zwem-achtergrond');
+  if (za && doc.zwemAchtergrond) za.textContent = doc.zwemAchtergrond;
   const vb = $('#voorbeeld-video');
   if (vb && doc.voorbeeldVideoUrl && vb.getAttribute('src') !== doc.voorbeeldVideoUrl) { vb.setAttribute('src', doc.voorbeeldVideoUrl); vb.load(); }
   const intro = $('#prijs-intro');

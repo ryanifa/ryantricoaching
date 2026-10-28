@@ -462,6 +462,7 @@ def build_zwemanalyse():
     <section class="section section-alt" aria-labelledby="tech-title">
       <div class="wrap prose">
         <h2 id="tech-title">Camera, sensor en viewer</h2>
+        <p id="zwem-achtergrond">{e(DATA['zwemAchtergrond'])}</p>
         <p>Ik film onder water met een camera die scherp blijft, ook in een druk bad. De sensormeting hierboven is een optie bovenop de video; voor de meeste beginners is de video alleen al genoeg om de eerste grote stappen te zetten.</p>
         <p>De beelden bekijk je in een viewer waarin je kunt vertragen, stilzetten en frame voor frame door je slag stappen, met mijn tekeningen en ingesproken feedback op het beeld. Jij krijgt een link die je op je telefoon opent. Geen app installeren, geen account nodig.</p>
         <p>Een term die je vaak hoort is CSS, je kritische zwemsnelheid: het tempo dat je ongeveer een kwartier tot twintig minuten kunt volhouden. Die bepalen we met een korte test, en daar stemmen we je zwemtrainingen op af. Ik leg het je gewoon uit, je hoeft er niets van te weten om te beginnen.</p>
