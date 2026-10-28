@@ -10,7 +10,7 @@ Geen server, geen build-stap, geen dependencies: statische bestanden op GitHub
 Pages, en de gegevens staan als één JSON-bestand in een **Gist** (de "database").
 De opzet is overgenomen van `ryanifa/djroggy`.
 
-Specificatie: **`SPEC-ryantricoaching.md`** (versie 1.0).
+Specificatie: **`SPEC-ryantricoaching.md`** (versie 1.1). Werkafspraken voor wie aan de code werkt: `CLAUDE.md`.
 
 ## Hoe het werkt
 
@@ -21,8 +21,9 @@ Specificatie: **`SPEC-ryantricoaching.md`** (versie 1.0).
 | Lezen (bezoekers) | Zonder sleutel, rechtstreeks van de GitHub-API |
 | Schrijven (beheer) | Met een GitHub-sleutel die alleen Gists mag |
 | Terugval | `data/site.json` in de repo, plus een cache in de browser |
-| Contactformulier | per e-mail via Formspree (id in `assets/js/config.js`), daarna `bedankt.html`; alternatief: hetzelfde bericht als WhatsApp-bericht naar `info.whatsapp` |
-| Statistieken | GoatCounter, alleen actief als de code in `config.js` staat; geen cookies |
+| Contactformulier | Formspree (`formspreeId: 'mnppdepj'` in `assets/js/config.js`); berichten komen per e-mail binnen, bezoeker landt op `bedankt.html`. Het id staat ook in de HTML gebakken, dus het werkt zonder JavaScript. Verplicht: naam, e-mail, akkoord-vinkje; honeypot tegen spam. Alternatief: dezelfde tekst als WhatsApp-bericht naar `info.whatsapp` |
+| Statistieken | GoatCounter (`goatcounter: 'ryantricoaching'`), dashboard https://ryantricoaching.goatcounter.com. Cookieloos, dus geen banner; telt niet op localhost |
+| Doorverwijzing | `ryantricoaching.com` → `.nl` via de repo `ryanifa/ryantricoaching-com` (alleen `CNAME`, `index.html`, `404.html`) |
 
 De GitHub-API staat zonder sleutel 60 verzoeken per uur per IP-adres toe. Is dat
 op, dan valt de site terug op de CDN-kopie van de Gist
@@ -39,7 +40,10 @@ Is GitHub even niet bereikbaar, dan blijft de site gewoon werken.
 |---|---|
 | Website | https://ryantricoaching.nl/ |
 | Beheer | https://ryantricoaching.nl/beheer.html |
-| Gegevens | Gist: nog aanmaken (zie hieronder); `gistId` in `assets/js/config.js` is nu leeg, dus bezoekers zien `data/site.json` |
+| Gegevens | Gist `1122dca5b56fd7e3917480003f536035` (eigenaar `ryanifa`); zie `config.js` |
+| Formulier | Formspree-dashboard: https://formspree.io (formulier `mnppdepj`) |
+| Statistieken | https://ryantricoaching.goatcounter.com |
+| DNS | Hostnet: vier A-records en AAAA naar GitHub Pages, `www` CNAME naar `ryanifa.github.io`; zelfde voor `.com` |
 
 ## Eenmalig instellen
 
@@ -53,10 +57,16 @@ Is GitHub even niet bereikbaar, dan blijft de site gewoon werken.
    *Instellingen* laat de exacte regels zien) en push. Vanaf dan zien álle
    bezoekers de live gegevens.
 5. **Formulier:** maak op [formspree.io](https://formspree.io) een formulier aan
-   en zet het id in `config.js` (`formspreeId`).
+   en zet het id in `config.js` (`formspreeId`). Gedaan (28-10-2026). Tip: in
+   Formspree → Settings → *Restrict to domain* `ryantricoaching.nl` zetten.
+5b. **Statistieken:** maak op [goatcounter.com](https://www.goatcounter.com) een
+   account aan en zet de code in `config.js` (`goatcounter`). Gedaan (28-10-2026).
 6. **Telefoonnummer:** vul in beheer → Info het WhatsApp-nummer in en publiceer.
    Tot die tijd wijzen alle WhatsApp-knoppen naar het formulier.
-7. **Foto:** zet `assets/img/ryan.jpg` in de repo (zie `assets/img/README.md`).
+7. **Foto's:** `assets/img/ryan.jpg` (hero, homepage), `assets/img/ryan-loop.jpg`
+   (verhaalblok en Over Ryan), `assets/img/analyse/*.jpg` (onderwaterbeelden),
+   `assets/img/sensor/*.jpg` (sensorschermen), `assets/video/analyse-poster.jpg`
+   (startbeeld van de voorbeeldvideo). Allemaal gedaan.
 8. **DNS:** `ryantricoaching.nl` als CNAME/A-records naar GitHub Pages; `CNAME`
    in de repo staat al klaar.
 
@@ -70,11 +80,18 @@ met een gele balk erboven.
   *uitgelicht* (homepage) en *verbergen*. Een ervaring zonder tekst blijft
   automatisch verborgen (de placeholder voor Karl staat al klaar).
 - **Diensten** — de drie diensten (tekst, voor wie, wat je krijgt, prijstekst),
-  de prijstekst, de afstanden op de racepagina en de drie "Waar sta je?"-kaarten.
-- **Resultaten** — de feiten uit Garmin/Strava (label, tijd, maand), de noot
-  eronder en de drie punten "Waarom Ryan".
-- **Verhaal & FAQ** — alinea's van "Mijn verhaal", de werkwijze-stappen, "Wat ik
-  van jou verwacht" en de veelgestelde vragen.
+  de prijstekst, de afstanden op de racepagina, de drie "Waar sta je?"-kaarten,
+  de **voorbeeldvideo** (directe mp4-link uit de eoSwimming-Worker; let op de
+  vervaldatum `e=` in de link, nu 27-10-2027) en de **zwemachtergrond**
+  (KNZB-opleiding, De Waterman) op de zwemanalysepagina.
+- **Resultaten** — het cijferblok (label, waarde, maand), de noot eronder, de
+  drie punten "Waarom Ryan" en de **wedstrijdenlijst** (datum, naam, categorie
+  hele/halve/kwart/achtste/overig/marathon/ultra, tijd). Een naam met "(DNF)"
+  telt niet mee in het aantal per categorie. Bron: Garmin Connect, multisport
+  en hardlopen ≥ 42 km.
+- **Verhaal & FAQ** — kop en intro van "Over Ryan", alinea's van "Mijn
+  verhaal", "Clubs en achtergrond" (plus de zin "wat ik niet ben"), de
+  werkwijze-stappen, "Wat ik van jou verwacht" en de veelgestelde vragen.
 - **Info** — kop en knoppen op de homepage, mededeling, naam, tagline, regio,
   WhatsApp, telefoon, e-mail, KvK, Instagram, Strava, Facebook, LinkedIn.
 - **Instellingen** — Gist-gegevens, back-up downloaden/terugzetten, nieuwe
@@ -113,13 +130,14 @@ assets/js/media.js      foto's verkleinen en uploaden (nog niet gebruikt in v1)
 assets/js/dom.js        kleine DOM-hulpjes (alles via textContent)
 assets/css/             base.css (tokens, gedeeld), site.css, admin.css
 assets/logo/            logo.svg, logo-mark.svg, logo-wit.svg, icon.svg, PNG-iconen, alt-1/alt-2 (alternatieve beeldmerken)
-assets/img/ryan.jpg     foto van Ryan (zelf toevoegen)
+assets/img/             ryan.jpg (hero), ryan-loop.jpg, analyse/ (stills), sensor/ (schermen)
+assets/video/           analyse-poster.jpg; de video zelf staat in de eoSwimming-Worker (link in beheer)
 assets/og.png           Open Graph-afbeelding (1200×630)
 qr/                     QR-code naar de site
 tools/build.py          genereert de HTML-pagina's uit data/site.json
 tools/logos.py          genereert de logo-SVG's en PNG-iconen
 tools/og.py             genereert assets/og.png
-tests/merge.test.js     tests voor normalize/filter/mergeDefaults
+tests/merge.test.js     tests voor normalize/filter/mergeDefaults/wedstrijden
 ```
 
 Lokaal bekijken: `python3 -m http.server` in de repo en open
@@ -133,12 +151,13 @@ gegenereerd met `python3 tools/build.py`; verander je vaste teksten in
 
 ## Logo
 
-Beeldmerk: drie golvende lijnen die overgaan in een wiel en een loopstreep
-("zwem-fiets-loop in één lijn"). `logo.svg` is de standaard (horizontaal, met
-woordmerk), `logo-mark.svg` alleen het beeldmerk, `logo-wit.svg` voor donkere
-ondergrond, `icon.svg` het favicon op groene tegel. `alt-1.svg` (monogram TC)
-en `alt-2.svg` (ronde badge) zijn alternatieven om uit te kiezen. Alles komt
-uit `tools/logos.py`.
+Beeldmerk: fietswiel met hoge velg en vijf spaken (donkergroen), rode
+hardloopschoen en twee groene golven. Woordmerk "Ryan **TC**" (TC in rood)
+met "TRIATHLON COACHING" eronder; tagline "Sneller door slimmer te trainen".
+`logo.svg` is de standaard, `logo-mark.svg` alleen het beeldmerk, `logo-wit.svg`
+voor donkere ondergrond, `icon.svg` het favicon op groene tegel. `alt-1.svg` en
+`alt-2.svg` zijn afgevallen varianten. Alles komt uit `tools/logos.py`; de
+OG-afbeelding (met tagline) uit `tools/og.py`.
 
 ## Nieuwe standaardteksten na een update
 
@@ -164,6 +183,24 @@ staan in `doc.verwijderdeIds` en komen niet terug. Tests: `node tests/merge.test
 `VERSION` bevat het versienummer (datum + volgnummer). Het staat in de footer
 van elke pagina en achter de CSS/JS-links. Elke pagina controleert bij het
 openen, en bij terugkeren naar het tabblad, of de server een nieuwere versie
-heeft; zo ja, dan ververst de pagina één keer automatisch (op de contactpagina
-verschijnt een balk met een knop, zodat een ingevuld formulier niet verloren
-gaat). Bij elke push: nummer ophogen en `python3 tools/build.py` draaien.
+heeft; zo ja, dan verschijnt bovenaan een balk "Er is een nieuwe versie" met de
+knop **Vernieuwen**. Pas na die klik wordt herladen (met `?v=` als
+cache-buster), nooit ongevraagd.
+
+`tools/build.py` stempelt de versie ook in `beheer.html` en `404.html` én achter
+de interne `import`-regels in `assets/js/*.js`. Dat voorkomt dat na een deploy
+een nieuwe module met een oude, gecachte module wordt gecombineerd (GitHub Pages
+cachet 10 minuten). Bij elke push: nummer ophogen en `python3 tools/build.py`
+draaien.
+
+## Monitoring
+
+- **Bezoekers:** https://ryantricoaching.goatcounter.com (per dag, per pagina,
+  herkomst, apparaat). Script wordt alleen geladen als `goatcounter` in
+  `config.js` gevuld is en niet op localhost.
+- **Contactaanvragen:** e-mail van Formspree plus het overzicht op formspree.io
+  (gratis tot 50 inzendingen per maand).
+- **Site live?** GitHub → repo → Settings → Pages toont de laatste deploy;
+  `https://ryantricoaching.nl/VERSION` geeft de live versie.
+- **Gist bereikbaar?** Beheer → Instellingen toont "Laatst gepubliceerd"; de
+  site valt bij storing terug op cache en `data/site.json`.

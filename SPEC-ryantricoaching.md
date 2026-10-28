@@ -1,15 +1,15 @@
-# SPEC – Ryan Triathlon Coaching (ryantricoaching.nl) v1.0
+# SPEC – Ryan Triathlon Coaching (ryantricoaching.nl) v1.1
 
-Datum: 25-10-2026. Eigenaar: Ryan Douglas. Basisconcept: `ryanifa/djroggy` (statisch, Gist-data, beheer.html).
+Datum: 25-10-2026, bijgewerkt 28-10-2026 (stand na livegang). Eigenaar: Ryan Douglas. Basisconcept: `ryanifa/djroggy` (statisch, Gist-data, beheer.html).
 
 ## 1. Doel
 Promotiesite voor Ryans triathlon-coaching als hobbybusiness (3–4 atleten). Bezoeker moet in één scroll snappen: wie Ryan is, wat hij bereikt heeft, waarom hij dit doet, welke diensten er zijn, en hoe je contact legt. Geen webshop, geen login voor atleten. Prijzen "op aanvraag".
 
 ## 2. Doelgroep en toon
-Beginners en mensen met weinig triathlon-ervaring (eerste 1/8 of 1/4, soms 1/2 of hele). Toon: warm, direct, nuchter, je-vorm, Nederlands. Geen jargon zonder uitleg (zones, CSS, watts alleen met toelichting). Belofte: "Je hoeft het niet alleen uit te zoeken."
+Beginners en mensen met weinig triathlon-ervaring (eerste 1/8 of 1/4, soms 1/2 of hele). Toon: warm, direct, nuchter, je-vorm, Nederlands. Geen jargon zonder uitleg (zones, CSS, watts alleen met toelichting). Slogan/tagline: **"Sneller door slimmer te trainen."** Belofte: je hoeft het niet alleen uit te zoeken; Ryan heeft alle valkuilen zelf meegemaakt.
 
 ## 3. Merk
-- Naam: **Ryan Triathlon Coaching**. Domein: ryantricoaching.nl (CNAME).
+- Naam: **Ryan Triathlon Coaching**. Domein: ryantricoaching.nl (CNAME); ryantricoaching.com verwijst door via de repo `ryanifa/ryantricoaching-com`.
 - Look: licht en sportief. Witte/lichte achtergrond, sportief groen als accentkleur plus rood voor CTA's. Veel lucht, grote koppen, foto's van water/open water, fiets en lopen.
 - Tokens (base.css): `--bg #F6FAF7`, `--surface #FFFFFF`, `--text #0F1F2E`, `--muted #4F6475`, `--green #1E8F5A`, `--green-deep #0F5A3C`, `--red #D7263D`, `--mint #DDF3E8`, radius 16, wrap 1120. Light mode default; dark mode optioneel via `prefers-color-scheme` met dezelfde tokens omgezet.
 - Fonts: Sora 700 (koppen) + Inter 400/500/600 (tekst), Google Fonts met fallback `@font-face` size-adjust zoals djroggy.
@@ -20,12 +20,12 @@ Beginners en mensen met weinig triathlon-ervaring (eerste 1/8 of 1/4, soms 1/2 o
 |---|---|
 | `index.html` | Hero → "Waar sta je?" → diensten in het kort → waarom Ryan (3 USP's) → mijn verhaal (teaser) → resultaten → werkwijze (4 stappen) → ervaringen → CTA |
 | `diensten.html` | Drie diensten uitgebreid + "voor wie" + wat je krijgt + prijzen op aanvraag |
-| `zwemanalyse.html` | Landingspagina zwemanalyse: onderwatervideo (DJI), sensor, viewer met ingesproken feedback, voorbeeld-stills, stappen |
+| `zwemanalyse.html` | Landingspagina zwemanalyse: ingesloten voorbeeldvideo (directe mp4-link uit de eoSwimming-Worker, bewerkbaar in beheer), drie echte onderwaterstills (insteek, ligging, beenslag), stappen, sectie "Meten wat je niet kunt zien" met eo SwimBETTER-sensorbeelden en uitleg van de toegevoegde waarde, zwemachtergrond (KNZB-opleiding, trainer bij De Waterman), camera/viewer/CSS. Geen cameramerken, geen "zelf gebouwd": alleen wat de atleet ermee kan |
 | `race.html` | Begeleiding naar je race: 1/8, 1/4, 1/2, hele; wat verandert per afstand; voorbeeldtijdlijn 12–20 weken |
-| `over.html` | Mijn verhaal: docent informatica → triatleet → coach; de keuze om het zelf te doen; resultaten; TVS'90/CS010 |
+| `over.html` | Kop + intro (bewerkbaar), verhaal (3 alinea's), cijferblok, **wedstrijdenlijst** per categorie uit Garmin (met DNF-markering), "Clubs en achtergrond" (TVS'90 Spijkenisse, CS010 Rotterdam, KNZB, De Waterman, ICT-loopbaan) en disclaimer |
 | `werkwijze.html` | Intake → plan → wekelijks contact (WhatsApp) → bijsturen → race; wat ik van jou verwacht |
 | `ervaringen.html` | Testimonials (uit Gist), aanvankelijk 1–2 |
-| `contact.html` | WhatsApp-knop, Formspree-formulier (naam, e-mail, doel/afstand, huidige situatie, bericht), honeypot |
+| `contact.html` | WhatsApp-knop, Formspree-formulier `mnppdepj` (naam*, e-mail*, doel, huidige situatie, bericht, akkoord*), honeypot, `_next` → `bedankt.html`; id in config én in de HTML |
 | `privacy.html`, `voorwaarden.html`, `bedankt.html`, `404.html` | standaard |
 | `beheer.html` | beheer zoals djroggy |
 
@@ -42,17 +42,19 @@ Navigatie: Diensten · Zwemanalyse · Race · Werkwijze · Over Ryan · Ervaring
 3. **Begeleiding naar je race** — van intake tot finish: 1/8, 1/4, 1/2 of hele triathlon. Wekelijks contact via WhatsApp, schema's voor alle drie de onderdelen, wisselzones en racedag.
 Prijzen: "Op aanvraag; ik werk met een klein aantal atleten tegelijk, dus we kijken samen wat past."
 
-**Waarom Ryan (USP's):** (1) Ik doe het zelf: half (Luxemburg 70.3, 2026), marathon 3:30, open water 22 km-voorbereiding. (2) Technisch onderlegd: eigen analysetools, Garmin-data lezen, geen gokwerk. (3) Klein en persoonlijk: hooguit een handvol atleten tegelijk.
+**Waarom Ryan (USP's):** (1) Sneller door slimmer te trainen: op mijn 57e nog steeds sneller, data/techniek/rust, palmares. (2) Alle valkuilen zelf meegemaakt: te hard, te veel, te vroeg; op de harde manier geleerd, dat wil ik jou besparen. (3) Klein en persoonlijk: hooguit een handvol atleten tegelijk.
 
-**Resultaten (feiten, uit Garmin/Strava):** Marathon Rotterdam 3:30:08 (apr 2026) · Halve marathon 1:33 · 10 km 43:47 · 5 km 19:31 · Ironman 70.3 Luxemburg (juli 2026) · Kwart triathlon Zwarte Plasje (sep 2026) · Lid TVS'90 (triathlon) en CS010 (wielrennen). Geboren 1969 → "en dat op mijn 57e".
+**Resultaten (bron: Garmin Connect, multisport + hardlopen ≥ 42 km, sinds 2016; Garmin is de waarheid):** cijferblok 4× hele · 4× halve · 15× kwart · 11× marathons · snelste marathon 3:30:08 (apr 2026) · buiten zwemmen hele jaar · 10+ SwimRuns (eigen opgave). Wedstrijdenlijst: 43 items (hele: Almere 2019/2023/2025, Ironman Maastricht 2022, Challenge Roth 2025 DNF; halve: Almere 2017/2018, Ironman 70.3 Luxemburg 2022, Vichy 2023; 15 kwart; 3 achtste; 4 overige; 11 marathons incl. New York 2016; ultra Brasseuse 2019). Horlogetijden. Geboren 1969 → "en dat op mijn 57e". Volgend jaar: Ironman Kopenhagen.
 
-**Mijn verhaal (over.html, 3 alinea's):** docent informatica en projectleider die triathlon oppakte; leerde door data en techniek steeds beter zwemmen, fietsen en lopen; bouwde eigen tools (trainingsapp, zwemanalyse-viewer); coachte de eerste clubgenoot naar zijn 10 km-doel; voerde gesprekken met andere coaches om samen iets op te zetten, en besloot in oktober 2026 het gewoon zelf te doen: onafhankelijk, klein, persoonlijk.
+**Mijn verhaal (over.html, 3 alinea's):** kop "Programmeur, ondernemer, docent, triatleet. En nu coach."; alinea 1 de ICT-loopbaan (programmeur, SAP-consultant, eigen bedrijf, trainingen, docent informatica, nu AI en procesoptimalisatie bij HbR); alinea 2 triathlon: oppakte; leerde door data en techniek steeds beter zwemmen, fietsen en lopen; bouwde eigen tools (trainingsapp, zwemanalyse-viewer); coachte de eerste clubgenoot naar zijn 10 km-doel; voerde gesprekken met andere coaches om samen iets op te zetten, en besloot in oktober 2026 het gewoon zelf te doen: onafhankelijk, klein, persoonlijk.
 
 **Werkwijze (4 stappen):** Kennismaking (gratis, 30 min, bellen of koffie) → Intake & data (Strava/Garmin, blessures, agenda) → Plan & eerste 4 weken → Wekelijks contact en bijsturen tot de race.
 
-**Ervaringen:** placeholder voor 1 testimonial (Karl, met toestemming, nog in te vullen).
+**Ervaringen:** Karl staat klaar in beheer (verborgen tot toestemming).
 
-**Contact:** WhatsApp-deeplink (nummer in Gist `info.whatsapp`), Formspree (`CONFIG.formspreeId`), e-mail, Instagram/Strava-links. Geen adres.
+**Foto's:** hero = finishfoto Ironman (`assets/img/ryan.jpg`); verhaalblok en Over Ryan = loopfoto langs het water (`ryan-loop.jpg`); kwart-finishfoto Zwarte Plasje beschikbaar als reserve.
+
+**Contact:** WhatsApp-deeplink (nummer in Gist `info.whatsapp`), Formspree (`CONFIG.formspreeId` = `mnppdepj`), e-mail, Instagram (@ironryandouglas)/Strava-links. Geen adres.
 
 ## 6. Datamodel (`data/site.json`, `normalize()` in store.js)
 ```
@@ -63,7 +65,7 @@ Prijzen: "Op aanvraag; ik werk met een klein aantal atleten tegelijk, dus we kij
   usps[{id, titel, tekst}],
   resultaten[{id, label, waarde, datum}],
   werkwijze[{id, stap, titel, tekst}],
-  verhaal[{id, tekst}], clubsTekst, clubsDisclaimer, overKop, overIntro, voorbeeldVideoUrl,
+  verhaal[{id, tekst}], clubsTekst, clubsDisclaimer, overKop, overIntro, voorbeeldVideoUrl, zwemAchtergrond,
   wedstrijden[{id, datum, naam, categorie (hele|halve|kwart|achtste|overig-tri|marathon|ultra), tijd, hidden}],
   reviews[{id, naam, tekst, datum, afstand, hidden, uitgelicht}],
   faq[{id, vraag, antwoord}],
@@ -74,10 +76,12 @@ Beheer-tabs: Ervaringen · Diensten & afstanden · Resultaten · Verhaal & FAQ �
 ## 7. Techniek
 - Vanilla HTML/CSS/ES-modules, geen build. GitHub Pages vanaf `main`, `CNAME` = ryantricoaching.nl, `.nojekyll`.
 - Hergebruik uit djroggy (kopiëren en aanpassen): `gist.js`, `dom.js`, `store.js` (nieuw model), `admin.js`, `media.js`, `site.js` (version-check, nav, rendering), `base.css`-structuur, `tests/merge.test.js`, `manifest.webmanifest`, `sitemap.xml`, `robots.txt`, `404.html`, QR in `qr/`.
-- `VERSION` in `<meta name="version">`, footer en `?v=` cache-buster. De site vergelijkt bij laden en bij terugkeren naar het tabblad de meta-versie met `VERSION` op de server; bij een nieuwere versie verschijnt een balk met de melding en een knop "Vernieuwen", pas na de klik wordt ververst.
+- `VERSION` in `<meta name="version">`, footer en `?v=` cache-buster. De site vergelijkt bij laden en bij terugkeren naar het tabblad de meta-versie met `VERSION` op de server; bij een nieuwere versie verschijnt een balk met de melding en een knop "Vernieuwen", pas na de klik wordt ververst. `tools/build.py` stempelt de versie ook in `beheer.html`, `404.html` en achter de interne JS-imports (tegen gemengde cache na een deploy).
+- Formulier: Formspree, id in `config.js` en in de HTML gebakken; werkt zonder JS. Statistieken: GoatCounter (code in `config.js`, cookieloos, niet op localhost); dashboard ryantricoaching.goatcounter.com.
+- Hosting: GitHub Pages vanaf `main` (geen Actions). DNS bij Hostnet: A 185.199.108–111.153, AAAA 2606:50c0:8000::153, `www` CNAME ryanifa.github.io; zelfde voor `.com`.
 - Toegankelijkheid: skip-link, focus-states, contrast ≥ 4.5:1, `prefers-reduced-motion`.
 - SEO: title/description per pagina, OG-image (`assets/og.png`), JSON-LD `Person` + `Service`/`LocalBusiness` (Rotterdam).
-- Geen cookies; GoatCounter optioneel.
+- Geen cookies (GoatCounter is cookieloos).
 
 ## 8. Acceptatiecriteria
 1. Alle pagina's renderen zonder console-errors, ook zonder Gist (fallback `data/site.json`).
@@ -86,6 +90,15 @@ Beheer-tabs: Ervaringen · Diensten & afstanden · Resultaten · Verhaal & FAQ �
 4. Beheer: inloggen met token, concept bewerken, publiceren, back-up.
 5. Logo-SVG's leesbaar op 24 px (favicon) en 200 px.
 6. Teksten in je-vorm, geen Engelse UI-termen behalve WhatsApp/Strava/Garmin.
+7. Contactformulier levert een e-mail op en landt op `bedankt.html` (getest 28-10-2026).
+8. Bezoek verschijnt in GoatCounter binnen een minuut.
+9. Na een push: versiebalk op open tabbladen, herladen alleen na klik, geen module-fouten in de console.
 
 ## 9. Later (niet in v1)
-Atleet-pagina's met schema en zwemanalyses onder eigen login; koppeling eoSwimming-viewer op `media.ryantricoaching.nl`; betaalflow.
+Atleet-pagina's met schema en zwemanalyses onder eigen login; koppeling eoSwimming-viewer op `media.ryantricoaching.nl`; betaalflow; annotaties van eoSwimming achter de Worker (AVG) vóór betaalde klanten; vervaldatum voorbeeldvideo-link (27-10-2027) bewaken.
+
+## 10. Historie
+- 25-10: spec, bouw, logo (groen/rood, wiel met vijf spaken), live op GitHub Pages, DNS .nl en .com.
+- 26-10: vier hele's en buitenzwemmen in teksten, videoslot zwemanalyse.
+- 27-10: sensorsectie, echte stills, voorbeeldvideo via Worker, Gist gekoppeld, update-balk met knop, Over-kop/intro en clubs bewerkbaar, wedstrijdenlijst uit Garmin, import-stempeling.
+- 28-10: slogan en valkuilen-USP, Formspree, KNZB/De Waterman, Ironman-foto's, GoatCounter, Facebook- en Instagram-aankondiging.
