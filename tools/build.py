@@ -533,7 +533,7 @@ def build_over():
     <section class="section" aria-labelledby="story-title" style="padding-top:8px">
       <div class="wrap story">
         <figure class="photo" style="margin:0">
-          <img src="assets/img/ryan.jpg" alt="Foto van Ryan" width="720" height="720" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
+          <img src="assets/img/ryan-loop.jpg" alt="Foto van Ryan" width="720" height="720" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
         </figure>
         <div id="verhaal">{paras}</div>
       </div>
