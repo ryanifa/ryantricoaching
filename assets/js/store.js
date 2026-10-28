@@ -3,8 +3,8 @@
    dan de live Gist, met een lokale cache en het meegeleverde data/site.json als
    terugval zodat de pagina altijd iets toont, ook offline. */
 
-import { CONFIG } from './config.js?v=2026.10.28-2';
-import { readGist, readGistRaw } from './gist.js?v=2026.10.28-2';
+import { CONFIG } from './config.js?v=2026.10.28-3';
+import { readGist, readGistRaw } from './gist.js?v=2026.10.28-3';
 
 const KEYS = {
   cache: 'rtc.cache',

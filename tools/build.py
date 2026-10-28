@@ -284,6 +284,7 @@ def build_index():
         </div>
         <div class="results" id="resultaten">{results}</div>
         <p class="results-note" id="resultaten-noot">{e(DATA['resultatenNoot'])}</p>
+        <p style="margin-top:12px"><a href="over.html#wedstrijden">Alle wedstrijden en tijden sinds 2016</a></p>
       </div>
     </section>
 
