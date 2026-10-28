@@ -2,7 +2,7 @@
   "version": 1,
   "info": {
     "name": "Ryan Triathlon Coaching",
-    "tagline": "Je hoeft het niet alleen uit te zoeken.",
+    "tagline": "Sneller door slimmer te trainen.",
     "kop": "",
     "intro": "",
     "announcement": "",
@@ -154,13 +154,13 @@
   "usps": [
     {
       "id": "usp-zelf",
-      "titel": "Ik doe het zelf",
-      "tekst": "Vier hele triathlons (Almere en Ironman Maastricht), vier halve, vijftien kwart en elf marathons, en ik zwem het hele jaar door buiten. En op mijn 57e word ik nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Dat is precies wat ik jou leer."
+      "titel": "Sneller door slimmer te trainen",
+      "tekst": "Op mijn 57e word ik nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door te kijken wat werkt: data lezen, techniek verbeteren, op tijd rusten. Vier hele triathlons, vier halve, vijftien kwart en elf marathons later weet ik wat werkt, en wat niet."
     },
     {
       "id": "usp-techniek",
-      "titel": "Technisch onderlegd",
-      "tekst": "Ik bouw mijn eigen analysetools, lees je Garmin-data en kijk naar wat er echt gebeurt. Geen gokwerk, geen schema's uit een boekje."
+      "titel": "Alle valkuilen zelf meegemaakt",
+      "tekst": "Te hard, te veel, te vroeg. Blessures, een zwemslag die jaren niet opschoot, een marathon die in rook opging. Ik heb het allemaal op de harde manier geleerd. Dat wil ik jou besparen: je maakt je eigen fouten, maar niet de mijne."
     },
     {
       "id": "usp-klein",
@@ -665,5 +665,5 @@
   "clubsDisclaimer": "Ik ben geen fysiotherapeut en geen diëtist. Bij blessures of medische vragen verwijs ik je door naar iemand die daar wél voor heeft doorgeleerd.",
   "voorbeeldVideoUrl": "https://eoswim-media.swimanalyses.workers.dev/swim/2026/ryantricoaching.mp4?e=1824657688&t=2cpn3Ofu4dR2P0x6qJDKo19eFyQ4_0j2ssrLYbXhXy8",
   "overKop": "Programmeur, ondernemer, docent, triatleet. En nu coach.",
-  "overIntro": "Ik weet hoe het is om alles zelf uit te moeten zoeken. En ik heb ontdekt dat ik niets leuker vind dan iemand anders verder helpen: zien dat het kwartje valt, dat de slag beter wordt, dat de finish dichterbij komt. Zelf word ik op mijn 57e nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Die drive om elke keer een beetje beter te worden, daar gaat dit over."
+  "overIntro": "Ik weet hoe het is om alles zelf uit te moeten zoeken. Ik ben in alle valkuilen van het trainen gestapt en heb het op de harde manier geleerd. Dat wil ik anderen besparen. En ik heb ontdekt dat ik niets leuker vind dan iemand verder helpen: zien dat het kwartje valt, dat de slag beter wordt, dat de finish dichterbij komt. Zelf word ik op mijn 57e nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Die drive om elke keer een beetje beter te worden, daar gaat dit over."
 }
