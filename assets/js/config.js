@@ -12,5 +12,5 @@ export const CONFIG = {
   // Placeholder: het formulier werkt pas als hier het echte id staat.
   formspreeId: 'mnppdepj',
   // GoatCounter-code (cookieloos, https://www.goatcounter.com). Leeg = geen statistieken.
-  goatcounter: '',
+  goatcounter: 'ryantricoaching',
 };
