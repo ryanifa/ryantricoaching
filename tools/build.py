@@ -266,7 +266,7 @@ def build_index():
     <section class="section" aria-labelledby="story-title">
       <div class="wrap story">
         <figure class="photo" style="margin:0">
-          <img src="assets/img/ryan.jpg" alt="Foto van Ryan" width="720" height="720" loading="lazy" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
+          <img src="assets/img/ryan-loop.jpg" alt="Foto van Ryan" width="720" height="720" loading="lazy" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
         </figure>
         <div>
           <h2 id="story-title">{e(DATA['overKop'])}</h2>
