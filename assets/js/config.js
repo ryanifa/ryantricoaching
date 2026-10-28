@@ -10,7 +10,7 @@ export const CONFIG = {
   gistFile: 'site.json',
   // Formspree-formulier-id voor contact.html (https://formspree.io → New form).
   // Placeholder: het formulier werkt pas als hier het echte id staat.
-  formspreeId: 'FORMSPREE_ID',
+  formspreeId: 'mnppdepj',
   // GoatCounter-code (cookieloos, https://www.goatcounter.com). Leeg = geen statistieken.
   goatcounter: '',
 };

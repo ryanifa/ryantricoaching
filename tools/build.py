@@ -9,6 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT / 'data' / 'site.json').read_text(encoding='utf-8'))
 VERSION = (ROOT / 'VERSION').read_text().strip()
+import re as _re
+_cfg = (ROOT / 'assets' / 'js' / 'config.js').read_text(encoding='utf-8')
+FORMSPREE = (_re.search(r"formspreeId:\s*'([^']*)'", _cfg) or [None, 'FORMSPREE_ID'])[1]
 SITE = 'https://ryantricoaching.nl'
 NAME = DATA['info']['name']
 FONTS = 'https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500;600&display=swap'
@@ -605,7 +608,7 @@ def build_contact():
     opts = ''.join(f'<option>{e(x)}</option>' for x in doelen)
     body = page_head('Contact', 'Plan een kennismaking', 'Een half uur bellen of koffie in Rotterdam, gratis. Vertel kort wat je wilt, dan neem ik contact met je op.') + f'''
     <div class="wrap contact-grid" style="padding-bottom:72px">
-      <form class="card" id="formulier" action="https://formspree.io/f/FORMSPREE_ID" method="POST" novalidate>
+      <form class="card" id="formulier" action="https://formspree.io/f/{FORMSPREE}" method="POST" novalidate>
         <h2 style="font-size:1.4rem">Stuur een bericht</h2>
         <p class="form-note">Velden met * zijn verplicht. Ik reageer meestal binnen een dag.</p>
         <input type="hidden" name="_subject" value="Kennismaking via ryantricoaching.nl">
