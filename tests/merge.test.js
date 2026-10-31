@@ -1,6 +1,6 @@
 /* Tests voor normalize(), filter() en mergeDefaults() in assets/js/store.js. Draaien met: node tests/merge.test.js */
 import assert from 'node:assert/strict';
-import { normalize, mergeDefaults, filter, featuredReviews, slug, formatDatum, formatMaandKort, wedstrijdenPerCategorie } from '../assets/js/store.js';
+import { normalize, mergeDefaults, filter, featuredReviews, slug, formatDatum, formatMaandKort, wedstrijdenPerCategorie, faqVoor, plaatsenLijst, socialLinks } from '../assets/js/store.js';
 
 const bundled = normalize({
   info: { tagline: 'Standaard tagline', regio: 'Rotterdam', strava: 'https://www.strava.com/athletes/1' },
@@ -135,6 +135,51 @@ test('filter verbergt lege en verborgen ervaringen en verborgen diensten', () =>
   assert.deepEqual(f.diensten.map((x) => x.id), ['a']);
   assert.deepEqual(f.reviews.map((x) => x.id), ['r2', 'r3']);
   assert.deepEqual(featuredReviews(d).map((x) => x.id), ['r3']);
+});
+
+test('FAQ per pagina: normalize, faqVoor en samenvoegen', () => {
+  const b = normalize({ faq: [
+    { id: 'a', vraag: 'Algemeen?', antwoord: 'Ja.' },
+    { id: 'h', vraag: 'Home?', antwoord: 'Ja.', pagina: 'home' },
+    { id: 'z', vraag: 'Zwem?', antwoord: 'Ja.', pagina: 'zwemanalyse' },
+    { id: 'x', vraag: 'Onbekend?', antwoord: 'Ja.', pagina: 'bestaat-niet' },
+    { id: 'leeg', vraag: 'Zonder antwoord?', antwoord: '', pagina: 'home' },
+  ] });
+  assert.deepEqual(b.faq.map((f) => f.pagina), ['algemeen', 'home', 'zwemanalyse', 'algemeen', 'home']);
+  assert.deepEqual(faqVoor(b, 'home').map((f) => f.id), ['h']);
+  assert.deepEqual(faqVoor(b).map((f) => f.id), ['a', 'x']);
+  const l = normalize({ faq: [{ id: 'a', vraag: 'Eigen algemeen?', antwoord: 'Eigen.' }] });
+  const r = mergeDefaults(l, b);
+  assert.deepEqual(r.doc.faq.map((f) => `${f.id}:${f.pagina}`), ['a:algemeen', 'h:home', 'z:zwemanalyse', 'x:algemeen', 'leeg:home']);
+  assert.equal(r.doc.faq[0].vraag, 'Eigen algemeen?');
+});
+
+test('nieuw veld op een bestaande dienst (intro) wordt alleen leeg ingevuld; prijs is een getal of null', () => {
+  const b = normalize({ diensten: [{ id: 'zwemanalyse', titel: 'Zwemanalyse', intro: 'Zwemanalyse in Rotterdam.', prijs: '95' }, { id: 'race', titel: 'Race', intro: 'Race-intro.' }] });
+  assert.equal(b.diensten[0].prijs, 95);
+  assert.equal(b.diensten[1].prijs, null);
+  assert.equal(normalize({ diensten: [{ id: 'a', titel: 'A', prijs: 'geen' }] }).diensten[0].prijs, null);
+  assert.equal(normalize({ diensten: [{ id: 'a', titel: 'A', prijs: 0 }] }).diensten[0].prijs, null);
+  const l = normalize({ diensten: [{ id: 'zwemanalyse', titel: 'Eigen', intro: '' }, { id: 'race', titel: 'Race', intro: 'Eigen intro.' }] });
+  const { doc: d, rapport: r } = mergeDefaults(l, b);
+  assert.equal(d.diensten[0].intro, 'Zwemanalyse in Rotterdam.');
+  assert.equal(d.diensten[0].titel, 'Eigen');
+  assert.equal(d.diensten[0].prijs, null, 'prijs wordt niet uit bundled overgenomen');
+  assert.equal(d.diensten[1].intro, 'Eigen intro.');
+  assert.deepEqual(r.ingevuld, ['diensten.zwemanalyse.intro']);
+  assert.equal(mergeDefaults(d, b).rapport.ingevuld.length, 0);
+});
+
+test('info: plaatsen, clubpagina\'s en sociale links', () => {
+  const d = normalize({ info: { plaatsen: 'Rotterdam, Schiedam ;Vlaardingen,, ', tvs90: 'https://tvs90.nl/', instagram: '@ryan', strava: '123', linkedin: 'in/ryan-d' } });
+  assert.deepEqual(plaatsenLijst(d.info), ['Rotterdam', 'Schiedam', 'Vlaardingen']);
+  assert.equal(d.info.tvs90, 'https://tvs90.nl/');
+  assert.equal(d.info.cs010, '');
+  assert.deepEqual(socialLinks(d.info).map((l) => l.href), ['https://www.instagram.com/ryan/', 'https://www.strava.com/athletes/123', 'https://www.linkedin.com/in/ryan-d/']);
+  const b = normalize({ info: { plaatsen: 'Rotterdam', zwemLocatie: 'x' }, zwemLocatie: 'zwembad X' });
+  const r = mergeDefaults(normalize({}), b);
+  assert.equal(r.doc.info.plaatsen, 'Rotterdam');
+  assert.equal(r.doc.zwemLocatie, 'zwembad X');
 });
 
 test('wedstrijden: normalize, samenvoegen en verborgen filteren', () => {

@@ -14,7 +14,10 @@
     "strava": "",
     "facebook": "",
     "linkedin": "",
+    "tvs90": "",
+    "cs010": "",
     "regio": "Rotterdam en omgeving",
+    "plaatsen": "Rotterdam, Schiedam, Vlaardingen, Spijkenisse, Capelle aan den IJssel, Barendrecht, Ridderkerk, Hellevoetsluis, Delft, Wateringen",
     "media": {
       "gistId": "",
       "owner": ""
@@ -22,7 +25,7 @@
   },
   "hero": {
     "kop": "Je eerste triathlon? Ik help je er komen.",
-    "sub": "Persoonlijke coaching voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Door iemand die zelf vier hele triathlons finishte en het hele jaar buiten zwemt. Vanuit Rotterdam, met jou op de plek waar je traint.",
+    "sub": "Persoonlijke coaching door een triathlon-coach in Rotterdam, voor beginners en gevorderden: zwemanalyse, trainingsschema's en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Door iemand die zelf vier hele triathlons finishte en het hele jaar buiten zwemt. Met jou op de plek waar je traint.",
     "ctaPrimair": "Plan een kennismaking",
     "ctaSecundair": "Bekijk de diensten"
   },
@@ -54,6 +57,7 @@
       "id": "zwemanalyse",
       "titel": "Zwemanalyse",
       "kort": "Onderwateropname van je slag, analyse met ingesproken feedback die je frame voor frame terugkijkt. Je krijgt 3 tot 5 concrete verbeterpunten plus oefeningen.",
+      "intro": "Zwemanalyse in Rotterdam: onderwatervideo van je slag en, als je wilt, een krachtmeting per hand.",
       "lang": "Ik film je slag onder water, eventueel aangevuld met een eo SwimBETTER-sensor die de kracht van je armslag meet. De beelden bekijk ik frame voor frame en ik spreek mijn feedback in en teken ik aan wat ik zie: waar je hand het water in gaat, hoe je lichaam ligt, wat je benen doen. Die analyse kijk je gewoon terug op je telefoon, zo vaak je wilt. Je gaat naar huis met 3 tot 5 concrete verbeterpunten en oefeningen om er zelf mee aan de slag te gaan.",
       "voorWie": [
         "Je zwemt wel, maar het voelt zwaar of je komt niet vooruit",
@@ -68,12 +72,14 @@
         "Terug te kijken op je telefoon, zo vaak je wilt"
       ],
       "prijsTekst": "Op aanvraag",
+      "prijs": null,
       "icon": "zwem"
     },
     {
       "id": "schemas",
       "titel": "Trainingsschema's fietsen en lopen",
       "kort": "Een schema op maat voor je doel en je beschikbare tijd, in heldere taal, met tempo- en hartslaggrenzen die je zo op je Garmin zet.",
+      "intro": "Een triathlon trainingsschema voor beginners en gevorderden, voor fietsen en lopen, dat meebeweegt met jouw week.",
       "lang": "Geen schema uit een boekje, maar een plan dat past bij jouw doel, jouw agenda en jouw lijf. Ik schrijf het in gewone taal: wat je doet, waarom je het doet en hoe hard. De tempo- en hartslaggrenzen krijg je zo dat je ze direct op je Garmin of ander sporthorloge kunt zetten. Elke week kijk ik naar hoe het ging (via Strava of Garmin) en stuur ik bij: te zwaar, te licht, ziek geweest, drukke week op het werk. Het schema beweegt mee met jou, niet andersom.",
       "voorWie": [
         "Je wilt gericht toewerken naar een loop- of fietsdoel",
@@ -88,12 +94,14 @@
         "Een duidelijke opbouw richting je race of testmoment"
       ],
       "prijsTekst": "Op aanvraag",
+      "prijs": null,
       "icon": "fiets"
     },
     {
       "id": "race",
       "titel": "Begeleiding naar je race",
       "kort": "Van intake tot finish: 1/8, 1/4, 1/2 of hele triathlon. Wekelijks contact via WhatsApp, schema's voor alle drie de onderdelen, wisselzones en racedag.",
+      "intro": "Begeleiding naar je eerste triathlon, of naar een langere afstand: van intake tot finish, met wekelijks contact.",
       "lang": "Dit is het complete traject. We beginnen met een intake: waar sta je, wat is je doel, hoeveel tijd heb je, wat speelt er met blessures. Daarna krijg je een plan voor zwemmen, fietsen en lopen, inclusief de dingen die niemand je vertelt: hoe werkt een wisselzone, wat eet je onderweg, hoe plan je de laatste twee weken. We hebben wekelijks contact via WhatsApp en ik stuur het schema bij op hoe het gaat. Op racedag weet je precies wat je moet doen.",
       "voorWie": [
         "Je wilt je eerste 1/8 of 1/4 triathlon doen en wilt geen gokwerk",
@@ -109,6 +117,7 @@
         "Zwemanalyse inbegrepen"
       ],
       "prijsTekst": "Op aanvraag",
+      "prijs": null,
       "icon": "loop"
     }
   ],
@@ -626,37 +635,146 @@
     {
       "id": "faq-niveau",
       "vraag": "Moet ik al kunnen zwemmen, fietsen en lopen?",
-      "antwoord": "Een beetje. Als je 200 meter kunt zwemmen zonder te stoppen, een uur kunt fietsen en een half uur kunt hardlopen, kun je in 12 weken klaar zijn voor een 1/8 triathlon. Kun je dat nog niet, dan beginnen we daar."
+      "antwoord": "Een beetje. Als je 200 meter kunt zwemmen zonder te stoppen, een uur kunt fietsen en een half uur kunt hardlopen, kun je in 12 weken klaar zijn voor een 1/8 triathlon. Kun je dat nog niet, dan beginnen we daar.",
+      "pagina": "algemeen"
     },
     {
       "id": "faq-tijd",
       "vraag": "Hoeveel tijd kost het per week?",
-      "antwoord": "Voor een 1/8 of 1/4 triathlon reken je op 4 tot 7 uur per week. Voor een halve 7 tot 10 uur. Ik maak het schema rond jouw agenda, niet andersom."
+      "antwoord": "Voor een 1/8 of 1/4 triathlon reken je op 4 tot 7 uur per week. Voor een halve 7 tot 10 uur. Ik maak het schema rond jouw agenda, niet andersom.",
+      "pagina": "algemeen"
     },
     {
       "id": "faq-materiaal",
       "vraag": "Wat heb ik nodig aan materiaal?",
-      "antwoord": "Een fiets die veilig rijdt, hardloopschoenen die bij je passen en een zwembril. Een sporthorloge (Garmin of vergelijkbaar) is handig omdat ik dan je data kan zien, maar niet verplicht. Een wetsuit huur je voor je eerste race gewoon."
+      "antwoord": "Een fiets die veilig rijdt, hardloopschoenen die bij je passen en een zwembril. Een sporthorloge (Garmin of vergelijkbaar) is handig omdat ik dan je data kan zien, maar niet verplicht. Een wetsuit huur je voor je eerste race gewoon.",
+      "pagina": "algemeen"
     },
     {
       "id": "faq-zones",
       "vraag": "Wat zijn 'zones' eigenlijk?",
-      "antwoord": "Zones zijn tempo- of hartslaggebieden: hoe hard je traint. De meeste training doe je rustig (zone 1 en 2), een klein deel pittig. Ik leg je uit wat jouw zones zijn en hoe je ze op je horloge zet, zodat je weet wanneer rustig echt rustig is."
+      "antwoord": "Zones zijn tempo- of hartslaggebieden: hoe hard je traint. De meeste training doe je rustig (zone 1 en 2), een klein deel pittig. Ik leg je uit wat jouw zones zijn en hoe je ze op je horloge zet, zodat je weet wanneer rustig echt rustig is.",
+      "pagina": "algemeen"
     },
     {
       "id": "faq-waar",
       "vraag": "Waar trainen we?",
-      "antwoord": "Je traint zelf, op je eigen plek en in je eigen tijd. De zwemanalyse en de kennismaking doen we in Rotterdam of omgeving. Verder gaat het contact via WhatsApp en kijk ik mee via Strava of Garmin."
+      "antwoord": "Je traint zelf, op je eigen plek en in je eigen tijd. De zwemanalyse en de kennismaking doen we in Rotterdam of omgeving. Verder gaat het contact via WhatsApp en kijk ik mee via Strava of Garmin.",
+      "pagina": "algemeen"
     },
     {
       "id": "faq-prijs",
       "vraag": "Wat kost het?",
-      "antwoord": "Op aanvraag. Ik werk met een klein aantal atleten tegelijk, dus we kijken samen wat past bij wat je nodig hebt. De kennismaking is gratis."
+      "antwoord": "Op aanvraag. Ik werk met een klein aantal atleten tegelijk, dus we kijken samen wat past bij wat je nodig hebt. De kennismaking is gratis.",
+      "pagina": "algemeen"
     },
     {
       "id": "faq-blessure",
       "vraag": "Ik heb een blessure (gehad). Kan ik dan meedoen?",
-      "antwoord": "Ja, daar houden we rekening mee in het plan. Ik ben geen fysiotherapeut, dus bij twijfel verwijs ik je eerst door. Maar een plan dat rekening houdt met je geschiedenis voorkomt vaak dat het terugkomt."
+      "antwoord": "Ja, daar houden we rekening mee in het plan. Ik ben geen fysiotherapeut, dus bij twijfel verwijs ik je eerst door. Maar een plan dat rekening houdt met je geschiedenis voorkomt vaak dat het terugkomt.",
+      "pagina": "algemeen"
+    },
+    {
+      "id": "faq-home-beginner",
+      "vraag": "Kan ik als beginner een triathlon doen?",
+      "antwoord": "Ja. Als je 200 meter kunt zwemmen, een uur kunt fietsen en een half uur kunt hardlopen, ben je in 12 weken klaar voor een 1/8 triathlon. De meeste atleten die ik begeleid beginnen precies daar.",
+      "pagina": "home"
+    },
+    {
+      "id": "faq-home-waar",
+      "vraag": "Waar in Rotterdam train je?",
+      "antwoord": "Je traint zelf, op je eigen plek en in je eigen tijd. De kennismaking en de zwemanalyse doen we in Rotterdam of omgeving, in een zwembad of in open water. Het wekelijkse contact gaat via WhatsApp.",
+      "pagina": "home"
+    },
+    {
+      "id": "faq-home-zwemanalyse",
+      "vraag": "Wat is een zwemanalyse?",
+      "antwoord": "Een onderwateropname van je zwemslag, die ik frame voor frame bekijk en inspreek. Je ziet precies wat je doet en krijgt 3 tot 5 verbeterpunten met oefeningen, terug te kijken op je telefoon.",
+      "pagina": "home"
+    },
+    {
+      "id": "faq-home-online",
+      "vraag": "Coach je ook buiten Rotterdam?",
+      "antwoord": "Ja. Trainingsschema's en begeleiding naar je race werken online, via WhatsApp en Strava of Garmin, dus ook vanuit de rest van Nederland. Alleen de zwemanalyse en de kennismaking zijn op locatie.",
+      "pagina": "home"
+    },
+    {
+      "id": "faq-home-prijs",
+      "vraag": "Wat kost triathlon-coaching?",
+      "antwoord": "Op aanvraag. Ik werk met een handvol atleten tegelijk, dus we kijken samen wat past bij wat je nodig hebt. De kennismaking van een half uur is gratis.",
+      "pagina": "home"
+    },
+    {
+      "id": "faq-diensten-verschil",
+      "vraag": "Wat is het verschil tussen een trainingsschema en begeleiding naar je race?",
+      "antwoord": "Een trainingsschema is voor fietsen en lopen: een plan op maat dat ik wekelijks bijstuur. Begeleiding naar je race is het complete traject voor alle drie de onderdelen, inclusief zwemanalyse, wisselzones, voeding en een raceplan. Wil je één doel in één sport verbeteren, kies dan het schema; ga je voor een triathlon, dan is begeleiding de logische keuze.",
+      "pagina": "diensten"
+    },
+    {
+      "id": "faq-diensten-intake",
+      "vraag": "Hoe werkt een intake?",
+      "antwoord": "We beginnen met een gratis kennismaking van een half uur: bellen of koffie in Rotterdam. Klikt het, dan volgt de intake. Ik kijk naar je Strava- of Garmin-data, je blessuregeschiedenis en je agenda, en we bepalen samen je doel. Daarna krijg je een plan voor de eerste vier weken.",
+      "pagina": "diensten"
+    },
+    {
+      "id": "faq-diensten-afstanden",
+      "vraag": "Welke afstanden begeleid je?",
+      "antwoord": "Van je eerste 1/8 triathlon tot een hele. Voor beginners zijn de 1/8 en de 1/4 het mooiste startpunt. Een hele triathlon doe ik alleen met atleten die al een halve hebben gedaan. Ook loop- of fietsdoelen zonder triathlon, zoals een 10 km of een marathon, kunnen.",
+      "pagina": "diensten"
+    },
+    {
+      "id": "faq-diensten-online",
+      "vraag": "Is de coaching online of op locatie?",
+      "antwoord": "Allebei. Trainen doe je zelf, op je eigen plek en in je eigen tijd; het contact loopt via WhatsApp en ik kijk mee via Strava of Garmin. Dat werkt dus ook als je niet in Rotterdam woont. De zwemanalyse en de kennismaking doen we wel op locatie, in Rotterdam of omgeving.",
+      "pagina": "diensten"
+    },
+    {
+      "id": "faq-diensten-opzeggen",
+      "vraag": "Kan ik tussentijds opzeggen?",
+      "antwoord": "Ja. Een begeleidingstraject zeg je maandelijks op; de lopende maand maken we af. Een losse zwemanalyse boek je per keer. De afspraken staan in de voorwaarden.",
+      "pagina": "diensten"
+    },
+    {
+      "id": "faq-diensten-prijs",
+      "vraag": "Wat kost het?",
+      "antwoord": "Prijzen zijn op aanvraag: ik werk met een klein aantal atleten tegelijk en we kijken samen wat past bij wat je nodig hebt. De kennismaking is altijd gratis.",
+      "pagina": "diensten"
+    },
+    {
+      "id": "faq-zwem-duur",
+      "vraag": "Hoe lang duurt een zwemanalyse?",
+      "antwoord": "Reken op ongeveer een uur in het water: inzwemmen, een paar banen filmen en eventueel de sensormeting. De analyse maak ik daarna. Binnen een paar dagen krijg je de link naar je beelden met mijn feedback, en die bespreken we samen.",
+      "pagina": "zwemanalyse"
+    },
+    {
+      "id": "faq-zwem-meenemen",
+      "vraag": "Wat moet ik meenemen?",
+      "antwoord": "Je gewone zwemspullen: badkleding, zwembril en eventueel een badmuts. Camera en sensor neem ik mee. Zwem je je race in een wetsuit? Neem hem dan mee, dan filmen we ook een paar banen daarin.",
+      "pagina": "zwemanalyse"
+    },
+    {
+      "id": "faq-zwem-waar",
+      "vraag": "Waar is de zwemanalyse?",
+      "antwoord": "In Rotterdam of omgeving: in een zwembad dat voor jou goed bereikbaar is, of in open water als het seizoen dat toelaat. We spreken samen een plek en tijd af. Woon je verder weg? Vraag gerust, vaak is er iets te regelen.",
+      "pagina": "zwemanalyse"
+    },
+    {
+      "id": "faq-zwem-niveau",
+      "vraag": "Voor welk niveau is een zwemanalyse?",
+      "antwoord": "Voor iedereen die een baan kan overzwemmen. Juist beginners halen er veel uit: de grootste winst zit in de basis, zoals je ligging en waar je hand het water in gaat. Gevorderde zwemmers gebruiken de sensormeting om de laatste procenten te vinden.",
+      "pagina": "zwemanalyse"
+    },
+    {
+      "id": "faq-zwem-resultaat",
+      "vraag": "Wat krijg ik mee naar huis?",
+      "antwoord": "Een link naar je eigen analyse: de onderwaterbeelden met mijn ingesproken feedback en tekeningen, op je telefoon zo vaak terug te kijken als je wilt. Plus 3 tot 5 concrete verbeterpunten en oefeningen om er zelf mee aan de slag te gaan.",
+      "pagina": "zwemanalyse"
+    },
+    {
+      "id": "faq-zwem-schema",
+      "vraag": "Kan ik de zwemanalyse combineren met een trainingsschema?",
+      "antwoord": "Ja. Bij begeleiding naar je race zit de zwemanalyse standaard in. Heb je al een schema, dan verwerk ik de oefeningen uit de analyse in je zwemtrainingen. Na vier weken kunnen we opnieuw meten om te zien wat het heeft opgeleverd.",
+      "pagina": "zwemanalyse"
     }
   ],
   "media": [],
@@ -666,5 +784,6 @@
   "voorbeeldVideoUrl": "https://eoswim-media.swimanalyses.workers.dev/swim/2026/ryantricoaching.mp4?e=1824657688&t=2cpn3Ofu4dR2P0x6qJDKo19eFyQ4_0j2ssrLYbXhXy8",
   "overKop": "Programmeur, ondernemer, docent, triatleet. En nu coach.",
   "overIntro": "Ik weet hoe het is om alles zelf uit te moeten zoeken. Ik ben in alle valkuilen van het trainen gestapt en heb het op de harde manier geleerd. Dat wil ik anderen besparen. En ik heb ontdekt dat ik niets leuker vind dan iemand verder helpen: zien dat het kwartje valt, dat de slag beter wordt, dat de finish dichterbij komt. Zelf word ik op mijn 57e nog steeds sneller, op alle drie de onderdelen. Niet door harder te trainen, maar door slimmer te kijken naar wat werkt. Die drive om elke keer een beetje beter te worden, daar gaat dit over.",
-  "zwemAchtergrond": "Zwemmen is niet alleen iets wat ik zelf doe: ik volgde in 2026 de zwemtrainersopleiding van de KNZB en geef samen met andere trainers zwemtraining bij zwemclub De Waterman in Wateringen. Wat ik daar op de kant zie, gebruik ik in elke analyse."
+  "zwemAchtergrond": "Zwemmen is niet alleen iets wat ik zelf doe: ik volgde in 2026 de zwemtrainersopleiding van de KNZB en geef samen met andere trainers zwemtraining bij zwemclub De Waterman in Wateringen. Wat ik daar op de kant zie, gebruik ik in elke analyse.",
+  "zwemLocatie": "een zwembad in Rotterdam of omgeving, of in open water"
 }

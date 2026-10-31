@@ -139,6 +139,8 @@ h1, h2, h3 { margin: 0; }
 .pair.triple { grid-template-columns: 130px 1fr auto auto; }
 .pair.stacked { grid-template-columns: 1fr auto auto; }
 .pair.stacked textarea { grid-column: 1 / -1; min-height: 64px; }
+.pair.faq-row { grid-template-columns: 1fr auto auto auto; }
+.pair.faq-row select { width: auto; max-width: 220px; }
 @media (max-width: 560px) {
   .pair, .pair.triple { grid-template-columns: 1fr auto auto; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
   .pair > :first-child { grid-column: 1 / -1; }

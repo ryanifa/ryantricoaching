@@ -79,7 +79,8 @@ met een gele balk erboven.
 - **Ervaringen** — ervaringen van atleten: naam, afstand, datum, tekst,
   *uitgelicht* (homepage) en *verbergen*. Een ervaring zonder tekst blijft
   automatisch verborgen (de placeholder voor Karl staat al klaar).
-- **Diensten** — de drie diensten (tekst, voor wie, wat je krijgt, prijstekst),
+- **Diensten** — de drie diensten (tekst, intro-zin met zoekterm, voor wie, wat je
+  krijgt, prijstekst, prijs in euro alleen voor Google),
   de prijstekst, de afstanden op de racepagina, de drie "Waar sta je?"-kaarten,
   de **voorbeeldvideo** (directe mp4-link uit de eoSwimming-Worker; let op de
   vervaldatum `e=` in de link, nu 27-10-2027) en de **zwemachtergrond**
@@ -90,10 +91,14 @@ met een gele balk erboven.
   telt niet mee in het aantal per categorie. Bron: Garmin Connect, multisport
   en hardlopen ≥ 42 km.
 - **Verhaal & FAQ** — kop en intro van "Over Ryan", alinea's van "Mijn
-  verhaal", "Clubs en achtergrond" (plus de zin "wat ik niet ben"), de
-  werkwijze-stappen, "Wat ik van jou verwacht" en de veelgestelde vragen.
+  verhaal", clubs en achtergrond, de werkwijze-stappen, "Wat ik van jou
+  verwacht" en de veelgestelde vragen. Elke vraag heeft een pagina: de gedeelde
+  lijst (werkwijze, race, contact), homepage, diensten of zwemanalyse; de
+  laatste drie gaan ook als FAQ-schema naar Google.
 - **Info** — kop en knoppen op de homepage, mededeling, naam, tagline, regio,
-  WhatsApp, telefoon, e-mail, KvK, Instagram, Strava, Facebook, LinkedIn.
+  plaatsen (homepage "Voor wie uit Rotterdam en omgeving"), WhatsApp, telefoon,
+  e-mail, KvK, Instagram, Strava, Facebook, LinkedIn en de clubpagina's van
+  TVS'90 en CS010 (alleen voor Google, als `sameAs`).
 - **Instellingen** — Gist-gegevens, back-up downloaden/terugzetten, nieuwe
   standaardteksten samenvoegen, terug naar standaarddata, beheerlink voor op de
   telefoon.
@@ -125,6 +130,7 @@ assets/js/config.js     Gist-id, Gist-eigenaar, Formspree-id, GoatCounter-code
 assets/js/gist.js       de enige plek die met de GitHub-API praat
 assets/js/store.js      laden, cache, demo en het datamodel (normalize, filter, mergeDefaults)
 assets/js/site.js       de website opbouwen
+assets/js/schema.js     gestructureerde gegevens (schema.org JSON-LD) uit het databestand; build.py bakt dezelfde opbouw in de HTML
 assets/js/admin.js      het beheer
 assets/js/media.js      foto's verkleinen en uploaden (nog niet gebruikt in v1)
 assets/js/dom.js        kleine DOM-hulpjes (alles via textContent)

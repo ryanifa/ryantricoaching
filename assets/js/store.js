@@ -3,8 +3,8 @@
    dan de live Gist, met een lokale cache en het meegeleverde data/site.json als
    terugval zodat de pagina altijd iets toont, ook offline. */
 
-import { CONFIG } from './config.js?v=2026.10.28-7';
-import { readGist, readGistRaw } from './gist.js?v=2026.10.28-7';
+import { CONFIG } from './config.js?v=2026.10.31-1';
+import { readGist, readGistRaw } from './gist.js?v=2026.10.31-1';
 
 const KEYS = {
   cache: 'rtc.cache',
@@ -109,6 +109,14 @@ export const WEDSTRIJD_CATEGORIEEN = [
   ['ultra', 'Ultraloop'],
 ];
 const CATEGORIE_IDS = WEDSTRIJD_CATEGORIEEN.map(([id]) => id);
+/** Op welke pagina een FAQ-vraag staat; 'algemeen' is de gedeelde lijst op werkwijze, race en contact. */
+export const FAQ_PAGINAS = [
+  ['algemeen', 'Werkwijze, race en contact'],
+  ['home', 'Homepage'],
+  ['diensten', 'Diensten'],
+  ['zwemanalyse', 'Zwemanalyse'],
+];
+const FAQ_PAGINA_IDS = FAQ_PAGINAS.map(([id]) => id);
 
 const str = (v, d = '') => (typeof v === 'string' ? v : v === null || v === undefined ? d : String(v));
 const num = (v, d = null) => {
@@ -160,7 +168,12 @@ export function normalize(input) {
       strava: str(info.strava),
       facebook: str(info.facebook),
       linkedin: str(info.linkedin),
+      // Clubpagina's (TVS'90, CS010): alleen voor de gestructureerde gegevens (sameAs).
+      tvs90: str(info.tvs90),
+      cs010: str(info.cs010),
       regio: str(info.regio, 'Rotterdam en omgeving'),
+      // Plaatsen waar atleten vandaan komen, komma-gescheiden; homepage "Voor wie uit Rotterdam en omgeving".
+      plaatsen: str(info.plaatsen),
       media: { gistId: str(info.media?.gistId), owner: str(info.media?.owner) },
     },
     hero: {
@@ -180,10 +193,13 @@ export function normalize(input) {
       id: str(d?.id) || slug(d?.titel, 'dienst-'),
       titel: str(d?.titel),
       kort: str(d?.kort),
+      intro: str(d?.intro),
       lang: str(d?.lang),
       voorWie: strList(d?.voorWie),
       watJeKrijgt: strList(d?.watJeKrijgt),
       prijsTekst: str(d?.prijsTekst, 'Op aanvraag') || 'Op aanvraag',
+      // Prijs in euro als getal, alleen voor de gestructureerde gegevens (Offer); null = geen prijs doorgeven.
+      prijs: (() => { const n = num(d?.prijs, null); return n !== null && n > 0 ? n : null; })(),
       icon: oneOf(str(d?.icon), DIENST_ICONS, 'loop'),
       hidden: !!d?.hidden,
     })),
@@ -224,6 +240,7 @@ export function normalize(input) {
     overKop: str(doc.overKop),
     overIntro: str(doc.overIntro),
     zwemAchtergrond: str(doc.zwemAchtergrond),
+    zwemLocatie: str(doc.zwemLocatie),
     werkwijze: arr(doc.werkwijze).map((s, i) => ({
       id: str(s?.id) || slug(s?.titel, 'ww-'),
       stap: int(s?.stap, i + 1) || i + 1,
@@ -244,7 +261,12 @@ export function normalize(input) {
       hidden: !!r?.hidden,
       uitgelicht: !!r?.uitgelicht,
     })),
-    faq: arr(doc.faq).map((f) => ({ id: str(f?.id) || slug(f?.vraag, 'faq-'), vraag: str(f?.vraag), antwoord: str(f?.antwoord) })),
+    faq: arr(doc.faq).map((f) => ({
+      id: str(f?.id) || slug(f?.vraag, 'faq-'),
+      vraag: str(f?.vraag),
+      antwoord: str(f?.antwoord),
+      pagina: oneOf(str(f?.pagina), FAQ_PAGINA_IDS, 'algemeen'),
+    })),
     media: arr(doc.media).map((m) => ({ id: ensureId(m?.id, 'm'), url: str(m?.url), alt: str(m?.alt) })),
     // Ids die de beheerder bewust verwijderde: mergeDefaults zet ze niet terug.
     verwijderdeIds: [...new Set(strList(doc.verwijderdeIds))],
@@ -273,7 +295,9 @@ const leeg = (v) => v === '' || v === null || v === undefined;
 /** Info-velden die mergeDefaults nooit invult: contactgegevens die in de standaarddata placeholders zijn. */
 export const MERGE_SKIP_FIELDS = ['phone', 'whatsapp', 'email', 'kvk'];
 /** Losse tekstvelden op het document die net als info-velden alleen leeg worden ingevuld. */
-const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsDisclaimer', 'voorbeeldVideoUrl', 'overKop', 'overIntro', 'zwemAchtergrond'];
+const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsDisclaimer', 'voorbeeldVideoUrl', 'overKop', 'overIntro', 'zwemAchtergrond', 'zwemLocatie'];
+/** Velden van bestaande lijstitems die na een update leeg kunnen zijn (nieuw veld) en dan uit bundled gevuld worden. */
+export const MERGE_ITEM_FIELDS = { diensten: ['intro'] };
 
 /**
  * Voegt nieuwe standaardteksten uit het gebundelde data/site.json toe aan een
@@ -283,6 +307,7 @@ const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsD
  *   ids in doc.verwijderdeIds komen niet terug.
  * - info-, hero- en tekstvelden: alleen lege velden worden gevuld; contactgegevens
  *   (placeholders in de standaarddata) worden nooit ingevuld.
+ * - nieuwe velden op bestaande lijstitems (MERGE_ITEM_FIELDS): alleen als ze leeg zijn.
  * Puur: geeft een nieuw document en een rapport terug.
  */
 export function mergeDefaults(doc, bundled) {
@@ -296,7 +321,13 @@ export function mergeDefaults(doc, bundled) {
     const ids = () => new Set(huidig.map((x) => String(x.id)));
     standaard.forEach((item, i) => {
       const id = String(item.id);
-      if (ids().has(id)) return;
+      if (ids().has(id)) {
+        const eigen = huidig.find((x) => String(x.id) === id);
+        for (const key of MERGE_ITEM_FIELDS[lijst] || []) {
+          if (leeg(eigen[key]) && !leeg(item[key])) { eigen[key] = item[key]; rapport.ingevuld.push(`${lijst}.${id}.${key}`); }
+        }
+        return;
+      }
       if (verwijderd.has(id)) { rapport.overgeslagen.push(id); return; }
       const kopie = JSON.parse(JSON.stringify(item));
       const buurman = i > 0 ? String(standaard[i - 1].id) : null;
@@ -336,6 +367,31 @@ export function filter(doc) {
     wedstrijden: doc.wedstrijden.filter((w) => !w.hidden),
     reviews: doc.reviews.filter((r) => !r.hidden && r.tekst.trim() && r.naam.trim()),
   };
+}
+
+/** FAQ-vragen voor één pagina ('home', 'diensten', 'zwemanalyse' of 'algemeen'), zonder lege vragen. */
+export function faqVoor(doc, pagina = 'algemeen') {
+  return doc.faq.filter((f) => f.vraag.trim() && f.antwoord.trim() && (f.pagina || 'algemeen') === pagina);
+}
+
+/** Plaatsen uit info.plaatsen als lijst ("Rotterdam, Schiedam" → ['Rotterdam', 'Schiedam']). */
+export function plaatsenLijst(info) {
+  return String(info?.plaatsen || '').split(/[,;\n]/).map((s) => s.trim()).filter(Boolean);
+}
+
+const isUrl = (u) => /^https?:\/\//i.test(u || '');
+/**
+ * Sociale links uit info als [{name, href}]: een gebruikersnaam wordt een volledige link.
+ * Gebruikt door de footer, de contactpagina en de gestructureerde gegevens (sameAs).
+ */
+export function socialLinks(info) {
+  const { instagram, strava, facebook, linkedin } = info || {};
+  return [
+    instagram && { name: 'Instagram', href: isUrl(instagram) ? instagram : `https://www.instagram.com/${encodeURIComponent(instagram.replace(/^@/, ''))}/` },
+    strava && { name: 'Strava', href: isUrl(strava) ? strava : `https://www.strava.com/athletes/${encodeURIComponent(strava)}` },
+    facebook && { name: 'Facebook', href: isUrl(facebook) ? facebook : `https://www.facebook.com/${encodeURIComponent(facebook)}` },
+    linkedin && { name: 'LinkedIn', href: isUrl(linkedin) ? linkedin : `https://www.linkedin.com/in/${encodeURIComponent(linkedin.replace(/^\/?in\//, ''))}/` },
+  ].filter(Boolean);
 }
 
 /** Zichtbare wedstrijden per categorie, in de vaste volgorde; lege categorieën vallen weg. */

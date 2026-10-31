@@ -37,7 +37,11 @@ def icon(kind):
 NAV = [('diensten', 'Diensten'), ('zwemanalyse', 'Zwemanalyse'), ('race', 'Race'), ('werkwijze', 'Werkwijze'), ('over', 'Over Ryan'), ('ervaringen', 'Ervaringen')]
 
 
-def head(page, title, desc, jsonld, canonical, noindex=False):
+def head(page, title, desc, canonical, noindex=False, faq=None):
+    """De <head> van een pagina. title ≤ 60 en desc ≤ 155 tekens waar het kan (check_lengths()).
+    De gestructureerde gegevens komen uit schema_graph() (zelfde opbouw als assets/js/schema.js)."""
+    url = f'{SITE}/{canonical}'
+    jsonld = schema_graph(page, title, desc, url, faq)
     return f'''<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -56,7 +60,10 @@ def head(page, title, desc, jsonld, canonical, noindex=False):
   <meta property="og:description" content="{e(desc)}">
   <meta property="og:url" content="{SITE}/{canonical}">
   <meta property="og:image" content="{SITE}/assets/og.png">
+  <meta property="og:image:alt" content="{e(NAME)}: triathlon-coaching in Rotterdam">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{e(title)}">
+  <meta name="twitter:description" content="{e(desc)}">
   <link rel="icon" href="assets/logo/icon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/logo/icon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/logo/icon-180.png">
@@ -67,7 +74,7 @@ def head(page, title, desc, jsonld, canonical, noindex=False):
   <noscript><link href="{FONTS}" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="assets/css/base.css?v={VERSION}">
   <link rel="stylesheet" href="assets/css/site.css?v={VERSION}">
-  <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
+  <script type="application/ld+json" id="schema">{json.dumps(jsonld, ensure_ascii=False)}</script>
   <script type="module" src="assets/js/site.js?v={VERSION}"></script>
 </head>
 <body class="has-sticky" data-page="{page}">
@@ -160,15 +167,27 @@ def cta_band(kop='Zullen we even bellen?', tekst='Een kennismaking is gratis en 
 '''
 
 
-def faq_section(kop='Veelgestelde vragen'):
-    items = ''.join(f'<details class="faq"><summary>{e(f["vraag"])}</summary><p>{e(f["antwoord"])}</p></details>' for f in DATA['faq'])
-    return f'''    <section class="section" aria-labelledby="faq-title">
+def faq_voor(pagina):
+    """FAQ-vragen voor één pagina; zelfde regel als faqVoor() in store.js."""
+    return [f for f in DATA['faq'] if f.get('vraag', '').strip() and f.get('antwoord', '').strip() and f.get('pagina', 'algemeen') == pagina]
+
+
+def faq_section(kop='Veelgestelde vragen', pagina='algemeen', alt=False, intro=''):
+    """Inklapbare vragen (<details>, leesbaar zonder JS). site.js vervangt ze door de live lijst van dezelfde pagina."""
+    faq = faq_voor(pagina)
+    items = ''.join(f'<details class="faq"><summary>{e(f["vraag"])}</summary><p>{e(f["antwoord"])}</p></details>' for f in faq)
+    return f'''    <section class="section{' section-alt' if alt else ''}" aria-labelledby="faq-title"{'' if faq else ' hidden'}>
       <div class="wrap">
-        <div class="section-head"><h2 id="faq-title">{e(kop)}</h2></div>
-        <div class="faq-list" id="faq">{items}</div>
+        <div class="section-head"><h2 id="faq-title">{e(kop)}</h2>{f'<p>{e(intro)}</p>' if intro else ''}</div>
+        <div class="faq-list" id="faq" data-faq="{pagina}">{items}</div>
       </div>
     </section>
 '''
+
+
+def links_rij(links):
+    """Rij interne links in de body (naast de navigatie), bv. terug naar diensten en contact."""
+    return '<p class="links-rij">' + ''.join(f'<a href="{e(h)}">{e(t)}</a>' for h, t in links) + '</p>'
 
 
 def page_head(kicker, h1, lede):
@@ -180,23 +199,141 @@ def page_head(kicker, h1, lede):
 '''
 
 
-PERSON = {
-    '@type': 'Person', '@id': f'{SITE}/#ryan', 'name': 'Ryan Douglas', 'jobTitle': 'Triathlon-coach',
-    'url': f'{SITE}/', 'address': {'@type': 'PostalAddress', 'addressLocality': 'Rotterdam', 'addressCountry': 'NL'},
-    'memberOf': [{'@type': 'SportsTeam', 'name': "TVS'90"}, {'@type': 'SportsTeam', 'name': 'CS010'}],
+# ------------------------------------------------- gestructureerde gegevens
+# Zelfde opbouw als buildSchema() in assets/js/schema.js; site.js vervangt dit blok
+# zodra de live gegevens (telefoon, e-mail, sameAs, prijzen, FAQ) binnen zijn.
+ID_RYAN, ID_BUSINESS, ID_WEBSITE = f'{SITE}/#ryan', f'{SITE}/#business', f'{SITE}/#website'
+AREA = ['Rotterdam', 'Zuid-Holland', 'Nederland (online)']
+ADDRESS = {'@type': 'PostalAddress', 'addressLocality': 'Rotterdam', 'addressRegion': 'Zuid-Holland', 'addressCountry': 'NL'}
+PAGE_NAMES = {
+    'diensten': 'Diensten', 'zwemanalyse': 'Zwemanalyse', 'race': 'Begeleiding naar je race', 'werkwijze': 'Werkwijze',
+    'over': 'Over Ryan', 'ervaringen': 'Ervaringen', 'contact': 'Contact', 'privacy': 'Privacy', 'voorwaarden': 'Voorwaarden', 'bedankt': 'Bedankt',
 }
-BUSINESS = {
-    '@type': 'LocalBusiness', '@id': f'{SITE}/#business', 'name': NAME, 'url': f'{SITE}/', 'image': f'{SITE}/assets/og.png',
-    'logo': f'{SITE}/assets/logo/icon-512.png', 'description': DATA['hero']['sub'],
-    'address': {'@type': 'PostalAddress', 'addressLocality': 'Rotterdam', 'addressRegion': 'Zuid-Holland', 'addressCountry': 'NL'},
-    'areaServed': {'@type': 'City', 'name': 'Rotterdam'}, 'priceRange': 'Op aanvraag', 'founder': {'@id': f'{SITE}/#ryan'},
-    'makesOffer': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': d['titel'], 'description': d['kort']}} for d in DATA['diensten']],
-}
-LD = {'@context': 'https://schema.org', '@graph': [PERSON, BUSINESS]}
+ONDER_DIENSTEN = ['zwemanalyse', 'race']
+FAQ_PAGES = ['home', 'diensten', 'zwemanalyse']
+SERVICE_TYPES = {'zwemanalyse': 'Zwemanalyse met onderwatervideo', 'schemas': 'Trainingsschema fietsen en lopen', 'race': 'Triathlon-coaching: begeleiding naar je race'}
 
 
-def ld_service(d):
-    return {'@context': 'https://schema.org', '@type': 'Service', 'name': d['titel'], 'description': d['kort'], 'provider': {'@id': f'{SITE}/#business'}, 'areaServed': 'Rotterdam', 'url': f'{SITE}/{d["id"]}.html'}
+def is_url(u):
+    return bool(_re.match(r'^https?://', u or '', _re.I))
+
+
+def is_real_phone(p):
+    digits = _re.sub(r'\D', '', p or '')
+    return len(digits) >= 9 and 'x' not in (p or '').lower()
+
+
+def is_real_email(m):
+    return bool(_re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', m or '')) and not (m or '').lower().endswith('voorbeeld.nl')
+
+
+def tel_international(phone):
+    d = _re.sub(r'\D', '', phone or '')
+    if d.startswith('00'):
+        d = d[2:]
+    elif d.startswith('0'):
+        d = '31' + d[1:]
+    return '+' + d
+
+
+def social_links(info):
+    """Zelfde regels als socialLinks() in store.js: gebruikersnaam → volledige link."""
+    from urllib.parse import quote
+    out = []
+    if info.get('instagram'):
+        v = info['instagram']
+        out.append(v if is_url(v) else f"https://www.instagram.com/{quote(v.lstrip('@'), safe='')}/")
+    if info.get('strava'):
+        v = info['strava']
+        out.append(v if is_url(v) else f"https://www.strava.com/athletes/{quote(v, safe='')}")
+    if info.get('facebook'):
+        v = info['facebook']
+        out.append(v if is_url(v) else f"https://www.facebook.com/{quote(v, safe='')}")
+    if info.get('linkedin'):
+        v = info['linkedin']
+        out.append(v if is_url(v) else f"https://www.linkedin.com/in/{quote(_re.sub(r'^/?in/', '', v), safe='')}/")
+    return out
+
+
+def dienst_url(d):
+    return f"{SITE}/{'zwemanalyse.html' if d['id'] == 'zwemanalyse' else 'race.html' if d['id'] == 'race' else 'diensten.html#' + d['id']}"
+
+
+def prijs_van(d):
+    """Prijs in euro als getal (> 0), anders None; dan geen Offer."""
+    try:
+        n = float(str(d.get('prijs') or '').replace(',', '.'))
+    except ValueError:
+        return None
+    if n <= 0:
+        return None
+    return int(n) if n.is_integer() else n
+
+
+def price_range(diensten):
+    prijzen = [p for p in (prijs_van(d) for d in diensten) if p]
+    if not prijzen:
+        return 'Op aanvraag'
+    lo, hi = min(prijzen), max(prijzen)
+    return f'€{lo}' if lo == hi else f'€{lo}–€{hi}'
+
+
+def schema_graph(page, title, desc, url, faq=None):
+    """Het @graph voor één pagina: Person, SportsActivityLocation, WebSite, Service per dienst
+    (met Offer als er een prijs is), WebPage, BreadcrumbList (subpagina's) en FAQPage (eigen FAQ)."""
+    info = DATA['info']
+    same_as = [u for u in social_links(info) + [info.get('tvs90', ''), info.get('cs010', '')] if is_url(u)]
+    diensten = [d for d in DATA['diensten'] if d.get('titel') and not d.get('hidden')]
+    phone = info.get('phone') or info.get('whatsapp')
+
+    person = {
+        '@type': 'Person', '@id': ID_RYAN, 'name': 'Ryan Douglas', 'jobTitle': 'Triathlon-coach',
+        'url': f'{SITE}/over.html', 'image': f'{SITE}/assets/img/ryan.jpg',
+        'address': {'@type': 'PostalAddress', 'addressLocality': 'Rotterdam', 'addressCountry': 'NL'},
+        'worksFor': {'@id': ID_BUSINESS},
+        'memberOf': [
+            {'@type': 'SportsTeam', 'name': "TVS'90", 'sport': 'Triathlon', **({'url': info['tvs90']} if is_url(info.get('tvs90')) else {})},
+            {'@type': 'SportsTeam', 'name': 'CS010', 'sport': 'Wielrennen', **({'url': info['cs010']} if is_url(info.get('cs010')) else {})},
+        ],
+        **({'sameAs': same_as} if same_as else {}),
+    }
+    business = {
+        '@type': 'SportsActivityLocation', '@id': ID_BUSINESS, 'name': NAME, 'url': f'{SITE}/',
+        'image': f'{SITE}/assets/og.png', 'logo': f'{SITE}/assets/logo/icon-512.png',
+        'description': DATA['hero']['sub'],
+        **({'telephone': tel_international(phone)} if is_real_phone(phone) else {}),
+        **({'email': info['email']} if is_real_email(info.get('email')) else {}),
+        'address': ADDRESS, 'areaServed': AREA, 'priceRange': price_range(diensten),
+        'founder': {'@id': ID_RYAN}, 'employee': {'@id': ID_RYAN},
+        **({'sameAs': same_as} if same_as else {}),
+    }
+    website = {'@type': 'WebSite', '@id': ID_WEBSITE, 'name': NAME, 'url': f'{SITE}/', 'inLanguage': 'nl-NL', 'publisher': {'@id': ID_BUSINESS}}
+    services = []
+    for d in diensten:
+        svc = {
+            '@type': 'Service', '@id': f"{SITE}/#service-{d['id']}", 'name': d['titel'], 'serviceType': SERVICE_TYPES.get(d['id'], d['titel']),
+            'description': d.get('kort', ''), 'provider': {'@id': ID_BUSINESS}, 'areaServed': AREA, 'url': dienst_url(d),
+        }
+        prijs = prijs_van(d)
+        if prijs:
+            svc['offers'] = {'@type': 'Offer', 'price': prijs, 'priceCurrency': 'EUR', 'url': dienst_url(d), 'availability': 'https://schema.org/InStock'}
+        services.append(svc)
+    webpage = {
+        '@type': 'WebPage', '@id': f'{url}#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'nl-NL',
+        'isPartOf': {'@id': ID_WEBSITE}, 'about': {'@id': ID_BUSINESS}, 'primaryImageOfPage': f'{SITE}/assets/og.png',
+    }
+    graph = [person, business, website, *services, webpage]
+    if page != 'home' and page in PAGE_NAMES:
+        items = [('Home', f'{SITE}/')]
+        if page in ONDER_DIENSTEN:
+            items.append((PAGE_NAMES['diensten'], f'{SITE}/diensten.html'))
+        items.append((PAGE_NAMES[page], url))
+        graph.append({'@type': 'BreadcrumbList', '@id': f'{url}#breadcrumb',
+                      'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, u) in enumerate(items)]})
+    if faq:
+        graph.append({'@type': 'FAQPage', '@id': f'{url}#faq',
+                      'mainEntity': [{'@type': 'Question', 'name': f['vraag'], 'acceptedAnswer': {'@type': 'Answer', 'text': f['antwoord']}} for f in faq]})
+    return {'@context': 'https://schema.org', '@graph': graph}
 
 
 # --------------------------------------------------------------------- index
@@ -212,6 +349,7 @@ def build_index():
     usps = ''.join(f'<div class="usp"><div class="num" aria-hidden="true">{i+1}</div><h3>{e(u["titel"])}</h3><p>{e(u["tekst"])}</p></div>' for i, u in enumerate(DATA['usps']))
     results = ''.join(f'<div class="result"><span class="val">{e(r["waarde"])}</span><span class="lbl">{e(r["label"])}</span>{maand(r["datum"])}</div>' for r in DATA['resultaten'])
     steps = ''.join(f'<li class="step"><div class="n" aria-hidden="true">{s["stap"]}</div><h3>{e(s["titel"])}</h3><p>{e(s["tekst"])}</p></li>' for s in DATA['werkwijze'][:4])
+    plaatsen = [x.strip() for x in _re.split(r'[,;\n]', DATA['info'].get('plaatsen', '')) if x.strip()]
     body = f'''    <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div class="hero-inner">
@@ -224,7 +362,7 @@ def build_index():
           <p class="hero-note">{CHECK_SVG}<span>Kennismaking is gratis. Ik werk met hooguit een handvol atleten tegelijk.</span></p>
         </div>
         <figure class="hero-photo">
-          <img src="assets/img/ryan.jpg" alt="Foto van Ryan" width="840" height="1050" data-optional fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').classList.add('no-img')">
+          <img src="assets/img/ryan.jpg" alt="Ryan Douglas, triathlon-coach uit Rotterdam, bij de finish van een hele triathlon" width="840" height="1050" data-optional fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').classList.add('no-img')">
           <div class="ring" aria-hidden="true"></div>
           <div class="mark-art" aria-hidden="true"><img src="assets/logo/logo-mark.svg" alt="" width="64" height="64"></div>
           <figcaption>Ryan Douglas, Rotterdam</figcaption>
@@ -266,7 +404,7 @@ def build_index():
     <section class="section" aria-labelledby="story-title">
       <div class="wrap story">
         <figure class="photo" style="margin:0">
-          <img src="assets/img/ryan-loop.jpg" alt="Foto van Ryan" width="720" height="720" loading="lazy" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
+          <img src="assets/img/ryan-loop.jpg" alt="Ryan Douglas, triathlon-coach uit Rotterdam, tijdens een hardlooptraining langs het water" width="720" height="720" loading="lazy" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
         </figure>
         <div>
           <h2 id="story-title">{e(DATA['overKop'])}</h2>
@@ -309,8 +447,19 @@ def build_index():
       </div>
     </section>
 
-{cta_band('Je eerste triathlon begint met één gesprek.', 'Gratis kennismaking van een half uur: bellen of koffie in Rotterdam. Daarna beslis je of we doorgaan.')}'''
-    write('index.html', head('home', f'{NAME} – Triathlon-coaching in Rotterdam voor beginners', 'Persoonlijke triathlon-coaching vanuit Rotterdam: zwemanalyse met onderwatervideo, trainingsschema\'s en begeleiding naar je 1/8, 1/4, 1/2 of hele triathlon. Gratis kennismaking.', LD, '') + body + footer())
+    <section class="section" aria-labelledby="plaatsen-title"{'' if plaatsen else ' hidden'}>
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="plaatsen-title">Voor wie uit Rotterdam en omgeving</h2>
+          <p>Ik coach vanuit Rotterdam. Voor de kennismaking en de <a href="zwemanalyse.html">zwemanalyse</a> spreken we af in de stad of bij jou in de buurt; de wekelijkse begeleiding gaat via WhatsApp en Strava of Garmin. Zo werk ik met atleten uit:</p>
+        </div>
+        <ul class="plaatsen" id="plaatsen">{''.join(f'<li>{e(x)}</li>' for x in plaatsen)}</ul>
+        <p class="results-note">Woon je verder weg? <a href="diensten.html#schemas">Trainingsschema's</a> en <a href="race.html">begeleiding naar je race</a> werken ook helemaal online.</p>
+      </div>
+    </section>
+
+{faq_section('Vragen van beginners', 'home', alt=True, intro='Eerste triathlon in Rotterdam? Dit zijn de vragen die ik het vaakst krijg.')}{cta_band('Je eerste triathlon begint met één gesprek.', 'Gratis kennismaking van een half uur: bellen of koffie in Rotterdam. Daarna beslis je of we doorgaan.')}'''
+    write('index.html', head('home', 'Triathlon-coach in Rotterdam | Ryan Triathlon Coaching', 'Triathlon-coach in Rotterdam: zwemanalyse met onderwatervideo, trainingsschema\'s en begeleiding naar je eerste triathlon. Gratis kennismaking.', '', faq=faq_voor('home')) + body + footer())
 
 
 def maand(iso):
@@ -361,16 +510,19 @@ def build_diensten():
     for d in DATA['diensten']:
         vw = ''.join(f'<li>{e(x)}</li>' for x in d['voorWie'])
         wk = ''.join(f'<li>{e(x)}</li>' for x in d['watJeKrijgt'])
+        detail = ('zwemanalyse.html', 'Alles over de zwemanalyse') if d['id'] == 'zwemanalyse' else ('race.html', 'Alles over begeleiding naar je race') if d['id'] == 'race' else ('werkwijze.html', 'Zo werkt het wekelijks bijsturen')
+        intro = f'<p class="dienst-intro">{e(d["intro"])}</p>' if d.get('intro') else ''
         secs += f'''<section class="dienst-full" id="{d['id']}" aria-labelledby="h-{d['id']}">
           <h2 id="h-{d['id']}"><span class="icon">{icon(d['icon'])}</span>{e(d['titel'])}</h2>
-          <p class="lang">{e(d['lang'])}</p>
+          {intro}<p class="lang">{e(d['lang'])}</p>
           <div class="dienst-cols">
             <div class="card"><h3>Voor wie</h3><ul>{vw}</ul></div>
             <div class="card"><h3>Wat je krijgt</h3><ul>{wk}</ul></div>
           </div>
           <div class="dienst-prijs"><strong>Prijs: {e(d['prijsTekst'])}</strong><a class="btn btn-primary btn-sm wa-link" href="contact.html#formulier">Plan een kennismaking</a></div>
+          <p class="dienst-links"><a href="{detail[0]}">{e(detail[1])}</a><a href="ervaringen.html">Ervaringen van atleten</a></p>
         </section>'''
-    body = page_head('Diensten', 'Drie manieren om je te helpen', 'Los of gecombineerd. Alles begint met een gratis kennismaking, zodat we weten of het klikt en wat je nodig hebt.') + f'''
+    body = page_head('Diensten', 'Drie manieren om je te helpen', 'Zwemanalyse, een triathlon trainingsschema of begeleiding naar je eerste triathlon: los of gecombineerd. Alles begint met een gratis kennismaking in Rotterdam, zodat we weten of het klikt en wat je nodig hebt.') + f'''
     <div class="wrap" id="diensten-lijst">{secs}</div>
     <section class="section" aria-labelledby="prijs-title">
       <div class="wrap prijs-box">
@@ -379,8 +531,8 @@ def build_diensten():
         <a class="btn btn-primary wa-link" href="contact.html#formulier" data-cta="primair">{e(DATA['hero']['ctaPrimair'])}</a>
       </div>
     </section>
-'''
-    write('diensten.html', head('diensten', f'Diensten – zwemanalyse, trainingsschema\'s en racebegeleiding | {NAME}', 'Zwemanalyse met onderwatervideo, trainingsschema\'s voor fietsen en lopen, en complete begeleiding naar je triathlon. Prijzen op aanvraag.', LD, 'diensten.html') + body + footer())
+{faq_section('Veelgestelde vragen over de diensten', 'diensten', alt=True)}'''
+    write('diensten.html', head('diensten', 'Zwemanalyse, schema\'s en race | Ryan Triathlon Coaching', 'Zwemanalyse met onderwatervideo, een triathlon trainingsschema voor beginners en begeleiding naar je race. Van Ryan, triathlon-coach in Rotterdam.', 'diensten.html', faq=faq_voor('diensten')) + body + footer())
 
 
 # --------------------------------------------------------------- zwemanalyse
@@ -395,10 +547,16 @@ def build_zwemanalyse():
     st = ''.join(f'<div class="card"><div class="n" aria-hidden="true">{i+1}</div><h3>{e(t)}</h3><p>{e(x)}</p></div>' for i, (t, x) in enumerate(stappen))
     stills = ''
     for fn, lbl, cap in [('insteek', 'Insteek', 'Waar en hoe de hand het water in gaat'), ('ligging', 'Lichaamsligging', 'Hoe hoog ligt het lichaam, waar wijst het hoofd'), ('beenslag', 'Beenslag', 'Komt de beenslag uit de heup of uit de knie')]:
-        stills += f'<div class="still"><img src="assets/img/analyse/{fn}.jpg" alt="{e(cap)}" width="800" height="600" loading="lazy" decoding="async"><span>{e(lbl)}</span></div>'
+        stills += f'<div class="still"><img src="assets/img/analyse/{fn}.jpg" alt="Onderwaterbeeld uit een zwemanalyse in Rotterdam: {e(cap.lower())}" width="800" height="600" loading="lazy" decoding="async"><span>{e(lbl)}</span></div>'
     wk = ''.join(f'<li>{e(x)}</li>' for x in d['watJeKrijgt'])
     vw = ''.join(f'<li>{e(x)}</li>' for x in d['voorWie'])
-    body = page_head('Zwemanalyse', 'Zie eindelijk wat je onder water doet', 'Zwemmen is voor de meeste triatleten het lastigste onderdeel, omdat je jezelf niet kunt zien. Met onderwaterbeelden en ingesproken feedback wel.') + f'''
+    locatie = DATA.get('zwemLocatie') or 'een zwembad in Rotterdam of omgeving, of in open water'
+    body = f'''    <div class="wrap page-head">
+      <div class="kicker">Zwemanalyse</div>
+      <h1>Zie eindelijk wat je onder water doet</h1>
+      <p>Zwemmen is voor de meeste triatleten het lastigste onderdeel, omdat je jezelf niet kunt zien. Met een zwemanalyse in Rotterdam zie je het wél: onderwaterbeelden met ingesproken feedback, opgenomen in <span id="zwem-locatie">{e(locatie)}</span>.</p>
+    </div>
+''' + f'''
     <div class="wrap two-col" style="padding-bottom:40px">
       <div>
         <div class="analyse-video">
@@ -422,6 +580,7 @@ def build_zwemanalyse():
       <div class="wrap">
         <div class="section-head"><h2 id="hoe-title">Zo gaat een zwemanalyse</h2></div>
         <div class="analyse-stappen">{st}</div>
+        {links_rij([('diensten.html', 'Alle diensten'), ('race.html', 'Zwemanalyse zit in de begeleiding naar je race'), ('contact.html', 'Plan een zwemanalyse')])}
       </div>
     </section>
 
@@ -445,16 +604,16 @@ def build_zwemanalyse():
             <p class="muted small">Beelden uit een echte meting, met toestemming van de zwemmer.</p>
           </div>
           <figure class="sensor-figure">
-            <img src="assets/img/sensor/sensor.jpg" alt="De eo SwimBETTER-sensor in de hand" width="900" height="900" loading="lazy" decoding="async">
+            <img src="assets/img/sensor/sensor.jpg" alt="Krachtmeting bij de zwemanalyse: de eo SwimBETTER-sensor in de hand" width="900" height="900" loading="lazy" decoding="async">
             <figcaption>De sensor zit in een bandje om je hand. Je merkt er tijdens het zwemmen niets van.</figcaption>
           </figure>
         </div>
         <div class="sensor-grid">
-          <figure><img src="assets/img/sensor/slagfases.jpg" alt="Slagfases per hand: glijden, trekken en herstel in procenten" width="900" height="1484" loading="lazy" decoding="async"><figcaption><strong>Slagfases</strong> Links glijdt 19% van de tijd, rechts 12%: de rechterhand begint eerder te trekken.</figcaption></figure>
-          <figure><img src="assets/img/sensor/handbaan-boven.jpg" alt="Handbaan van boven gezien, acht slagen links en rechts over elkaar" width="900" height="1490" loading="lazy" decoding="async"><figcaption><strong>Handbaan van boven</strong> Acht slagen over elkaar. Links waaiert breder uit dan rechts.</figcaption></figure>
-          <figure><img src="assets/img/sensor/handbaan-zij.jpg" alt="Handbaan van opzij gezien, diepte van de trek" width="900" height="1522" loading="lazy" decoding="async"><figcaption><strong>Handbaan van opzij</strong> Hoe diep gaat de hand, en waar begint de trek echt?</figcaption></figure>
-          <figure><img src="assets/img/sensor/kracht.jpg" alt="Verdeling van kracht: 48% voortstuwend, 24% omlaag" width="900" height="1366" loading="lazy" decoding="async"><figcaption><strong>Krachtverdeling</strong> 48% stuwt vooruit, 24% duwt omlaag. Daar zit winst.</figcaption></figure>
-          <figure><img src="assets/img/sensor/vermogen.jpg" alt="Vermogen per hand in watt: links 62, rechts 57" width="900" height="1492" loading="lazy" decoding="async"><figcaption><strong>Vermogen per hand</strong> Links 62 W, rechts 57 W bij 25 slagen per minuut.</figcaption></figure>
+          <figure><img src="assets/img/sensor/slagfases.jpg" alt="Zwemanalyse met sensor: slagfases per hand, glijden, trekken en herstel in procenten" width="900" height="1484" loading="lazy" decoding="async"><figcaption><strong>Slagfases</strong> Links glijdt 19% van de tijd, rechts 12%: de rechterhand begint eerder te trekken.</figcaption></figure>
+          <figure><img src="assets/img/sensor/handbaan-boven.jpg" alt="Zwemanalyse met sensor: handbaan van boven gezien, acht slagen links en rechts over elkaar" width="900" height="1490" loading="lazy" decoding="async"><figcaption><strong>Handbaan van boven</strong> Acht slagen over elkaar. Links waaiert breder uit dan rechts.</figcaption></figure>
+          <figure><img src="assets/img/sensor/handbaan-zij.jpg" alt="Zwemanalyse met sensor: handbaan van opzij gezien, diepte van de trek" width="900" height="1522" loading="lazy" decoding="async"><figcaption><strong>Handbaan van opzij</strong> Hoe diep gaat de hand, en waar begint de trek echt?</figcaption></figure>
+          <figure><img src="assets/img/sensor/kracht.jpg" alt="Krachtmeting per hand: 48% voortstuwend, 24% omlaag" width="900" height="1366" loading="lazy" decoding="async"><figcaption><strong>Krachtverdeling</strong> 48% stuwt vooruit, 24% duwt omlaag. Daar zit winst.</figcaption></figure>
+          <figure><img src="assets/img/sensor/vermogen.jpg" alt="Krachtmeting per hand in watt: links 62, rechts 57" width="900" height="1492" loading="lazy" decoding="async"><figcaption><strong>Vermogen per hand</strong> Links 62 W, rechts 57 W bij 25 slagen per minuut.</figcaption></figure>
         </div>
       </div>
     </section>
@@ -468,8 +627,8 @@ def build_zwemanalyse():
         <p>Een term die je vaak hoort is CSS, je kritische zwemsnelheid: het tempo dat je ongeveer een kwartier tot twintig minuten kunt volhouden. Die bepalen we met een korte test, en daar stemmen we je zwemtrainingen op af. Ik leg het je gewoon uit, je hoeft er niets van te weten om te beginnen.</p>
       </div>
     </section>
-{cta_band('Benieuwd wat jouw slag doet?', 'Plan een zwemanalyse of begin met een gratis kennismaking. Ik vertel je eerlijk of het voor jou zin heeft.')}'''
-    write('zwemanalyse.html', head('zwemanalyse', f'Zwemanalyse met onderwatervideo in Rotterdam | {NAME}', 'Onderwateropname van je zwemslag, analyse met ingesproken feedback, frame voor frame terug te kijken en 3 tot 5 concrete verbeterpunten. Voor triatleten en open-waterzwemmers.', ld_service(d), 'zwemanalyse.html') + body + footer())
+{faq_section('Veelgestelde vragen over de zwemanalyse', 'zwemanalyse')}{cta_band('Benieuwd wat jouw slag doet?', 'Plan een zwemanalyse of begin met een gratis kennismaking. Ik vertel je eerlijk of het voor jou zin heeft.')}'''
+    write('zwemanalyse.html', head('zwemanalyse', 'Zwemanalyse Rotterdam – onderwatervideo en krachtmeting per hand | Ryan Triathlon Coaching', 'Zwemanalyse in Rotterdam: onderwatervideo van je slag met ingesproken feedback, optioneel krachtmeting per hand, en 3 tot 5 verbeterpunten met oefeningen.', 'zwemanalyse.html', faq=faq_voor('zwemanalyse')) + body + footer())
 
 
 # ----------------------------------------------------------------------- race
@@ -487,7 +646,7 @@ def build_race():
         ('Racedag', 'Finish', 'Je weet precies wat je gaat doen: tempo, voeding, wisselzones. Ik ben bereikbaar en sta waar het kan langs het parcours.'),
     ]
     tbl = ''.join(f'<tr><td>{e(w)}</td><td>{e(f)}</td><td>{e(t)}</td></tr>' for w, f, t in rows)
-    body = page_head('Begeleiding naar je race', 'Van inschrijving tot finish', 'Of het nu je eerste 1/8 is of je eerste hele: ik maak er een plan van dat past bij je leven, en ik blijf erbij tot je over de streep bent.') + f'''
+    body = page_head('Begeleiding naar je race', 'Van inschrijving tot finish', 'Je eerste triathlon als beginner, of je eerste hele: ik maak er een plan van dat past bij je leven, en ik blijf erbij tot je over de streep bent. Vanuit Rotterdam, of online.') + f'''
     <section class="section" aria-labelledby="afst-title" style="padding-top:8px">
       <div class="wrap">
         <div class="section-head"><h2 id="afst-title">Welke afstand past bij jou?</h2><p>Wat verandert er per afstand, en hoeveel tijd mag je rekenen voor de voorbereiding.</p></div>
@@ -514,9 +673,10 @@ def build_race():
           <a class="btn btn-primary wa-link" href="contact.html#formulier">Plan een kennismaking</a>
         </aside>
       </div>
+      <div class="wrap">{links_rij([('diensten.html', 'Alle diensten'), ('zwemanalyse.html', 'Over de zwemanalyse'), ('werkwijze.html', 'Zo werken we samen'), ('contact.html', 'Neem contact op')])}</div>
     </section>
 {faq_section()}{cta_band('Welke race wordt het?', 'Vertel me welke afstand je in gedachten hebt en wanneer. Dan kijken we samen of het haalbaar is en wat ervoor nodig is.')}'''
-    write('race.html', head('race', f'Begeleiding naar je triathlon: 1/8, 1/4, 1/2 of hele | {NAME}', 'Complete begeleiding naar je triathlon vanuit Rotterdam: intake, trainingsplan voor zwemmen, fietsen en lopen, wekelijks contact via WhatsApp en een raceplan. Voorbeeldtijdlijn van 12 tot 20 weken.', ld_service(d), 'race.html') + body + footer())
+    write('race.html', head('race', 'Naar je eerste triathlon | Ryan Triathlon Coaching', 'Begeleiding naar je eerste triathlon vanuit Rotterdam: intake, plan voor zwemmen, fietsen en lopen, wekelijks contact via WhatsApp en een raceplan.', 'race.html') + body + footer())
 
 
 # ----------------------------------------------------------------------- over
@@ -533,7 +693,7 @@ def build_over():
     <section class="section" aria-labelledby="story-title" style="padding-top:8px">
       <div class="wrap story">
         <figure class="photo" style="margin:0">
-          <img src="assets/img/ryan-loop.jpg" alt="Foto van Ryan" width="720" height="720" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
+          <img src="assets/img/ryan-loop.jpg" alt="Ryan Douglas, triathlon-coach uit Rotterdam, tijdens een hardlooptraining langs het water" width="720" height="720" decoding="async" data-optional onerror="this.closest('.story').classList.add('no-img')">
         </figure>
         <div id="verhaal">{paras}</div>
       </div>
@@ -557,10 +717,11 @@ def build_over():
         <h2 id="club-title">Clubs en achtergrond</h2>
         <p id="clubs-tekst">{e(DATA['clubsTekst'])}</p>
         <p id="clubs-disclaimer">{e(DATA['clubsDisclaimer'])}</p>
+        {links_rij([('zwemanalyse.html', 'Zwemanalyse'), ('diensten.html#schemas', "Trainingsschema's"), ('race.html', 'Begeleiding naar je race'), ('werkwijze.html', 'Zo werken we samen')])}
       </div>
     </section>
 {cta_band('Zullen we kennismaken?', 'Een half uur bellen of koffie in Rotterdam. Gratis, en je zit nergens aan vast.')}'''
-    write('over.html', head('over', f'Over Ryan Douglas – triathlon-coach uit Rotterdam | {NAME}', 'ICT\'er die triathlon oppakte, zelf leerde zwemmen, fietsen en lopen met data en techniek, en nu een klein aantal atleten persoonlijk coacht.', {'@context': 'https://schema.org', **PERSON}, 'over.html') + body + footer())
+    write('over.html', head('over', 'Over Ryan Douglas, triathlon-coach | Ryan Triathlon Coaching', 'Ryan Douglas, triathlon-coach uit Rotterdam: vier hele triathlons, elf marathons, KNZB-zwemtrainer. Coacht een klein aantal atleten persoonlijk.', 'over.html') + body + footer())
 
 
 # ------------------------------------------------------------------ werkwijze
@@ -584,10 +745,11 @@ def build_werkwijze():
       <div class="wrap prose">
         <h2 id="contact-title">Contact tijdens het traject</h2>
         <p>Het meeste contact gaat via WhatsApp: korte vragen, een foto van je horloge, even melden dat je ziek bent. Ik reageer meestal dezelfde dag. Elke week kijk ik naar je trainingen in Strava of Garmin en pas ik waar nodig het schema aan. Grotere dingen, zoals een nieuw doel of een blessure, bespreken we even aan de telefoon.</p>
+        <p>Zo werkt het bij alle <a href="diensten.html">diensten</a>: bij een <a href="diensten.html#schemas">trainingsschema</a>, bij <a href="race.html">begeleiding naar je race</a> en, in het klein, bij de oefeningen na een <a href="zwemanalyse.html">zwemanalyse</a>. Vragen vooraf? <a href="contact.html">Neem contact op</a>.</p>
       </div>
     </section>
 {faq_section()}{cta_band()}'''
-    write('werkwijze.html', head('werkwijze', f'Werkwijze – van kennismaking tot race | {NAME}', 'Kennismaking, intake met je Strava- of Garmin-data, een plan voor de eerste vier weken en wekelijks contact via WhatsApp tot de race. Plus: wat ik van jou verwacht.', LD, 'werkwijze.html') + body + footer())
+    write('werkwijze.html', head('werkwijze', 'Werkwijze: kennismaking tot race | Ryan Triathlon Coaching', 'Zo werkt de coaching: gratis kennismaking, intake met je Strava- of Garmin-data, een plan per vier weken en wekelijks contact via WhatsApp tot de race.', 'werkwijze.html') + body + footer())
 
 
 # ----------------------------------------------------------------- ervaringen
@@ -598,10 +760,11 @@ def build_ervaringen():
         <h2 id="rev-title" class="visually-hidden">Ervaringen</h2>
         <div class="grid grid-2" id="reviews" hidden></div>
         <div class="card empty" id="reviews-leeg"><p>De eerste ervaringen verschijnen hier binnenkort. Tot die tijd: bel me gerust, dan vertel ik je eerlijk hoe ik werk en voor wie het wel en niet geschikt is.</p><a class="btn btn-ghost btn-sm" href="contact.html">Neem contact op</a></div>
+        <p class="results-note"><a href="zwemanalyse.html">Zelf een zwemanalyse boeken →</a> Of lees hoe <a href="race.html">begeleiding naar je race</a> werkt en wat de andere <a href="diensten.html">diensten</a> inhouden.</p>
       </div>
     </section>
 ''' + cta_band('Zelf de eerste zijn?', 'Ik werk met een klein aantal atleten, zodat ik iedereen echt kan volgen. Plan een gratis kennismaking.')
-    write('ervaringen.html', head('ervaringen', f'Ervaringen van atleten | {NAME}', 'Wat atleten zeggen over de coaching van Ryan Douglas: zwemanalyse, trainingsschema\'s en begeleiding naar hun triathlon.', LD, 'ervaringen.html') + body + footer())
+    write('ervaringen.html', head('ervaringen', 'Ervaringen van atleten | Ryan Triathlon Coaching', 'Wat atleten zeggen over triathlon-coach Ryan Douglas uit Rotterdam: zwemanalyse, trainingsschema\'s en begeleiding naar hun eerste triathlon.', 'ervaringen.html') + body + footer())
 
 
 # -------------------------------------------------------------------- contact
@@ -660,22 +823,26 @@ def build_contact():
           <p class="muted" style="margin:0">Kennismaking en zwemanalyse in <span data-k="regio">{e(DATA['info']['regio'])}</span>. Trainen doe je op je eigen plek; het contact gaat via WhatsApp en Strava of Garmin.</p>
           <ul class="social-links" hidden></ul>
         </div>
+        <div class="card aside-card">
+          <h2>Nog aan het kijken?</h2>
+          <p class="muted" style="margin:0">Lees eerst over de <a href="zwemanalyse.html">zwemanalyse</a>, de <a href="diensten.html">diensten</a> of <a href="werkwijze.html">hoe ik werk</a>.</p>
+        </div>
       </aside>
     </div>
 {faq_section('Vragen vooraf')}'''
-    write('contact.html', head('contact', f'Contact – plan een gratis kennismaking | {NAME}', 'Neem contact op met Ryan voor een gratis kennismaking van een half uur: via WhatsApp of het formulier. Triathlon-coaching vanuit Rotterdam.', LD, 'contact.html') + body + footer())
+    write('contact.html', head('contact', 'Contact: gratis kennismaking | Ryan Triathlon Coaching', 'Plan een gratis kennismaking van een half uur met triathlon-coach Ryan in Rotterdam: via WhatsApp of het formulier. Reactie binnen een dag.', 'contact.html') + body + footer())
 
 
 # -------------------------------------------------- bedankt, privacy, voorwaarden
 def build_simple(name, title, desc, kicker, h1, lede, inner, noindex=False):
     body = page_head(kicker, h1, lede) + f'<div class="wrap prose" style="padding-bottom:64px">{inner}</div>\n'
-    write(f'{name}.html', head(name, f'{title} | {NAME}', desc, LD, f'{name}.html', noindex) + body + footer())
+    write(f'{name}.html', head(name, f'{title} | {NAME}', desc, f'{name}.html', noindex) + body + footer())
 
 
 def build_rest():
     build_simple('bedankt', 'Bedankt voor je bericht', 'Je bericht is verstuurd. Ryan neemt binnen een dag contact met je op.', 'Verstuurd', 'Bedankt, je bericht is binnen', 'Ik neem meestal binnen een dag contact met je op. Kijk intussen gerust verder.',
                  '<p><a class="btn btn-primary" href="./">Terug naar de homepage</a> <a class="btn btn-ghost" href="race.html">Lees over de afstanden</a></p>', noindex=True)
-    build_simple('privacy', 'Privacyverklaring', f'Hoe {NAME} omgaat met je gegevens: alleen wat nodig is om contact te houden en je te coachen, geen cookies, geen doorverkoop.', 'Privacy', 'Privacyverklaring', 'Kort en zonder kleine lettertjes: ik gebruik alleen wat nodig is om je te helpen.', '''
+    build_simple('privacy', 'Privacyverklaring', 'Hoe Ryan Triathlon Coaching omgaat met je gegevens: alleen wat nodig is om contact te houden en je te coachen. Geen cookies, geen doorverkoop.', 'Privacy', 'Privacyverklaring', 'Kort en zonder kleine lettertjes: ik gebruik alleen wat nodig is om je te helpen.', '''
 <h2>Wie</h2>
 <p>Deze website is van Ryan Douglas, handelend als Ryan Triathlon Coaching, Rotterdam. Vragen over je gegevens stel je via het <a href="contact.html">contactformulier</a> of WhatsApp.</p>
 <h2>Welke gegevens en waarom</h2>
@@ -690,8 +857,9 @@ def build_rest():
 <p>Berichten bewaar ik zolang we contact hebben en daarna hoogstens een jaar. Coachinggegevens verwijder ik uiterlijk een jaar na het einde van het traject, tenzij je vraagt ze langer te bewaren.</p>
 <h2>Je rechten</h2>
 <p>Je mag altijd vragen welke gegevens ik van je heb, ze laten aanpassen of verwijderen. Stuur me een bericht en ik regel het. Ben je het ergens niet mee eens, dan kun je ook een klacht indienen bij de Autoriteit Persoonsgegevens.</p>
-<p class="muted small">Laatst bijgewerkt: oktober 2026.</p>''')
-    build_simple('voorwaarden', 'Voorwaarden', f'De afspraken bij coaching door {NAME}: eigen verantwoordelijkheid, opzeggen, betaling en aansprakelijkheid.', 'Voorwaarden', 'Afspraken bij de coaching', 'Hobbybusiness, kleine schaal, maar wel duidelijke afspraken. Dit is wat we van elkaar mogen verwachten.', '''
+<p class="muted small">Laatst bijgewerkt: oktober 2026.</p>
+<p>Zie ook de <a href="voorwaarden.html">voorwaarden</a>. Vragen over je gegevens of over de <a href="diensten.html">coaching</a>? <a href="contact.html">Neem contact op</a>.</p>''')
+    build_simple('voorwaarden', 'Voorwaarden', 'De afspraken bij triathlon-coaching door Ryan Triathlon Coaching: eigen verantwoordelijkheid, prijzen, opzeggen, betaling en aansprakelijkheid.', 'Voorwaarden', 'Afspraken bij de coaching', 'Hobbybusiness, kleine schaal, maar wel duidelijke afspraken. Dit is wat we van elkaar mogen verwachten.', '''
 <h2>1. Wat ik doe</h2>
 <p>Ryan Triathlon Coaching (Ryan Douglas, Rotterdam) levert sportcoaching: zwemanalyses, trainingsschema's en begeleiding naar een triathlon. Ik ben geen arts, fysiotherapeut of diëtist. Adviezen zijn op basis van ervaring en algemene trainingsprincipes; bij medische vragen of klachten raadpleeg je een professional.</p>
 <h2>2. Je eigen verantwoordelijkheid</h2>
@@ -706,12 +874,20 @@ def build_rest():
 <p>Schema's en analyses zijn voor jou persoonlijk en niet bedoeld om door te geven. Video-opnames van de zwemanalyse blijven van jou; ik gebruik ze alleen voor jouw analyse en nooit publiek zonder jouw uitdrukkelijke toestemming.</p>
 <h2>7. Nederlands recht</h2>
 <p>Op deze afspraken is Nederlands recht van toepassing. Is er iets niet goed gegaan, dan lossen we dat eerst samen op in een gesprek.</p>
-<p class="muted small">Versie oktober 2026.</p>''')
+<p class="muted small">Versie oktober 2026.</p>
+<p>Zie ook de <a href="privacy.html">privacyverklaring</a>. Vragen over deze afspraken of over de <a href="diensten.html">diensten</a>? <a href="contact.html">Neem contact op</a>.</p>''')
 
 
 def write(name, content):
     (ROOT / name).write_text(content, encoding='utf-8')
-    print('→', name)
+    title = _re.search(r'<title>(.*?)</title>', content).group(1)
+    desc = _re.search(r'<meta name="description" content="(.*?)">', content).group(1)
+    waarschuwing = ''
+    if len(html.unescape(desc)) > 155:
+        waarschuwing += f'  ⚠ description {len(html.unescape(desc))} tekens (max 155)'
+    if len(html.unescape(title)) > 60 and name != 'zwemanalyse.html':  # de zwemanalyse-title is bewust langer (zoekterm vooraan)
+        waarschuwing += f'  ⚠ title {len(html.unescape(title))} tekens (richtlijn 60)'
+    print('→', name, waarschuwing)
 
 
 if __name__ == '__main__':

@@ -3,15 +3,15 @@
    Gist of data/site.json binnen is. Alle renderers werken op filter(doc) uit
    store.js, nooit op het ruwe document. Alles via textContent (dom.js). */
 
-import { CONFIG } from './config.js?v=2026.10.28-7';
-import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.10.28-7';
-import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie } from './store.js?v=2026.10.28-7';
+import { CONFIG } from './config.js?v=2026.10.31-1';
+import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.10.31-1';
+import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie, faqVoor, plaatsenLijst, socialLinks } from './store.js?v=2026.10.31-1';
+import { buildSchema } from './schema.js?v=2026.10.31-1';
 
 const page = document.body.dataset.page || 'home';
 
 const isRealPhone = (p) => /\d{9,}/.test(String(p || '').replace(/\D/g, '')) && !/x/i.test(p);
 const isRealEmail = (e) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e || '') && !/voorbeeld\.nl$/i.test(e);
-const isUrl = (u) => /^https?:\/\//i.test(u || '');
 const WA_TEXT = 'Hoi Ryan, ik wil graag een kennismaking plannen. ';
 
 function waNumber(phone) {
@@ -76,6 +76,20 @@ function render(raw, meta) {
   if (page === 'over') renderOver(doc);
   if (page === 'werkwijze') renderWerkwijze(doc);
   if (page === 'contact') renderContact(doc);
+  updateSchema(doc);
+}
+
+/** De gestructureerde gegevens (JSON-LD in de head) bijwerken met de live gegevens: zelfde opbouw als tools/build.py. */
+function updateSchema(doc) {
+  const script = $('#schema');
+  if (!script) return;
+  const meta = {
+    page,
+    title: document.title,
+    description: document.querySelector('meta[name="description"]')?.content || '',
+    url: document.querySelector('link[rel="canonical"]')?.href || location.href,
+  };
+  try { script.textContent = JSON.stringify(buildSchema(doc, meta)); } catch (err) { console.warn('Gestructureerde gegevens niet bijgewerkt:', err); }
 }
 
 function renderContactLinks(doc) {
@@ -100,16 +114,10 @@ function renderContactLinks(doc) {
 }
 
 function renderSocial(doc) {
-  const { instagram, strava, facebook, linkedin } = doc.info;
-  const links = [
-    instagram && ['Instagram', isUrl(instagram) ? instagram : `https://www.instagram.com/${encodeURIComponent(instagram.replace(/^@/, ''))}/`],
-    strava && ['Strava', isUrl(strava) ? strava : `https://www.strava.com/athletes/${encodeURIComponent(strava)}`],
-    facebook && ['Facebook', isUrl(facebook) ? facebook : `https://www.facebook.com/${encodeURIComponent(facebook)}`],
-    linkedin && ['LinkedIn', isUrl(linkedin) ? linkedin : `https://www.linkedin.com/in/${encodeURIComponent(linkedin.replace(/^\/?in\//, ''))}/`],
-  ].filter(Boolean);
+  const links = socialLinks(doc.info);
   for (const box of $$('.social-links')) {
     box.hidden = !links.length;
-    clear(box).append(...links.map(([name, href]) => el('li', {}, el('a', { href, rel: 'noopener', target: '_blank', text: name }))));
+    clear(box).append(...links.map(({ name, href }) => el('li', {}, el('a', { href, rel: 'noopener', target: '_blank', text: name }))));
   }
   for (const h of $$('.social-head')) h.hidden = !links.length;
 }
@@ -118,10 +126,13 @@ function faqItem(f) {
   return el('details', { class: 'faq' }, [el('summary', { text: f.vraag }), el('p', { text: f.antwoord })]);
 }
 
+/** De FAQ van deze pagina (data-faq op de lijst: home, diensten, zwemanalyse of algemeen); zonder vragen verdwijnt de sectie. */
 function renderFaq(doc) {
   const box = $('#faq');
   if (!box) return;
-  const items = doc.faq.filter((f) => f.vraag);
+  const items = faqVoor(doc, box.dataset.faq || 'algemeen');
+  const sectie = box.closest('section');
+  if (sectie) sectie.hidden = !items.length;
   if (items.length) clear(box).append(...items.map(faqItem));
 }
 
@@ -180,9 +191,25 @@ function renderHome(doc) {
   }
   renderResultaten(doc);
   renderSteps(doc, '#steps');
+  renderPlaatsen(doc);
+}
+
+/** "Voor wie uit Rotterdam en omgeving": de plaatsen uit beheer → Info. */
+function renderPlaatsen(doc) {
+  const box = $('#plaatsen');
+  if (!box) return;
+  const plaatsen = plaatsenLijst(doc.info);
+  const sectie = box.closest('section');
+  if (sectie) sectie.hidden = !plaatsen.length;
+  if (plaatsen.length) clear(box).append(...plaatsen.map((naam) => el('li', { text: naam })));
 }
 
 const dienstLink = (d) => (d.id === 'zwemanalyse' ? 'zwemanalyse.html' : d.id === 'race' ? 'race.html' : `diensten.html#${d.id}`);
+/** Links onder een dienst op de dienstenpagina: de detailpagina en de ervaringen. */
+const dienstLinks = (d) => [
+  d.id === 'zwemanalyse' ? ['zwemanalyse.html', 'Alles over de zwemanalyse'] : d.id === 'race' ? ['race.html', 'Alles over begeleiding naar je race'] : ['werkwijze.html', 'Zo werkt het wekelijks bijsturen'],
+  ['ervaringen.html', 'Ervaringen van atleten'],
+];
 
 function renderResultaten(doc) {
   const box = $('#resultaten');
@@ -216,6 +243,7 @@ function renderDiensten(doc) {
   if (doc.diensten.length) {
     clear(box).append(...doc.diensten.map((d) => el('section', { class: 'dienst-full', id: d.id, 'aria-labelledby': `h-${d.id}` }, [
       el('h2', { id: `h-${d.id}` }, [el('span', { class: 'icon' }, svgIcon(d.icon)), d.titel]),
+      d.intro ? el('p', { class: 'dienst-intro', text: d.intro }) : null,
       el('p', { class: 'lang', text: d.lang || d.kort }),
       el('div', { class: 'dienst-cols' }, [
         el('div', { class: 'card' }, [el('h3', { text: 'Voor wie' }), el('ul', {}, d.voorWie.map((x) => el('li', { text: x })))]),
@@ -225,11 +253,14 @@ function renderDiensten(doc) {
         el('strong', { text: `Prijs: ${d.prijsTekst}` }),
         el('a', { class: 'btn btn-primary btn-sm wa-link', href: 'contact.html#formulier', text: 'Plan een kennismaking' }),
       ]),
+      el('p', { class: 'dienst-links' }, dienstLinks(d).map(([href, text]) => el('a', { href, text }))),
     ])));
     renderContactLinks(doc);
   }
   const za = $('#zwem-achtergrond');
   if (za && doc.zwemAchtergrond) za.textContent = doc.zwemAchtergrond;
+  const zl = $('#zwem-locatie');
+  if (zl && doc.zwemLocatie) zl.textContent = doc.zwemLocatie;
   const vb = $('#voorbeeld-video');
   if (vb && doc.voorbeeldVideoUrl && vb.getAttribute('src') !== doc.voorbeeldVideoUrl) { vb.setAttribute('src', doc.voorbeeldVideoUrl); vb.load(); }
   const intro = $('#prijs-intro');

@@ -99,6 +99,8 @@
 .dienst-full h2 .icon { width: 48px; height: 48px; border-radius: 14px; background: var(--mint); color: var(--green-deep); display: grid; place-items: center; flex: none; }
 .dienst-full h2 .icon svg { width: 26px; height: 26px; }
 .dienst-full .lang { max-width: 70ch; font-size: 1.05rem; }
+.dienst-full .dienst-intro { max-width: 70ch; font-weight: 600; color: var(--green-deep); margin: 0 0 8px; }
+.dienst-full .dienst-links { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; font-weight: 500; }
 .dienst-cols { display: grid; gap: 18px; }
 .dienst-cols .card h3 { font-size: 1.05rem; margin-bottom: 10px; }
 .dienst-cols ul { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 8px; }
@@ -137,6 +139,10 @@
 @media (min-width: 900px) { .results { grid-template-columns: repeat(3, 1fr); } }
 .results-note { margin-top: 20px; color: var(--muted); max-width: 60ch; }
 .results-note strong { color: var(--red-2); }
+/* ------------------------------------------------------------- plaatsen */
+.plaatsen { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.plaatsen li { background: var(--mint); color: var(--green-deep); border-radius: 999px; padding: 6px 14px; font-weight: 500; font-size: 0.95rem; }
+.links-rij { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 20px 0 0; font-weight: 500; }
 
 /* --------------------------------------------------------- wedstrijden */
 .palmares-lijst { display: grid; gap: 16px; }

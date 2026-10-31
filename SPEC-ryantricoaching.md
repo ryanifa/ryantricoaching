@@ -1,6 +1,6 @@
-# SPEC – Ryan Triathlon Coaching (ryantricoaching.nl) v1.1
+# SPEC – Ryan Triathlon Coaching (ryantricoaching.nl) v1.2
 
-Datum: 25-10-2026, bijgewerkt 28-10-2026 (stand na livegang). Eigenaar: Ryan Douglas. Basisconcept: `ryanifa/djroggy` (statisch, Gist-data, beheer.html).
+Datum: 25-10-2026, bijgewerkt 31-10-2026 (SEO-ronde). Eigenaar: Ryan Douglas. Basisconcept: `ryanifa/djroggy` (statisch, Gist-data, beheer.html).
 
 ## 1. Doel
 Promotiesite voor Ryans triathlon-coaching als hobbybusiness (3–4 atleten). Bezoeker moet in één scroll snappen: wie Ryan is, wat hij bereikt heeft, waarom hij dit doet, welke diensten er zijn, en hoe je contact legt. Geen webshop, geen login voor atleten. Prijzen "op aanvraag".
@@ -58,17 +58,17 @@ Prijzen: "Op aanvraag; ik werk met een klein aantal atleten tegelijk, dus we kij
 
 ## 6. Datamodel (`data/site.json`, `normalize()` in store.js)
 ```
-{ version, info{name, tagline, kop, intro, announcement, phone, whatsapp, email, kvk, instagram, strava, facebook, linkedin, regio},
+{ version, info{name, tagline, kop, intro, announcement, phone, whatsapp, email, kvk, instagram, strava, facebook, linkedin, tvs90, cs010, regio, plaatsen},
   hero{kop, sub, ctaPrimair, ctaSecundair},
-  diensten[{id, titel, kort, lang, voorWie[], watJeKrijgt[], prijsTekst, icon}],
+  diensten[{id, titel, kort, intro, lang, voorWie[], watJeKrijgt[], prijsTekst, prijs (getal of null, alleen voor Offer), icon, hidden}],
   afstanden[{id, naam, zwem, fiets, loop, weken, voorWie}],
   usps[{id, titel, tekst}],
   resultaten[{id, label, waarde, datum}],
   werkwijze[{id, stap, titel, tekst}],
-  verhaal[{id, tekst}], clubsTekst, clubsDisclaimer, overKop, overIntro, voorbeeldVideoUrl, zwemAchtergrond,
+  verhaal[{id, tekst}], clubsTekst, clubsDisclaimer, overKop, overIntro, voorbeeldVideoUrl, zwemAchtergrond, zwemLocatie,
   wedstrijden[{id, datum, naam, categorie (hele|halve|kwart|achtste|overig-tri|marathon|ultra), tijd, hidden}],
   reviews[{id, naam, tekst, datum, afstand, hidden, uitgelicht}],
-  faq[{id, vraag, antwoord}],
+  faq[{id, vraag, antwoord, pagina (algemeen|home|diensten|zwemanalyse)}],
   media[{id, url, alt}], verwijderdeIds[] }
 ```
 Beheer-tabs: Ervaringen · Diensten & afstanden · Resultaten · Verhaal & FAQ · Info · Instellingen. Zelfde admin-flow als djroggy (token/demo, concept→publiceren, back-up, beheerlink).
@@ -80,7 +80,7 @@ Beheer-tabs: Ervaringen · Diensten & afstanden · Resultaten · Verhaal & FAQ �
 - Formulier: Formspree, id in `config.js` en in de HTML gebakken; werkt zonder JS. Statistieken: GoatCounter (code in `config.js`, cookieloos, niet op localhost); dashboard ryantricoaching.goatcounter.com.
 - Hosting: GitHub Pages vanaf `main` (geen Actions). DNS bij Hostnet: A 185.199.108–111.153, AAAA 2606:50c0:8000::153, `www` CNAME ryanifa.github.io; zelfde voor `.com`.
 - Toegankelijkheid: skip-link, focus-states, contrast ≥ 4.5:1, `prefers-reduced-motion`.
-- SEO: title/description per pagina, OG-image (`assets/og.png`), JSON-LD `Person` + `Service`/`LocalBusiness` (Rotterdam).
+- SEO (ronde 31-10-2026): unieke title (≤ 60 waar mogelijk; zwemanalyse bewust langer) en description (≤ 155) per pagina, og:/twitter:-tags gelijk aan title/description, OG-image (`assets/og.png`). Gestructureerde gegevens uit één functie (`assets/js/schema.js`; `tools/build.py` bakt dezelfde `@graph` in de HTML, `site.js` vervangt die met de live gegevens): `Person` (Ryan, `sameAs` uit Instagram/Strava/LinkedIn/Facebook + clubpagina's), `SportsActivityLocation` (telefoon/e-mail alleen als ingevuld, `areaServed` Rotterdam/Zuid-Holland/Nederland (online), `priceRange`), `WebSite`, `Service` per dienst (met `Offer` alleen als `prijs` is ingevuld), `WebPage`, `BreadcrumbList` op subpagina's, `FAQPage` op home, diensten en zwemanalyse. Zoektermen: "zwemanalyse rotterdam", "onderwater zwemanalyse", "triathlon coach rotterdam", "triathlon beginner rotterdam". Elke pagina ≥ 3 interne links in de body; `sitemap.xml` lastmod bij elke inhoudswijziging.
 - Geen cookies (GoatCounter is cookieloos).
 
 ## 8. Acceptatiecriteria
@@ -102,3 +102,4 @@ Atleet-pagina's met schema en zwemanalyses onder eigen login; koppeling eoSwimmi
 - 26-10: vier hele's en buitenzwemmen in teksten, videoslot zwemanalyse.
 - 27-10: sensorsectie, echte stills, voorbeeldvideo via Worker, Gist gekoppeld, update-balk met knop, Over-kop/intro en clubs bewerkbaar, wedstrijdenlijst uit Garmin, import-stempeling.
 - 28-10: slogan en valkuilen-USP, Formspree, KNZB/De Waterman, Ironman-foto's, GoatCounter, Facebook- en Instagram-aankondiging.
+- 31-10: SEO-ronde: gestructureerde gegevens centraal (`schema.js`), FAQ per pagina (home, diensten, zwemanalyse), "Voor wie uit Rotterdam en omgeving", intro-zinnen per dienst, interne links, alt-teksten, titles/descriptions; nieuwe beheervelden: clubpagina's, plaatsen, prijs in euro, intro-zin, waar je filmt, pagina per FAQ-vraag.

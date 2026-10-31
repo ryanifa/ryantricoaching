@@ -4,13 +4,13 @@
    djroggy: concept in localStorage, Publiceren met conflictcheck,
    back-up, demo zonder sleutel, beheerlink voor op de telefoon. */
 
-import { CONFIG } from './config.js?v=2026.10.28-7';
-import { el, $, clear, uid, toast } from './dom.js?v=2026.10.28-7';
-import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.10.28-7';
+import { CONFIG } from './config.js?v=2026.10.31-1';
+import { el, $, clear, uid, toast } from './dom.js?v=2026.10.31-1';
+import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.10.31-1';
 import {
   normalize, bundledDoc, activeGistId, setLocalGistId, demoDoc, setDemoDoc, cacheDoc, storageGet, storageSet,
-  todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN, WEDSTRIJD_CATEGORIEEN,
-} from './store.js?v=2026.10.28-7';
+  todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN, WEDSTRIJD_CATEGORIEEN, FAQ_PAGINAS,
+} from './store.js?v=2026.10.31-1';
 
 const SESSION_KEY = 'rtc.admin';
 const DRAFT_KEY = 'rtc.draft';
@@ -554,10 +554,10 @@ const ICON_OPTIONS = DIENST_ICONS.map((i) => ({ value: i, label: { zwem: 'Zwemme
 
 function renderDienstenTab(main) {
   const doc = state.doc;
-  main.append(el('div', { class: 'list-head' }, [el('h2', { text: 'Diensten' }), el('span', { class: 'muted small', text: 'Prijzen staan als tekst ("Op aanvraag").' })]));
+  main.append(el('div', { class: 'list-head' }, [el('h2', { text: 'Diensten' }), el('span', { class: 'muted small', text: 'Prijzen staan als tekst ("Op aanvraag"); een prijs in euro is alleen voor Google.' })]));
   main.append(el('ul', { class: 'item-list boxed' }, doc.diensten.map((d, i) => el('li', { class: `item-row${d.hidden ? ' is-hidden' : ''}` }, [
     el('button', { type: 'button', class: 'item-main', onclick: () => editDienst(d) }, [
-      el('span', { class: 'item-top' }, [el('strong', { text: d.titel || '(naamloos)' }), d.hidden ? badge('Verborgen') : null, el('span', { class: 'item-price', text: d.prijsTekst })]),
+      el('span', { class: 'item-top' }, [el('strong', { text: d.titel || '(naamloos)' }), d.hidden ? badge('Verborgen') : null, el('span', { class: 'item-price', text: d.prijs ? `${d.prijsTekst} · € ${d.prijs}` : d.prijsTekst })]),
       el('small', { class: 'clamp', text: d.kort }),
     ]),
     el('div', { class: 'row-actions' }, [
@@ -577,6 +577,7 @@ function renderDienstenTab(main) {
   main.append(el('section', { class: 'panel' }, [
     el('h3', { text: 'Zwemachtergrond (zwemanalysepagina)' }),
     field('Tekst', bound(doc, 'zwemAchtergrond', { textarea: true }), 'Je opleiding en trainerservaring; staat boven "Camera, sensor en viewer".'),
+    field('Waar je filmt', bound(doc, 'zwemLocatie', { placeholder: 'een zwembad in Rotterdam of omgeving, of in open water' }), 'Komt in de eerste alinea achter "opgenomen in …". Noem het liefst het zwembad en de plaats, dat helpt bij zoeken op "zwemanalyse Rotterdam".'),
   ]));
 
   main.append(el('div', { class: 'list-head spaced' }, [el('h2', { text: 'Afstanden (racepagina)' })]));
@@ -613,17 +614,21 @@ function editDienst(d) {
       { key: 'titel', label: 'Naam', value: d?.titel, placeholder: 'bijv. Zwemanalyse' },
       { key: 'icon', label: 'Icoon', type: 'select', value: d?.icon || 'loop', options: ICON_OPTIONS },
       { key: 'kort', label: 'Korte tekst (homepage)', type: 'textarea', value: d?.kort },
+      { key: 'intro', label: 'Intro-zin (dienstenpagina, onder de kop)', type: 'textarea', value: d?.intro, help: 'Eén zin met de zoekterm, bijvoorbeeld "Zwemanalyse in Rotterdam: …".' },
       { key: 'lang', label: 'Uitgebreide tekst (dienstenpagina)', type: 'textarea', tall: true, value: d?.lang },
       { key: 'voorWie', label: 'Voor wie (één regel per punt)', type: 'textarea', value: (d?.voorWie || []).join('\n') },
       { key: 'watJeKrijgt', label: 'Wat je krijgt (één regel per punt)', type: 'textarea', value: (d?.watJeKrijgt || []).join('\n') },
       { key: 'prijsTekst', label: 'Prijs (tekst)', value: d?.prijsTekst || 'Op aanvraag' },
+      { key: 'prijs', label: 'Prijs in euro (alleen voor Google)', type: 'number', value: d?.prijs ?? '', placeholder: 'bijv. 95', help: 'Staat niet op de site, maar gaat als getal mee in de gestructureerde gegevens. Leeg = geen prijs doorgeven.' },
       { key: 'hidden', label: 'Verbergen op de website', type: 'checkbox', value: d?.hidden },
     ],
     submitText: d ? 'Opslaan' : 'Toevoegen',
     onSave: (v) => {
       if (!v.titel) return 'Geef de dienst een naam.';
       const lines = (s) => s.split('\n').map((x) => x.trim()).filter(Boolean);
-      const vals = { ...v, voorWie: lines(v.voorWie), watJeKrijgt: lines(v.watJeKrijgt), prijsTekst: v.prijsTekst || 'Op aanvraag' };
+      const prijs = Number(String(v.prijs || '').replace(',', '.'));
+      if (v.prijs && !(prijs > 0)) return 'De prijs in euro moet een getal zijn, bijvoorbeeld 95.';
+      const vals = { ...v, voorWie: lines(v.voorWie), watJeKrijgt: lines(v.watJeKrijgt), prijsTekst: v.prijsTekst || 'Op aanvraag', prijs: prijs > 0 ? prijs : null };
       if (d) Object.assign(d, vals);
       else state.doc.diensten.push({ id: uid('dienst'), ...vals });
       changed();
@@ -853,23 +858,34 @@ function linesPanel(title, help, list, prefix, { textarea = false, addText = '+ 
   return el('section', { class: 'panel' }, [el('h3', { text: title }), help ? el('p', { class: 'muted small', text: help }) : null, wrap]);
 }
 
+const FAQ_PAGINA_OPTIONS = FAQ_PAGINAS.map(([value, label]) => ({ value, label }));
+
+/** Veelgestelde vragen, met per vraag de pagina waar hij staat (homepage, diensten, zwemanalyse of de gedeelde lijst). */
 function faqPanel(list) {
   const wrap = el('div', { class: 'pairs' });
   const draw = () => {
     clear(wrap);
-    list.forEach((row, i) => wrap.append(el('div', { class: 'pair stacked' }, [
+    list.forEach((row, i) => wrap.append(el('div', { class: 'pair stacked faq-row' }, [
       bound(row, 'vraag', { placeholder: 'Vraag' }),
+      el('select', {
+        'aria-label': 'Pagina', value: row.pagina || 'algemeen',
+        onchange: (e) => { row.pagina = e.target.value; changed({ rerender: false }); },
+      }, FAQ_PAGINA_OPTIONS.map((o) => el('option', { value: o.value, text: o.label }))),
       iconBtn('Omhoog', '↑', () => { move(list, i, -1); changed({ rerender: false }); draw(); }, i === 0 ? 'off' : ''),
       iconBtn('Verwijderen', '✕', () => { registreerVerwijderd(row); list.splice(i, 1); changed({ rerender: false }); draw(); }),
       bound(row, 'antwoord', { textarea: true, placeholder: 'Antwoord' }),
     ])));
     wrap.append(el('button', {
       type: 'button', class: 'add-row small', text: '+ Vraag toevoegen',
-      onclick: () => { list.push({ id: uid('faq'), vraag: '', antwoord: '' }); changed({ rerender: false }); draw(); wrap.querySelector('.pair:last-of-type input')?.focus(); },
+      onclick: () => { list.push({ id: uid('faq'), vraag: '', antwoord: '', pagina: 'algemeen' }); changed({ rerender: false }); draw(); wrap.querySelector('.pair:last-of-type input')?.focus(); },
     }));
   };
   draw();
-  return el('section', { class: 'panel' }, [el('h3', { text: 'Veelgestelde vragen' }), el('p', { class: 'muted small', text: 'Staan op de werkwijze-, race- en contactpagina.' }), wrap]);
+  return el('section', { class: 'panel' }, [
+    el('h3', { text: 'Veelgestelde vragen' }),
+    el('p', { class: 'muted small', text: 'Kies per vraag de pagina: homepage, diensten, zwemanalyse, of de gedeelde lijst op de werkwijze-, race- en contactpagina. Google krijgt de vragen van de homepage, diensten en zwemanalyse ook als FAQ mee.' }),
+    wrap,
+  ]);
 }
 
 function werkwijzePanel(list) {
@@ -932,6 +948,7 @@ function renderInfoTab(main) {
       field('Naam', bound(info, 'name')),
       field('Tagline', bound(info, 'tagline', { placeholder: 'Je hoeft het niet alleen uit te zoeken.' }), 'Staat in de footer van elke pagina.'),
       field('Regio', bound(info, 'regio', { placeholder: 'Rotterdam en omgeving' })),
+      field('Plaatsen', bound(info, 'plaatsen', { placeholder: 'Rotterdam, Schiedam, Vlaardingen, …' }), 'Komma-gescheiden. Staat op de homepage onder "Voor wie uit Rotterdam en omgeving". Leeg = sectie verbergen.'),
     ]),
     el('section', { class: 'panel' }, [
       el('h3', { text: 'Contact' }),
@@ -943,6 +960,12 @@ function renderInfoTab(main) {
       field('Strava', bound(info, 'strava', { placeholder: 'https://www.strava.com/athletes/…' })),
       field('Facebook', bound(info, 'facebook')),
       field('LinkedIn', bound(info, 'linkedin', { placeholder: 'https://www.linkedin.com/in/…' })),
+    ]),
+    el('section', { class: 'panel' }, [
+      el('h3', { text: 'Clubpagina\'s (voor Google)' }),
+      el('p', { class: 'muted small', text: 'Niet zichtbaar op de site. Ze gaan samen met Instagram, Strava en LinkedIn als "sameAs" mee in de gestructureerde gegevens, zodat Google jou aan je clubs koppelt.' }),
+      field('TVS\'90', bound(info, 'tvs90', { type: 'url', placeholder: 'https://… (bijv. je ledenpagina of de clubsite)' })),
+      field('CS010', bound(info, 'cs010', { type: 'url', placeholder: 'https://…' })),
     ]),
   );
 }
@@ -1034,7 +1057,15 @@ function renderSettingsTab(main) {
 }
 
 const LIJST_LABEL = { startpunten: 'startpunt', diensten: 'dienst', afstanden: 'afstand', usps: 'punt "Waarom Ryan"', resultaten: 'resultaat', wedstrijden: 'wedstrijd', werkwijze: 'werkwijze-stap', verwachtingen: 'verwachting', verhaal: 'alinea', faq: 'FAQ', reviews: 'ervaring' };
-const VELD_LABEL = { tagline: 'tagline', regio: 'regio', strava: 'Strava', instagram: 'Instagram', 'hero.kop': 'kop homepage', 'hero.sub': 'tekst homepage', 'hero.ctaPrimair': 'knop homepage', 'hero.ctaSecundair': 'tweede knop homepage', prijsIntro: 'prijstekst', resultatenNoot: 'noot bij resultaten' };
+const VELD_LABEL = { tagline: 'tagline', regio: 'regio', plaatsen: 'plaatsen (homepage)', strava: 'Strava', instagram: 'Instagram', tvs90: 'clubpagina TVS\'90', cs010: 'clubpagina CS010', 'hero.kop': 'kop homepage', 'hero.sub': 'tekst homepage', 'hero.ctaPrimair': 'knop homepage', 'hero.ctaSecundair': 'tweede knop homepage', prijsIntro: 'prijstekst', resultatenNoot: 'noot bij resultaten', zwemLocatie: 'waar je filmt (zwemanalyse)', zwemAchtergrond: 'zwemachtergrond' };
+const ITEM_VELD_LABEL = { intro: 'intro-zin' };
+/** Label voor een ingevuld veld in het rapport: "diensten.zwemanalyse.intro" → 'intro-zin van dienst "zwemanalyse"'. */
+function veldLabel(key) {
+  if (VELD_LABEL[key]) return VELD_LABEL[key];
+  const m = /^(\w+)\.(.+)\.(\w+)$/.exec(key);
+  if (m && LIJST_LABEL[m[1]]) return `${ITEM_VELD_LABEL[m[3]] || m[3]} van ${LIJST_LABEL[m[1]]} "${m[2]}"`;
+  return key;
+}
 
 async function samenvoegen() {
   let bundled;
@@ -1063,7 +1094,7 @@ function rapportBox(rapport) {
       el('div', { class: 'modal-body', id: 'merge-rapport' }, [
         el('p', { class: 'muted', text: 'Dit wordt toegevoegd; je eigen teksten blijven ongewijzigd.' }),
         ...lijst(`${rapport.toegevoegd.length} toe te voegen`, rapport.toegevoegd.map((t) => `${LIJST_LABEL[t.lijst] || t.lijst}: ${t.label}`)),
-        ...lijst(`${rapport.ingevuld.length} leeg veld in te vullen`, rapport.ingevuld.map((v) => VELD_LABEL[v] || v)),
+        ...lijst(`${rapport.ingevuld.length} leeg veld in te vullen`, rapport.ingevuld.map(veldLabel)),
         rapport.overgeslagen.length ? el('p', { class: 'muted small', text: `${rapport.overgeslagen.length} eerder door jou verwijderd en daarom overgeslagen.` }) : null,
       ]),
       el('footer', { class: 'modal-foot' }, [
