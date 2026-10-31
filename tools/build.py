@@ -212,6 +212,8 @@ PAGE_NAMES = {
 ONDER_DIENSTEN = ['zwemanalyse', 'race']
 FAQ_PAGES = ['home', 'diensten', 'zwemanalyse']
 SERVICE_TYPES = {'zwemanalyse': 'Zwemanalyse met onderwatervideo', 'schemas': 'Trainingsschema fietsen en lopen', 'race': 'Triathlon-coaching: begeleiding naar je race'}
+# Andere schrijfwijzen waarop mensen zoeken (alternateName op de Service).
+SERVICE_ALT_NAMES = {'zwemanalyse': ['Zwem analyse', 'Zwem analyses', 'Zwemanalyses', 'Onderwater zwemanalyse', 'Zwemanalyse Rotterdam'], 'schemas': ['Triathlon trainingsschema', 'Trainingsschema fietsen en lopen'], 'race': ['Triathlon coaching', 'Begeleiding eerste triathlon']}
 
 
 def is_url(u):
@@ -314,6 +316,8 @@ def schema_graph(page, title, desc, url, faq=None):
             '@type': 'Service', '@id': f"{SITE}/#service-{d['id']}", 'name': d['titel'], 'serviceType': SERVICE_TYPES.get(d['id'], d['titel']),
             'description': d.get('kort', ''), 'provider': {'@id': ID_BUSINESS}, 'areaServed': AREA, 'url': dienst_url(d),
         }
+        if d['id'] in SERVICE_ALT_NAMES:
+            svc['alternateName'] = SERVICE_ALT_NAMES[d['id']]
         prijs = prijs_van(d)
         if prijs:
             svc['offers'] = {'@type': 'Offer', 'price': prijs, 'priceCurrency': 'EUR', 'url': dienst_url(d), 'availability': 'https://schema.org/InStock'}
@@ -578,7 +582,7 @@ def build_zwemanalyse():
 
     <section class="section section-alt" aria-labelledby="hoe-title">
       <div class="wrap">
-        <div class="section-head"><h2 id="hoe-title">Zo gaat een zwemanalyse</h2></div>
+        <div class="section-head"><h2 id="hoe-title">Zo gaat een zwemanalyse</h2><p>Al mijn zwemanalyses verlopen in deze vier stappen, in het zwembad of in open water. Je bent er ongeveer een uur mee kwijt, de analyse zelf kijk je daarna thuis terug.</p></div>
         <div class="analyse-stappen">{st}</div>
         {links_rij([('diensten.html', 'Alle diensten'), ('race.html', 'Zwemanalyse zit in de begeleiding naar je race'), ('contact.html', 'Plan een zwemanalyse')])}
       </div>
@@ -622,7 +626,7 @@ def build_zwemanalyse():
       <div class="wrap prose">
         <h2 id="tech-title">Camera, sensor en viewer</h2>
         <p id="zwem-achtergrond">{e(DATA['zwemAchtergrond'])}</p>
-        <p>Ik film onder water met een camera die scherp blijft, ook in een druk bad. De sensormeting hierboven is een optie bovenop de video; voor de meeste beginners is de video alleen al genoeg om de eerste grote stappen te zetten.</p>
+        <p>Ik film onder water met een camera die scherp blijft, ook in een druk bad. Zwem analyses zoals deze zijn er in Rotterdam niet veel: de meeste zwemtrainers kijken van de kant, en juist onder water zie je wat er echt gebeurt. De sensormeting hierboven is een optie bovenop de video; voor de meeste beginners is de video alleen al genoeg om de eerste grote stappen te zetten.</p>
         <p>De beelden bekijk je in een viewer waarin je kunt vertragen, stilzetten en frame voor frame door je slag stappen, met mijn tekeningen en ingesproken feedback op het beeld. Jij krijgt een link die je op je telefoon opent. Geen app installeren, geen account nodig.</p>
         <p>Een term die je vaak hoort is CSS, je kritische zwemsnelheid: het tempo dat je ongeveer een kwartier tot twintig minuten kunt volhouden. Die bepalen we met een korte test, en daar stemmen we je zwemtrainingen op af. Ik leg het je gewoon uit, je hoeft er niets van te weten om te beginnen.</p>
       </div>

@@ -5,7 +5,7 @@
    tools/build.py bakt dezelfde structuur in de HTML (uit data/site.json); site.js
    vervangt die zodra de live gegevens (telefoon, e-mail, sameAs, prijzen, FAQ) binnen zijn. */
 
-import { faqVoor, socialLinks } from './store.js?v=2026.10.31-1';
+import { faqVoor, socialLinks } from './store.js?v=2026.10.31-2';
 
 export const SITE = 'https://ryantricoaching.nl';
 const ID = { ryan: `${SITE}/#ryan`, business: `${SITE}/#business`, website: `${SITE}/#website` };
@@ -21,6 +21,8 @@ const ONDER_DIENSTEN = ['zwemanalyse', 'race'];
 /** Pagina's met een eigen FAQ-lijst (en dus een FAQPage). */
 export const FAQ_PAGES = ['home', 'diensten', 'zwemanalyse'];
 const SERVICE_TYPES = { zwemanalyse: 'Zwemanalyse met onderwatervideo', schemas: 'Trainingsschema fietsen en lopen', race: 'Triathlon-coaching: begeleiding naar je race' };
+/** Andere schrijfwijzen waarop mensen zoeken (alternateName op de Service). */
+const SERVICE_ALT_NAMES = { zwemanalyse: ['Zwem analyse', 'Zwem analyses', 'Zwemanalyses', 'Onderwater zwemanalyse', 'Zwemanalyse Rotterdam'], schemas: ['Triathlon trainingsschema', 'Trainingsschema fietsen en lopen'], race: ['Triathlon coaching', 'Begeleiding eerste triathlon'] };
 
 const isRealPhone = (p) => /\d{9,}/.test(String(p || '').replace(/\D/g, '')) && !/x/i.test(p);
 const isRealEmail = (e) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e || '') && !/voorbeeld\.nl$/i.test(e);
@@ -78,6 +80,7 @@ export function buildSchema(doc, { page = 'home', title = '', description = '', 
   const services = diensten.map((d) => ({
     '@type': 'Service', '@id': `${SITE}/#service-${d.id}`, name: d.titel, serviceType: SERVICE_TYPES[d.id] || d.titel,
     description: d.kort, provider: { '@id': ID.business }, areaServed: AREA, url: dienstUrl(d),
+    ...(SERVICE_ALT_NAMES[d.id] ? { alternateName: SERVICE_ALT_NAMES[d.id] } : {}),
     ...(typeof d.prijs === 'number' && d.prijs > 0 ? { offers: { '@type': 'Offer', price: d.prijs, priceCurrency: 'EUR', url: dienstUrl(d), availability: 'https://schema.org/InStock' } } : {}),
   }));
   const webpage = {

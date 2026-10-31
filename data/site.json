@@ -775,6 +775,12 @@
       "vraag": "Kan ik de zwemanalyse combineren met een trainingsschema?",
       "antwoord": "Ja. Bij begeleiding naar je race zit de zwemanalyse standaard in. Heb je al een schema, dan verwerk ik de oefeningen uit de analyse in je zwemtrainingen. Na vier weken kunnen we opnieuw meten om te zien wat het heeft opgeleverd.",
       "pagina": "zwemanalyse"
+    },
+    {
+      "id": "faq-zwem-schrijfwijze",
+      "vraag": "Zwem analyse, zwem analyses of zwemanalyse: is dat hetzelfde?",
+      "antwoord": "Ja. Je ziet alle schrijfwijzen voorbijkomen: zwem analyse, zwem analyses, zwemanalyses, onderwater zwemanalyse. Ik bedoel er steeds hetzelfde mee: een onderwateropname van je zwemslag, die ik frame voor frame bekijk en inspreek, met verbeterpunten en oefeningen. Officieel is het één woord, maar zoek gerust op wat je gewend bent.",
+      "pagina": "zwemanalyse"
     }
   ],
   "media": [],
