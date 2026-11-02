@@ -193,7 +193,7 @@
     {
       "id": "res2-kwart",
       "label": "Kwart triathlons",
-      "waarde": "15×",
+      "waarde": "18×",
       "datum": ""
     },
     {
@@ -215,7 +215,7 @@
       "datum": ""
     }
   ],
-  "resultatenNoot": "Sinds 2016 uit mijn eigen Garmin, de marathons van 2014 en 2015 uit de officiële uitslagen. Volgend jaar: Ironman Kopenhagen. Lid van TVS'90 (triathlon, Spijkenisse) en CS010 (wielrennen, Rotterdam). En dat op mijn 57e.",
+  "resultatenNoot": "Sinds 2016 uit mijn eigen Garmin, daarvoor uit de officiële uitslagen. Volgend jaar: Ironman Kopenhagen. Lid van TVS'90 (triathlon, Spijkenisse) en CS010 (wielrennen, Rotterdam). En dat op mijn 57e.",
   "wedstrijden": [
     {
       "id": "w-hele-20250913",
@@ -292,7 +292,7 @@
     {
       "id": "w-kwart-20260913",
       "datum": "2026-09-13",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:32:00",
       "hidden": false
@@ -300,7 +300,7 @@
     {
       "id": "w-kwart-20250907",
       "datum": "2025-09-07",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:33:44",
       "hidden": false
@@ -308,7 +308,7 @@
     {
       "id": "w-kwart-20240908",
       "datum": "2024-09-08",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:34:36",
       "hidden": false
@@ -324,7 +324,7 @@
     {
       "id": "w-kwart-20230903",
       "datum": "2023-09-03",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:29:05",
       "hidden": false
@@ -340,7 +340,7 @@
     {
       "id": "w-kwart-20220911",
       "datum": "2022-09-11",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:24:26",
       "hidden": false
@@ -348,7 +348,7 @@
     {
       "id": "w-kwart-20210905",
       "datum": "2021-09-05",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:28:04",
       "hidden": false
@@ -356,7 +356,7 @@
     {
       "id": "w-kwart-20190908",
       "datum": "2019-09-08",
-      "naam": "Rotterdam",
+      "naam": "Schiebroek",
       "categorie": "kwart",
       "tijd": "2:35:43",
       "hidden": false
@@ -591,6 +591,30 @@
       "naam": "Rotterdam",
       "categorie": "marathon",
       "tijd": "4:10:29",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-201409-schiebroek",
+      "datum": "2014-09",
+      "naam": "Schiebroek",
+      "categorie": "kwart",
+      "tijd": "3:10:00",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-201509-schiebroek",
+      "datum": "2015-09",
+      "naam": "Schiebroek",
+      "categorie": "kwart",
+      "tijd": "2:39:50",
+      "hidden": false
+    },
+    {
+      "id": "w-kwart-201609-schiebroek",
+      "datum": "2016-09",
+      "naam": "Schiebroek",
+      "categorie": "kwart",
+      "tijd": "2:36:36",
       "hidden": false
     }
   ],
