@@ -4,13 +4,13 @@
    djroggy: concept in localStorage, Publiceren met conflictcheck,
    back-up, demo zonder sleutel, beheerlink voor op de telefoon. */
 
-import { CONFIG } from './config.js?v=2026.11.02-1';
-import { el, $, clear, uid, toast } from './dom.js?v=2026.11.02-1';
-import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.11.02-1';
+import { CONFIG } from './config.js?v=2026.11.02-2';
+import { el, $, clear, uid, toast } from './dom.js?v=2026.11.02-2';
+import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.11.02-2';
 import {
   normalize, bundledDoc, activeGistId, setLocalGistId, demoDoc, setDemoDoc, cacheDoc, storageGet, storageSet,
   todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN, WEDSTRIJD_CATEGORIEEN, FAQ_PAGINAS,
-} from './store.js?v=2026.11.02-1';
+} from './store.js?v=2026.11.02-2';
 
 const SESSION_KEY = 'rtc.admin';
 const DRAFT_KEY = 'rtc.draft';

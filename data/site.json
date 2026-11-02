@@ -199,7 +199,7 @@
     {
       "id": "res2-marathons",
       "label": "Marathons",
-      "waarde": "12×",
+      "waarde": "15×",
       "datum": ""
     },
     {
@@ -215,7 +215,7 @@
       "datum": ""
     }
   ],
-  "resultatenNoot": "Alles uit mijn eigen Garmin sinds 2016. Volgend jaar: Ironman Kopenhagen. Lid van TVS'90 (triathlon, Spijkenisse) en CS010 (wielrennen, Rotterdam). En dat op mijn 57e.",
+  "resultatenNoot": "Sinds 2016 uit mijn eigen Garmin, de marathons van 2014 en 2015 uit de officiële uitslagen. Volgend jaar: Ironman Kopenhagen. Lid van TVS'90 (triathlon, Spijkenisse) en CS010 (wielrennen, Rotterdam). En dat op mijn 57e.",
   "wedstrijden": [
     {
       "id": "w-hele-20250913",
@@ -567,6 +567,30 @@
       "naam": "Den Haag",
       "categorie": "marathon",
       "tijd": "3:36:52",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20140413",
+      "datum": "2014-04-13",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "4:23:52",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20150412",
+      "datum": "2015-04-12",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "4:26:51",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20160410",
+      "datum": "2016-04-10",
+      "naam": "Rotterdam",
+      "categorie": "marathon",
+      "tijd": "4:10:29",
       "hidden": false
     }
   ],

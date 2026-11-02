@@ -426,7 +426,7 @@ def build_index():
         </div>
         <div class="results" id="resultaten">{results}</div>
         <p class="results-note" id="resultaten-noot">{e(DATA['resultatenNoot'])}</p>
-        <p style="margin-top:12px"><a href="over.html#wedstrijden">Alle wedstrijden en tijden sinds 2016</a></p>
+        <p style="margin-top:12px"><a href="over.html#wedstrijden">Alle wedstrijden en tijden sinds 2014</a></p>
       </div>
     </section>
 
@@ -711,7 +711,7 @@ def build_over():
     </section>
     <section class="section" aria-labelledby="wed-title" id="wedstrijden"{'' if wedstrijden else ' hidden'}>
       <div class="wrap">
-        <div class="section-head"><h2 id="wed-title">Wedstrijden</h2><p>Alles wat ik sinds 2016 aan de start stond en uitliep, per afstand.</p></div>
+        <div class="section-head"><h2 id="wed-title">Wedstrijden</h2><p>Alles wat ik sinds 2014 aan de start stond en uitliep, per afstand.</p></div>
         <div class="palmares-lijst" id="wedstrijden-lijst">{wedstrijden}</div>
         <p class="results-note" id="wedstrijden-noot">Horlogetijden uit Garmin, daarom soms iets ruimer dan de officiële chiptijd. DNF = niet gefinisht.</p>
       </div>
