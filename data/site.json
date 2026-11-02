@@ -199,7 +199,7 @@
     {
       "id": "res2-marathons",
       "label": "Marathons",
-      "waarde": "11×",
+      "waarde": "12×",
       "datum": ""
     },
     {
@@ -559,6 +559,14 @@
       "naam": "Brasseuse (56,6 km)",
       "categorie": "ultra",
       "tijd": "4:34:11",
+      "hidden": false
+    },
+    {
+      "id": "w-marathon-20261101",
+      "datum": "2026-11-01",
+      "naam": "Den Haag",
+      "categorie": "marathon",
+      "tijd": "3:36:52",
       "hidden": false
     }
   ],

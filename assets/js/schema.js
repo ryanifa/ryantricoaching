@@ -5,7 +5,7 @@
    tools/build.py bakt dezelfde structuur in de HTML (uit data/site.json); site.js
    vervangt die zodra de live gegevens (telefoon, e-mail, sameAs, prijzen, FAQ) binnen zijn. */
 
-import { faqVoor, socialLinks } from './store.js?v=2026.10.31-2';
+import { faqVoor, socialLinks } from './store.js?v=2026.11.02-1';
 
 export const SITE = 'https://ryantricoaching.nl';
 const ID = { ryan: `${SITE}/#ryan`, business: `${SITE}/#business`, website: `${SITE}/#website` };
