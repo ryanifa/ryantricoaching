@@ -3,10 +3,10 @@
    Gist of data/site.json binnen is. Alle renderers werken op filter(doc) uit
    store.js, nooit op het ruwe document. Alles via textContent (dom.js). */
 
-import { CONFIG } from './config.js?v=2026.11.02-3';
-import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.11.02-3';
-import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie, faqVoor, plaatsenLijst, socialLinks } from './store.js?v=2026.11.02-3';
-import { buildSchema } from './schema.js?v=2026.11.02-3';
+import { CONFIG } from './config.js?v=2026.11.15-1';
+import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.11.15-1';
+import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie, faqVoor, plaatsenLijst, socialLinks } from './store.js?v=2026.11.15-1';
+import { buildSchema } from './schema.js?v=2026.11.15-1';
 
 const page = document.body.dataset.page || 'home';
 
@@ -263,6 +263,18 @@ function renderDiensten(doc) {
   if (zl && doc.zwemLocatie) zl.textContent = doc.zwemLocatie;
   const vb = $('#voorbeeld-video');
   if (vb && doc.voorbeeldVideoUrl && vb.getAttribute('src') !== doc.voorbeeldVideoUrl) { vb.setAttribute('src', doc.voorbeeldVideoUrl); vb.load(); }
+  const tr = $('#transcriptie');
+  const trTekst = $('#transcriptie-tekst');
+  if (tr && trTekst) {
+    const alineas = String(doc.voorbeeldVideoTranscript || '').split(/\n\s*\n/).map((a) => a.trim()).filter(Boolean);
+    if (alineas.length) {
+      clear(trTekst);
+      alineas.forEach((a) => trTekst.append(el('p', { text: a })));
+      tr.hidden = false;
+    } else {
+      tr.hidden = true;
+    }
+  }
   const intro = $('#prijs-intro');
   if (intro && doc.prijsIntro) intro.textContent = doc.prijsIntro;
 }

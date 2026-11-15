@@ -466,6 +466,15 @@ def build_index():
     write('index.html', head('home', 'Triathlon-coach in Rotterdam | Ryan Triathlon Coaching', 'Triathlon-coach in Rotterdam: zwemanalyse met onderwatervideo, trainingsschema\'s en begeleiding naar je eerste triathlon. Gratis kennismaking.', '', faq=faq_voor('home')) + body + footer())
 
 
+def transcript_html(text):
+    """Uitklapbare transcriptie onder de voorbeeldvideo; leeg = niets tonen (site.js vult uit de Gist)."""
+    alineas = [a.strip() for a in (text or '').split('\n\n') if a.strip()]
+    inner = ''.join(f'<p>{e(a)}</p>' for a in alineas)
+    hidden = '' if alineas else ' hidden'
+    return (f'<details id="transcriptie" class="transcript"{hidden}><summary>Lees de transcriptie van de video</summary>'
+            f'<div id="transcriptie-tekst">{inner}</div></details>')
+
+
 def maand(iso):
     if not iso:
         return ''
@@ -555,6 +564,8 @@ def build_zwemanalyse():
     wk = ''.join(f'<li>{e(x)}</li>' for x in d['watJeKrijgt'])
     vw = ''.join(f'<li>{e(x)}</li>' for x in d['voorWie'])
     locatie = DATA.get('zwemLocatie') or 'een zwembad in Rotterdam of omgeving, of in open water'
+    vtt = ROOT / 'assets' / 'video' / 'analyse.vtt'
+    track = f'<track kind="captions" srclang="nl" label="Nederlands" src="assets/video/analyse.vtt?v={VERSION}" default>' if vtt.exists() else ''
     body = f'''    <div class="wrap page-head">
       <div class="kicker">Zwemanalyse</div>
       <h1>Zie eindelijk wat je onder water doet</h1>
@@ -564,9 +575,10 @@ def build_zwemanalyse():
     <div class="wrap two-col" style="padding-bottom:40px">
       <div>
         <div class="analyse-video">
-          <video id="voorbeeld-video" controls playsinline preload="metadata" poster="assets/video/analyse-poster.jpg" width="1280" height="720" src="{e(DATA['voorbeeldVideoUrl'])}"></video>
+          <video id="voorbeeld-video" controls playsinline preload="metadata" poster="assets/video/analyse-poster.jpg" width="1280" height="720" src="{e(DATA['voorbeeldVideoUrl'])}">{track}</video>
           <span class="cap"><strong>Voorbeeld van een zwemanalyse</strong> Zo ziet het eruit: wat ik zie, waar ik op let en wat je ermee kunt.</span>
         </div>
+        {transcript_html(DATA.get('voorbeeldVideoTranscript', ''))}
         <div class="stills" style="margin-top:12px">{stills}</div>
         <p class="muted small" style="margin-top:10px">Onderwaterbeelden uit een echte analyse, met toestemming van de zwemmer.</p>
       </div>

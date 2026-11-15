@@ -4,13 +4,13 @@
    djroggy: concept in localStorage, Publiceren met conflictcheck,
    back-up, demo zonder sleutel, beheerlink voor op de telefoon. */
 
-import { CONFIG } from './config.js?v=2026.11.02-3';
-import { el, $, clear, uid, toast } from './dom.js?v=2026.11.02-3';
-import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.11.02-3';
+import { CONFIG } from './config.js?v=2026.11.15-1';
+import { el, $, clear, uid, toast } from './dom.js?v=2026.11.15-1';
+import { checkToken, readGist, createGist, writeGist, GistError } from './gist.js?v=2026.11.15-1';
 import {
   normalize, bundledDoc, activeGistId, setLocalGistId, demoDoc, setDemoDoc, cacheDoc, storageGet, storageSet,
   todayIso, filter, formatDatum, mergeDefaults, DIENST_ICONS, AFSTANDEN, WEDSTRIJD_CATEGORIEEN, FAQ_PAGINAS,
-} from './store.js?v=2026.11.02-3';
+} from './store.js?v=2026.11.15-1';
 
 const SESSION_KEY = 'rtc.admin';
 const DRAFT_KEY = 'rtc.draft';
@@ -573,6 +573,7 @@ function renderDienstenTab(main) {
   main.append(el('section', { class: 'panel' }, [
     el('h3', { text: 'Voorbeeldvideo (zwemanalysepagina)' }),
     field('Directe link naar de mp4', bound(doc, 'voorbeeldVideoUrl'), 'Wordt als video in de pagina afgespeeld. Let op de vervaldatum (e=) van de link.'),
+    field('Transcriptie van de video', bound(doc, 'voorbeeldVideoTranscript', { textarea: true, tall: true }), 'Uitgeschreven tekst van de voice-over, uitklapbaar onder de video. Lege regel = nieuwe alinea. Leeg laten = niet tonen.'),
   ]));
   main.append(el('section', { class: 'panel' }, [
     el('h3', { text: 'Zwemachtergrond (zwemanalysepagina)' }),

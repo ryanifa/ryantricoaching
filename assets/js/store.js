@@ -3,8 +3,8 @@
    dan de live Gist, met een lokale cache en het meegeleverde data/site.json als
    terugval zodat de pagina altijd iets toont, ook offline. */
 
-import { CONFIG } from './config.js?v=2026.11.02-3';
-import { readGist, readGistRaw } from './gist.js?v=2026.11.02-3';
+import { CONFIG } from './config.js?v=2026.11.15-1';
+import { readGist, readGistRaw } from './gist.js?v=2026.11.15-1';
 
 const KEYS = {
   cache: 'rtc.cache',
@@ -237,6 +237,7 @@ export function normalize(input) {
     clubsTekst: str(doc.clubsTekst),
     clubsDisclaimer: str(doc.clubsDisclaimer),
     voorbeeldVideoUrl: str(doc.voorbeeldVideoUrl),
+    voorbeeldVideoTranscript: str(doc.voorbeeldVideoTranscript),
     overKop: str(doc.overKop),
     overIntro: str(doc.overIntro),
     zwemAchtergrond: str(doc.zwemAchtergrond),
@@ -295,7 +296,7 @@ const leeg = (v) => v === '' || v === null || v === undefined;
 /** Info-velden die mergeDefaults nooit invult: contactgegevens die in de standaarddata placeholders zijn. */
 export const MERGE_SKIP_FIELDS = ['phone', 'whatsapp', 'email', 'kvk'];
 /** Losse tekstvelden op het document die net als info-velden alleen leeg worden ingevuld. */
-const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsDisclaimer', 'voorbeeldVideoUrl', 'overKop', 'overIntro', 'zwemAchtergrond', 'zwemLocatie'];
+const MERGE_TEXT_FIELDS = ['prijsIntro', 'resultatenNoot', 'clubsTekst', 'clubsDisclaimer', 'voorbeeldVideoUrl', 'voorbeeldVideoTranscript', 'overKop', 'overIntro', 'zwemAchtergrond', 'zwemLocatie'];
 /** Velden van bestaande lijstitems die na een update leeg kunnen zijn (nieuw veld) en dan uit bundled gevuld worden. */
 export const MERGE_ITEM_FIELDS = { diensten: ['intro'] };
 
