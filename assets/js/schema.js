@@ -5,7 +5,7 @@
    tools/build.py bakt dezelfde structuur in de HTML (uit data/site.json); site.js
    vervangt die zodra de live gegevens (telefoon, e-mail, sameAs, prijzen, FAQ) binnen zijn. */
 
-import { faqVoor, socialLinks } from './store.js?v=2026.11.15-3';
+import { faqVoor, socialLinks } from './store.js?v=2026.11.16-1';
 
 export const SITE = 'https://ryantricoaching.nl';
 const ID = { ryan: `${SITE}/#ryan`, business: `${SITE}/#business`, website: `${SITE}/#website` };
@@ -20,9 +20,9 @@ export const PAGE_NAMES = {
 const ONDER_DIENSTEN = ['zwemanalyse', 'race'];
 /** Pagina's met een eigen FAQ-lijst (en dus een FAQPage). */
 export const FAQ_PAGES = ['home', 'diensten', 'zwemanalyse'];
-const SERVICE_TYPES = { zwemanalyse: 'Zwemanalyse met onderwatervideo', schemas: 'Trainingsschema fietsen en lopen', race: 'Triathlon-coaching: begeleiding naar je race' };
+const SERVICE_TYPES = { zwemanalyse: 'Zwemanalyse met onderwatervideo', schemas: 'Hardloopbegeleiding en fietsschema op maat', race: 'Triathlonbegeleiding: van inschrijving tot finish' };
 /** Andere schrijfwijzen waarop mensen zoeken (alternateName op de Service). */
-const SERVICE_ALT_NAMES = { zwemanalyse: ['Zwem analyse', 'Zwem analyses', 'Zwemanalyses', 'Onderwater zwemanalyse', 'Zwemanalyse Rotterdam'], schemas: ['Triathlon trainingsschema', 'Trainingsschema fietsen en lopen'], race: ['Triathlon coaching', 'Begeleiding eerste triathlon'] };
+const SERVICE_ALT_NAMES = { zwemanalyse: ['Zwem analyse', 'Zwem analyses', 'Zwemanalyses', 'Onderwater zwemanalyse', 'Zwemanalyse Rotterdam'], schemas: ['Hardloopbegeleiding', 'Hardloop begeleiding', 'Hardloopcoach Rotterdam', 'Loopschema op maat', 'Triathlon trainingsschema', 'Trainingsschema fietsen en lopen'], race: ['Triathlon begeleiding', 'Triathlonbegeleiding', 'Triathlon coaching', 'Triathlontrainer Rotterdam', 'Begeleiding eerste triathlon'] };
 
 const isRealPhone = (p) => /\d{9,}/.test(String(p || '').replace(/\D/g, '')) && !/x/i.test(p);
 const isRealEmail = (e) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e || '') && !/voorbeeld\.nl$/i.test(e);

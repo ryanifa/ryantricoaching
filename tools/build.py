@@ -211,9 +211,9 @@ PAGE_NAMES = {
 }
 ONDER_DIENSTEN = ['zwemanalyse', 'race']
 FAQ_PAGES = ['home', 'diensten', 'zwemanalyse']
-SERVICE_TYPES = {'zwemanalyse': 'Zwemanalyse met onderwatervideo', 'schemas': 'Trainingsschema fietsen en lopen', 'race': 'Triathlon-coaching: begeleiding naar je race'}
+SERVICE_TYPES = {'zwemanalyse': 'Zwemanalyse met onderwatervideo', 'schemas': 'Hardloopbegeleiding en fietsschema op maat', 'race': 'Triathlonbegeleiding: van inschrijving tot finish'}
 # Andere schrijfwijzen waarop mensen zoeken (alternateName op de Service).
-SERVICE_ALT_NAMES = {'zwemanalyse': ['Zwem analyse', 'Zwem analyses', 'Zwemanalyses', 'Onderwater zwemanalyse', 'Zwemanalyse Rotterdam'], 'schemas': ['Triathlon trainingsschema', 'Trainingsschema fietsen en lopen'], 'race': ['Triathlon coaching', 'Begeleiding eerste triathlon']}
+SERVICE_ALT_NAMES = {'zwemanalyse': ['Zwem analyse', 'Zwem analyses', 'Zwemanalyses', 'Onderwater zwemanalyse', 'Zwemanalyse Rotterdam'], 'schemas': ['Hardloopbegeleiding', 'Hardloop begeleiding', 'Hardloopcoach Rotterdam', 'Loopschema op maat', 'Triathlon trainingsschema', 'Trainingsschema fietsen en lopen'], 'race': ['Triathlon begeleiding', 'Triathlonbegeleiding', 'Triathlon coaching', 'Triathlontrainer Rotterdam', 'Begeleiding eerste triathlon']}
 
 
 def is_url(u):
@@ -463,7 +463,7 @@ def build_index():
     </section>
 
 {faq_section('Vragen van beginners', 'home', alt=True, intro='Eerste triathlon in Rotterdam? Dit zijn de vragen die ik het vaakst krijg.')}{cta_band('Je eerste triathlon begint met één gesprek.', 'Gratis kennismaking van een half uur: bellen of koffie in Rotterdam. Daarna beslis je of we doorgaan.')}'''
-    write('index.html', head('home', 'Triathlon-coach in Rotterdam | Ryan Triathlon Coaching', 'Triathlon-coach in Rotterdam: zwemanalyse met onderwatervideo, trainingsschema\'s en begeleiding naar je eerste triathlon. Gratis kennismaking.', '', faq=faq_voor('home')) + body + footer())
+    write('index.html', head('home', 'Triathlon-coach in Rotterdam | Ryan Triathlon Coaching', 'Triathlon-coach in Rotterdam: zwemanalyse met onderwatervideo, hardloopbegeleiding met een schema op maat en triathlonbegeleiding naar je eerste race. Gratis kennismaking.', '', faq=faq_voor('home')) + body + footer())
 
 
 def transcript_html(text):
@@ -535,8 +535,29 @@ def build_diensten():
           <div class="dienst-prijs"><strong>Prijs: {e(d['prijsTekst'])}</strong><a class="btn btn-primary btn-sm wa-link" href="contact.html#formulier">Plan een kennismaking</a></div>
           <p class="dienst-links"><a href="{detail[0]}">{e(detail[1])}</a><a href="ervaringen.html">Ervaringen van atleten</a></p>
         </section>'''
-    body = page_head('Diensten', 'Drie manieren om je te helpen', 'Zwemanalyse, een triathlon trainingsschema of begeleiding naar je eerste triathlon: los of gecombineerd. Alles begint met een gratis kennismaking in Rotterdam, zodat we weten of het klikt en wat je nodig hebt.') + f'''
+    body = page_head('Diensten', 'Zwemanalyse, hardloopbegeleiding en triathlonbegeleiding', 'Drie manieren om je te helpen: een zwemanalyse met onderwatervideo, hardloop- en fietsbegeleiding met een schema op maat, of volledige triathlonbegeleiding naar je eerste race. Los of gecombineerd. Alles begint met een gratis kennismaking in Rotterdam, zodat we weten of het klikt en wat je nodig hebt.') + f'''
     <div class="wrap" id="diensten-lijst">{secs}</div>
+    <section class="section section-alt" aria-labelledby="hardloop-title">
+      <div class="wrap two-col">
+        <div class="prose">
+          <h2 id="hardloop-title">Hardloopbegeleiding, ook zonder triathlon</h2>
+          <p>Niet iedereen die bij mij aanklopt wil een triathlon doen. Hardloopbegeleiding is vaak het begin: je wilt weer regelmatig lopen, een 10 km of halve marathon uitlopen zonder blessures, of eindelijk die marathon onder een bepaalde tijd. Dan maak ik een loopschema op maat voor jouw agenda en niveau, met tempo- en hartslaggrenzen die je op je Garmin zet, en sturen we wekelijks bij op hoe het voelt.</p>
+          <p>Zelf liep ik vijftien marathons en leerde ik op de harde manier wat te veel, te hard en te vroeg doet met een lijf. Daarom zit in elke hardloopbegeleiding ook een kwartier krachttraining per week en een duidelijke regel voor wat je doet als je moe bent of pijn voelt. Fietsbegeleiding werkt op dezelfde manier, met vermogen of hartslag als meetlat.</p>
+          <p>Wil je later toch die triathlon? Dan groeit het loopschema gewoon door naar <a href="race.html">triathlonbegeleiding</a>; de basis die je dan hebt, is precies wat je nodig hebt.</p>
+        </div>
+        <aside class="card aside-card">
+          <h2>Hardloopbegeleiding in het kort</h2>
+          <ul>
+            <li>Loopschema per week, aangepast op jouw feedback</li>
+            <li>Wekelijks contact via WhatsApp, bellen als dat helpt</li>
+            <li>Ik volg je trainingen via Strava of Garmin</li>
+            <li>Krachtoefeningen voor thuis, gericht op blessurevrij lopen</li>
+            <li>Eerste maand gratis als proef</li>
+          </ul>
+          <a class="btn btn-primary wa-link" href="contact.html#formulier">Vraag hardloopbegeleiding aan</a>
+        </aside>
+      </div>
+    </section>
     <section class="section" aria-labelledby="prijs-title">
       <div class="wrap prijs-box">
         <h2 id="prijs-title">Over de prijzen</h2>
@@ -545,7 +566,7 @@ def build_diensten():
       </div>
     </section>
 {faq_section('Veelgestelde vragen over de diensten', 'diensten', alt=True)}'''
-    write('diensten.html', head('diensten', 'Zwemanalyse, schema\'s en race | Ryan Triathlon Coaching', 'Zwemanalyse met onderwatervideo, een triathlon trainingsschema voor beginners en begeleiding naar je race. Van Ryan, triathlon-coach in Rotterdam.', 'diensten.html', faq=faq_voor('diensten')) + body + footer())
+    write('diensten.html', head('diensten', 'Zwemanalyse, hardloopbegeleiding en triathlonbegeleiding | Ryan Triathlon Coaching', 'Zwemanalyse met onderwatervideo, hardloopbegeleiding met een loopschema op maat en triathlonbegeleiding naar je eerste race. Van Ryan, triathlon-coach in Rotterdam.', 'diensten.html', faq=faq_voor('diensten')) + body + footer())
 
 
 # --------------------------------------------------------------- zwemanalyse
@@ -662,7 +683,13 @@ def build_race():
         ('Racedag', 'Finish', 'Je weet precies wat je gaat doen: tempo, voeding, wisselzones. Ik ben bereikbaar en sta waar het kan langs het parcours.'),
     ]
     tbl = ''.join(f'<tr><td>{e(w)}</td><td>{e(f)}</td><td>{e(t)}</td></tr>' for w, f, t in rows)
-    body = page_head('Begeleiding naar je race', 'Van inschrijving tot finish', 'Je eerste triathlon als beginner, of je eerste hele: ik maak er een plan van dat past bij je leven, en ik blijf erbij tot je over de streep bent. Vanuit Rotterdam, of online.') + f'''
+    body = page_head('Triathlonbegeleiding', 'Triathlon begeleiding: van inschrijving tot finish', 'Persoonlijke triathlonbegeleiding voor beginners en gevorderden. Je eerste 1/8 of 1/4 triathlon, of je eerste hele: ik maak er een plan van dat past bij je leven, en ik blijf erbij tot je over de streep bent. Vanuit Rotterdam, of online.') + f'''
+    <section class="section" aria-labelledby="tb-title" style="padding-bottom:0">
+      <div class="wrap prose">
+        <h2 id="tb-title">Wat triathlonbegeleiding bij mij inhoudt</h2>
+        <p>Triathlon begeleiding is meer dan een schema sturen. Het begint met een intake: je doel, je agenda, je blessuregeschiedenis en je data uit Strava of Garmin. Daarna krijg je elke week een plan voor zwemmen, fietsen en lopen dat past bij de tijd die je echt hebt, en sturen we wekelijks bij op hoe het ging. Is zwemmen je zwakke punt, dan hoort een <a href="zwemanalyse.html">zwemanalyse</a> erbij; is lopen het probleem, dan begint de begeleiding daar. Richting de race oefenen we de wisselzones, je voeding onderweg en het raceplan, zodat je op de dag zelf niets meer hoeft te bedenken.</p>
+      </div>
+    </section>
     <section class="section" aria-labelledby="afst-title" style="padding-top:8px">
       <div class="wrap">
         <div class="section-head"><h2 id="afst-title">Welke afstand past bij jou?</h2><p>Wat verandert er per afstand, en hoeveel tijd mag je rekenen voor de voorbereiding.</p></div>
@@ -692,7 +719,7 @@ def build_race():
       <div class="wrap">{links_rij([('diensten.html', 'Alle diensten'), ('zwemanalyse.html', 'Over de zwemanalyse'), ('werkwijze.html', 'Zo werken we samen'), ('contact.html', 'Neem contact op')])}</div>
     </section>
 {faq_section()}{cta_band('Welke race wordt het?', 'Vertel me welke afstand je in gedachten hebt en wanneer. Dan kijken we samen of het haalbaar is en wat ervoor nodig is.')}'''
-    write('race.html', head('race', 'Naar je eerste triathlon | Ryan Triathlon Coaching', 'Begeleiding naar je eerste triathlon vanuit Rotterdam: intake, plan voor zwemmen, fietsen en lopen, wekelijks contact via WhatsApp en een raceplan.', 'race.html') + body + footer())
+    write('race.html', head('race', 'Triathlon begeleiding naar je eerste race | Ryan Triathlon Coaching', 'Triathlonbegeleiding vanuit Rotterdam: intake, een plan per week voor zwemmen, fietsen en lopen, wekelijks contact via WhatsApp en een raceplan voor je 1/8, 1/4, 1/2 of hele triathlon.', 'race.html') + body + footer())
 
 
 # ----------------------------------------------------------------------- over

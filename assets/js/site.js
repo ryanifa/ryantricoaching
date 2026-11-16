@@ -3,10 +3,10 @@
    Gist of data/site.json binnen is. Alle renderers werken op filter(doc) uit
    store.js, nooit op het ruwe document. Alles via textContent (dom.js). */
 
-import { CONFIG } from './config.js?v=2026.11.15-3';
-import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.11.15-3';
-import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie, faqVoor, plaatsenLijst, socialLinks } from './store.js?v=2026.11.15-3';
-import { buildSchema } from './schema.js?v=2026.11.15-3';
+import { CONFIG } from './config.js?v=2026.11.16-1';
+import { el, $, $$, clear, telLink, whatsappLink } from './dom.js?v=2026.11.16-1';
+import { loadForVisitors, filter, visibleReviews, featuredReviews, formatDatum, formatMaand, formatMaandKort, wedstrijdenPerCategorie, faqVoor, plaatsenLijst, socialLinks } from './store.js?v=2026.11.16-1';
+import { buildSchema } from './schema.js?v=2026.11.16-1';
 
 const page = document.body.dataset.page || 'home';
 
